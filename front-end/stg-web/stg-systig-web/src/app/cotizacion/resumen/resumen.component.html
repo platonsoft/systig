@@ -1,0 +1,36 @@
+<mat-card class="sec-resumen" >
+    <mat-form-field>
+        <input matInput placeholder="Indique su RIF" [formControl]="rif" required>
+        <mat-error *ngIf="rif.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Indique su Nombre" [formControl]="nombre" required>
+        <mat-error *ngIf="nombre.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Telefono" [formControl]="telefono" required>
+        <mat-error *ngIf="telefono.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput placeholder="Direccion" [formControl]="direccion" required></textarea>
+        <mat-error *ngIf="direccion.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Pais disponible" [(ngModel)]="paisSelected">
+            <mat-option *ngFor="let pais of paises" [value]="pais" >{{pais.nombre}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="paisSelected">
+        <mat-select placeholder="Monedas" [formControl]="monedaSel">
+            <mat-option *ngFor="let moneda of paisSelected.monedas" [value]="moneda.moneda">{{moneda.moneda}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-card>
+
+<div>
+    <button mat-raised-button style="margin-top: 50px;border-radius: 10px;" (click)="procesar()">PROCESAR SOLICITUD</button>
+</div>

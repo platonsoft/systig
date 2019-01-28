@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="tipo_doc">
+        <item>PASS</item>
+        <item>CED</item>
+    </array>
+    <array name="moneda_registro">
+        <item>Colombia (PESOS)</item>
+        <item>Peru (SOLES)</item>
+    </array>
+
+    <array name="bancos_colombia">
+        <item>Bancolombia</item>
+        <item>Banco de Bogota</item>
+        <item>Banco Caja Social</item>
+    </array>
+    <array name="bancos_venezuela">
+        <item>Banco de Venezuela</item>
+        <item>Banesco</item>
+        <item>Mercantil</item>
+        <item>Bicentenario</item>
+        <item>BVBA</item>
+    </array>
+    <array name="bancos_peru">
+        <item>BCP</item>
+        <item>Banco del Peru</item>
+        <item>BVBA</item>
+    </array>
+    <array name="tipo_cuenta_banco">
+        <item>Ahorros</item>
+        <item>Corriente</item>
+    </array>
+</resources>

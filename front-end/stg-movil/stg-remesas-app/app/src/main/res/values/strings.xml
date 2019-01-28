@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">LTVen</string>
+    <string name="app_name_long">LatVen</string>
+    <string name="action_settings">Settings</string>
+    <string name="titulo_loggin">Control de Acceso</string>
+    <string name="titulo_registro">Registro de Usuario</string>
+    <string name="titulo_transferir">Transferir</string>
+    <string name="titulo_depositar">Depositar</string>
+    <string name="titulo_pagar">Retiro de Ganancias</string>
+    <string name="titulo_lista_transferencia">Listado de Transacciones</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>

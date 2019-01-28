@@ -1,0 +1,8 @@
+.sec-resumen {
+    display: flex;
+    flex-direction: column;
+}
+
+.sec-resumen > * {
+    width: 100%;
+}
