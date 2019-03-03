@@ -1,10 +1,9 @@
-package com.alcala.systig.ltven;
+package com.alcala.systig.ltven.model;
 
 import java.time.LocalDateTime;
 
-public class Receptor {
-    private Long id_receptor;
-    private String tipo;//CUneta Interna, cuenta cliente
+public class Remitente {
+    private Long idRemitente;
     private String tDoc;
     private String nroDoc;
     private String nombres;
@@ -15,23 +14,15 @@ public class Receptor {
     private Cuenta cuenta;
     private LocalDateTime fechaRegistro;
 
-    public Receptor() {
+    public Remitente() {
     }
 
-    public Long getId_receptor() {
-        return id_receptor;
+    public Long getIdRemitente() {
+        return idRemitente;
     }
 
-    public void setId_receptor(Long id_receptor) {
-        this.id_receptor = id_receptor;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setIdRemitente(Long idRemitente) {
+        this.idRemitente = idRemitente;
     }
 
     public String gettDoc() {
@@ -108,9 +99,8 @@ public class Receptor {
 
     @Override
     public String toString() {
-        return "Receptor{" +
-                "id_receptor=" + id_receptor +
-                ", tipo='" + tipo + '\'' +
+        return "Remitente{" +
+                "idRemitente=" + idRemitente +
                 ", tDoc='" + tDoc + '\'' +
                 ", nroDoc='" + nroDoc + '\'' +
                 ", nombres='" + nombres + '\'' +

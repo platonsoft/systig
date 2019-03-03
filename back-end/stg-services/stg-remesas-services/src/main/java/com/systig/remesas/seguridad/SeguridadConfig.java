@@ -23,10 +23,9 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/apirem/usr/login").permitAll() //permitimos el acceso a /login a cualquiera
-                .anyRequest().authenticated() //cualquier otra peticion requiere autenticacion
+                .antMatchers("/apirem/usr/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                // Las peticiones /login pasaran previamente por este filtro
                 .addFilterBefore(new AutenticacionFilter("/apirem/usr/login", authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
 

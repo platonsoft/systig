@@ -1,4 +1,4 @@
-package com.alcala.systig.ltven;
+package com.alcala.systig.ltven.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

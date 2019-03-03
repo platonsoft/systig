@@ -59,11 +59,11 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:src="@drawable/avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:ignore="ContentDescription"
-            android:src="@drawable/avatar"/>
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/txtClave"
@@ -122,8 +122,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Iniciar"
             android:background="@drawable/backbutton"
+            android:text="Iniciar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtClave" />
