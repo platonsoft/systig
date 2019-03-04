@@ -1,0 +1,33 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [ngClass]="{'hidden': !(isHandset$ | async)}"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Casa</a>
+      <a mat-list-item href="#">Porque Nosotros?</a>
+      <a mat-list-item href="#">Productos</a>
+      <a mat-list-item href="#">Servicios</a>
+      <a mat-list-item href="#">Quienes somos?</a>
+      <a mat-list-item href="#">Contactenos</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>stg-systig-home</span>
+      <div class="button-row" [ngClass]="{'hidden': (isHandset$ | async)}">
+          <button mat-button routerLink=".">Casa</button>
+          <button mat-button routerLink=".">Porque Nosotros?</button>
+          <button mat-button routerLink=".">Productos</button>
+          <button mat-button routerLink=".">Servicios</button>
+          <button mat-button routerLink=".">Quienes somos?</button>
+          <button mat-button routerLink=".">Contactenos</button>
+      </div> 
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
