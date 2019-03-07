@@ -2,3 +2,62 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.button-caps{
+    background-color: #17C2A6;
+    border-radius: 30px !important;
+    color: #fff;
+}
+
+.button-caps:hover::after {
+    content: ">";
+    padding-left: 15px;
+    color: #fff;
+    font-size: 1.25em;
+  }
+
+  .items-serv-cont{
+    display:flex;
+  }
+  
+  .items-serv-cont > ul li{
+    color:#fff;
+    border: solid 2px #17C2A6;
+    text-decoration:none;
+    list-style:none;
+    background-color:#7268FD;
+    padding:0px;
+    width: 220px;
+    height:350px;
+    border-radius:20px;
+  }
+  
+  .items-serv-cont-icono{
+    padding-top:20px;
+    padding-left:8px;
+  }
+  
+  .items-serv-cont-titulo{
+    font-size:1.4em;
+    padding:15px 15px;
+  }
+  
+  .items-serv-cont-descripcion{
+    font-size:1em;
+    padding-top:10px;
+    padding-bottom:20px;
+    padding-left:15px;
+    padding-right:12px;
+  }
+
+  .items-serv-cont-pie{
+    padding-bottom:30px;
+    padding-left:15px;
+  }
+
+  .item-serv-cont-separador{
+      background-color: #FFF;
+      margin-left: 15px;
+      width: 100px;
+      height: 4px;
+      text-align: left;
+  }

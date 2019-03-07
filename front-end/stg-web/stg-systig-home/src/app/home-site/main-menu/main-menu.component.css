@@ -19,3 +19,34 @@
 .hidden{
   display: none;
 }
+
+.header-bar{
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  display:flex;
+  -webkit-direction:row; 
+}
+
+.centro-menu{
+  display:inline-block;
+}
+
+.centro-menu> ul li{
+  display:inline-block;
+  padding:8px 16px;
+}
+
+.centro-menu> ul li a{
+  text-decoration:none;
+  color:#7D7D7D;
+}
+
+.centro-menu> ul li a:hover{
+  padding-bottom:2px;
+  border-bottom: .2em solid #17C2A6;
+}
+
+.menu-header{
+  flex:1 auto;
+  text-align:center;
+}

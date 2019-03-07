@@ -13,20 +13,24 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar style="background-color: white" class="header-bar">
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>stg-systig-home</span>
-      <div class="button-row" [ngClass]="{'hidden': (isHandset$ | async)}">
-          <button mat-button routerLink=".">Casa</button>
-          <button mat-button routerLink=".">Porque Nosotros?</button>
-          <button mat-button routerLink=".">Productos</button>
-          <button mat-button routerLink=".">Servicios</button>
-          <button mat-button routerLink=".">Quienes somos?</button>
-          <button mat-button routerLink=".">Contactenos</button>
-      </div> 
+        <img src="../../../assets/images/iconos/LogoSystig.svg" alt="Logotipo" height=50 width=165>
+        <div class="menu-header" [ngClass]="{'hidden': (isHandset$ | async)}">
+          <div class="centro-menu">
+            <ul>
+              <li><a routerLink="." href="#">Casa</a></li>
+              <li><a routerLink="." href="#">Porque Nosotros?</a></li>
+              <li><a routerLink="." href="#">Productos</a></li>
+              <li><a routerLink="." href="#">Servicios</a></li>
+              <li><a routerLink="." href="#">Quienes somos?</a></li>
+              <li><a routerLink="." href="#">Contactenos</a></li>
+            </ul>
+          </div>
+        </div>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>
