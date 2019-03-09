@@ -61,3 +61,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       height: 4px;
       text-align: left;
   }
+
+  h1{
+      color: #7268FD;
+  }
