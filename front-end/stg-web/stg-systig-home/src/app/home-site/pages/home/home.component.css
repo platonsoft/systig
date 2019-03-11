@@ -4,7 +4,7 @@
     background-repeat: no-repeat;
     background-size: auto;
     padding: 100px 120px;
-    height: 565px;
+    height: 480px;
   }
   
   .c-img-banner.banner1{
@@ -45,15 +45,18 @@
 
   #productos{
     display: flex;
-    background-color: #4342FF;
     height: 400px;
+    margin-top: -80px;
+  }
+
+  #atender{
+    margin-top: 150px;
   }
 
   #publicidad{
     display: inline-flex;
-    background-color: #4342FF;
-    padding-top: 100px;
     width: 100%;
+    background-color: #3332B1
   }
 
   .producto-destacado{
@@ -94,4 +97,14 @@
   .footer{
     background-color: #3332B1;
     height: 300px;
+  }
+
+  #productos-container{
+    background-image: url("/assets/images/hm4.jpg");
+    background-position-x: 0;
+    background-position-y: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 1100px;
+    padding: 100px 120px;
+    height: 1100px;
   }

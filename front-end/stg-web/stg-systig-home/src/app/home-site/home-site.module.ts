@@ -8,13 +8,12 @@ import { ServiciosComponent } from './pages/servicios/servicios.component';
 import { QuienesSomosComponent } from './pages/quienes-somos/quienes-somos.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { FooterComponent } from './footer/footer.component';
-import { MainMenuComponent } from './main-menu/main-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import {NgbModule, NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [HomeSiteComponent, HomeComponent, PorqueComponent, ProductosComponent, ServiciosComponent, QuienesSomosComponent, ContactoComponent, FooterComponent, MainMenuComponent],
+  declarations: [HomeSiteComponent, HomeComponent, PorqueComponent, ProductosComponent, ServiciosComponent, QuienesSomosComponent, ContactoComponent, FooterComponent],
   imports: [
     CommonModule,
     LayoutModule,

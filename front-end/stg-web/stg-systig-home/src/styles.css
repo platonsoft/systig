@@ -65,3 +65,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   h1{
       color: #7268FD;
   }
+
+  .carousel-indicators li{
+    height: 20px !important;
+    width: 20px !important;
+    border-radius: 50% !important;
+    background-color: #B3B3B3 !important;
+  }
+
+  .carousel-indicators .active{
+    background-color: #02CFB1 !important;
+  }
