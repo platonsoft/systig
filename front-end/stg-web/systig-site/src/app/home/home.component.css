@@ -1,0 +1,79 @@
+#sec-servicios {
+  height: 100vh;
+}
+#servicios {
+  padding: 50px 20px;
+}
+
+#productos {
+  display: flex;
+  height: 100vh;
+}
+
+#atender {
+  margin-top: 150px;
+}
+
+.publicidad {
+  display: inline-flex;
+  height: 100vh;
+  padding: 40px;
+}
+
+.producto-destacado {
+  margin: 40px 60px;
+  color: #fff !important;
+}
+
+.producto-destacado h1 {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 72px;
+}
+
+.foto-equipo {
+  border-radius: 50%;
+  height: 170px;
+  width: 170px;
+  border: solid 0.4em #17c2a6;
+  padding: 0.2em;
+  margin-top: 20px;
+  background-color: #7268fd;
+}
+
+.foto-equipo > img {
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.footer {
+  background-color: #3332b1;
+  height: 300px;
+}
+
+#productos-container {
+  background-image: url("../../assets/hm4.jpg");
+  background-position-x: 0;
+  background-position-y: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.imagen-destacada {
+  margin-top: -70px;
+  margin-right: 20px;
+}
+
+@media (max-width: 1200px) {
+  #sec-servicios {
+    height: auto;
+    padding-bottom: 80px;
+  }
+  .imagen-destacada {
+    display: none;
+  }
+  .publicidad {
+    display: block;
+    height: auto;
+  }
+}

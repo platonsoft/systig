@@ -1,22 +1,44 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
+import { HomeComponent } from './home/home.component';
+import { ServCotizaComponent } from './home/serv-cotiza/serv-cotiza.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DlgCaracteristicaComponent } from './home/serv-cotiza/dlg-caracteristica/dlg-caracteristica.component';
+import { DesconectadosService } from './servicios/desconectados';
+import { HeadSomosComponent } from './home/head-somos/head-somos.component';
+import { DlgCurriculumComponent } from './home/head-somos/dlg-curriculum/dlg-curriculum.component';
+import { DlgResumenCotizaComponent } from './home/serv-cotiza/dlg-resumen-cotiza/dlg-resumen-cotiza.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    ServCotizaComponent,
+    DlgCaracteristicaComponent,
+    HeadSomosComponent,
+    DlgCurriculumComponent,
+    DlgResumenCotizaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatRadioModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DesconectadosService],
+  bootstrap: [AppComponent],
+  entryComponents: [DlgCaracteristicaComponent, DlgCurriculumComponent, DlgResumenCotizaComponent]
 })
 export class AppModule { }

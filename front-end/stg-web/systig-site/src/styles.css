@@ -15,7 +15,6 @@ header{
 }
 #stg-container-header{
   height: 100vh;
-  background-image: url("assets/home1.png");
   background-repeat: no-repeat;
   background-position: right;
   background-repeat: no-repeat;
@@ -156,18 +155,16 @@ header{
   cursor: pointer;
 }
 
-/* .stg-menu-content-back{
-  display: none;
+.stg-menu-content-back{
   position: fixed;
-  background-color: #000;
+  background-color: #4343FF;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-} */
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
 
 .stg-menu-content{
-  display: none;
   position: fixed;
   width: 200px;
   right: 0px;
@@ -216,10 +213,6 @@ header{
   }
   #stg-container-header{
     background-size: cover;
-  }
-
-  .stg-menu-content/* .stg-menu-content-back */ {
-    display: block;
   }
 }
 

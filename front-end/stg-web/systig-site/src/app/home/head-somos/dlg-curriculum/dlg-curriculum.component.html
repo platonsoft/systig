@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.nombres}}</h1>
+<div mat-dialog-content>
+  <p>Descripcion</p>
+  <p>{{data.cargo}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.cargo" cdkFocusInitial>Ok</button>
+</div>
