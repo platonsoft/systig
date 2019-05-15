@@ -61,10 +61,26 @@ interface ProductoDestacado {
   imagen: string;
 }
 
+interface ProductoGeneral {
+  id: number;
+  titulo: string;
+  subTitulo: string;
+  descripcionCorta: string;
+  descripcionLarga: string;
+  imagen: string;
+}
+
 interface EmpleadosSystig {
   id: number;
   nombres: string;
   apellidos: string;
   cargo: string;
   foto: string;
+}
+
+interface TrabajosRealizados{
+    id: number;
+    cliente: string;
+    descripcion: string;
+    fecha: string;
 }

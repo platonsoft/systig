@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DesconectadosService } from 'src/app/servicios/desconectados';
+import { DesconectadosService } from 'src/app/shared/desconectados';
 import { DlgCurriculumComponent } from './dlg-curriculum/dlg-curriculum.component';
 import { MatDialog } from '@angular/material/dialog';
 

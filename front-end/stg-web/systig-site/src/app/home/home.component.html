@@ -1,50 +1,4 @@
-<header>
-  <div id="stg-container-header" [ngStyle]="{'background-image' : 'url(' + itemSplasActivo.imagen + ')'}">
-    <div id="stg-menu-main">
-      <div id="stg-menu-container" class="main-menu-container">
-        <div><img src="../assets/logo-systig.png" alt="Logotipo"></div>
-        <div class="stg-menu-large">
-          <div>
-            <ul>
-              <li>Casa</li>
-              <li>Productos</li>
-              <li>Servicios</li>
-              <li>¿Quienes Somos?</li>
-              <li>Contacto</li>
-            </ul>
-          </div>
-        </div>
-        <div class="stg-menu-short">
-          <mat-icon style="font-size: 48px;margin-right: 20px;margin-top: 40px;flex: 1;"
-            (click)="ToggleMenuLat($event)">menu</mat-icon>
-        </div>
-        <div class="stg-menu-content-back" *ngIf="menuLat" (click)="ToggleMenuLat($event)"></div>
-        <ul class="stg-menu-content" *ngIf="menuLat">
-          <span>
-            <mat-icon style="font-size: 48px;margin-left: 160px;color: #FFFFFF;cursor: pointer;"
-              (click)="ToggleMenuLat($event)">menu</mat-icon>
-          </span>
-          <li>Casa</li>
-          <li>Productos</li>
-          <li>Servicios</li>
-          <li>¿Quienes Somos?</li>
-          <li>Contacto</li>
-        </ul>
-      </div>
-    </div>
-    <div id="stg-header-content">
-      <span class="header-titulo" [innerHTML]="itemSplasActivo.titulo"></span>
-      <i class="stg-separador" style="width: 217px"></i>
-      <span class="header-subtitulo" [innerHTML]="itemSplasActivo.subTitulo"></span>
-      <button class="stg-button-cabs">Leer más ></button>
-      <div class="stg-navegador-splash">
-        <div class="nav-prev" *ngIf="itemSplasActivo.id>1" (click)="PrevNavegador($event)">Anterior</div>
-        <div><span class="stg-splash-indicador">0{{itemSplasActivo.id}}</span></div>
-        <div class="nav-forward" *ngIf="itemSplasActivo.id<3" (click)="NextNavegador($event)">Siguiente</div>
-      </div>
-    </div>
-  </div>
-</header>
+<stg-global-header [paginaActiva]="'home'"></stg-global-header>
 <section id="sec-servicios">
   <stg-serv-cotiza></stg-serv-cotiza>
 </section>
@@ -70,41 +24,5 @@
   </section>
 </div>
 <div style="height: 220px;background: #3434B2;">
-  <div id="stg-menu-main" style="background: transparent">
-    <div id="stg-menu-container" class="main-menu-container" style="padding-left: 60px;padding-right: 60px">
-      <div><img src="../assets/logo-systig.png" alt="Logotipo"></div>
-      <div class="stg-menu-large">
-        <div>
-          <ul>
-            <li>Casa</li>
-            <li>Productos</li>
-            <li>Servicios</li>
-            <li>¿Quienes Somos?</li>
-            <li>Contacto</li>
-            <i class="stg-separador" style="width: 100%;margin: 20px; background-color: #FFF;height: .2em;"></i>
-            <h1
-              style="font-style: normal;font-weight: 500;font-size: 9.5px;line-height: 14px;text-align: center;color: #00CFB4;">
-              Todos los derechos y derechos de autor de Systig Alcala F.P. / Diseño del sitio por Lunatics Creative
-              Studio y Systig Alcala F.P.</h1>
-          </ul>
-        </div>
-      </div>
-      <div class="stg-menu-short">
-        <mat-icon style="font-size: 48px;margin-right: 20px;margin-top: 40px;flex: 1;" (click)="ToggleMenuLat($event)">
-          menu</mat-icon>
-      </div>
-      <div class="stg-menu-content-back" *ngIf="menuLat" (click)="ToggleMenuLat($event)"></div>
-      <ul class="stg-menu-content" *ngIf="menuLat">
-        <span>
-          <mat-icon style="font-size: 48px;margin-left: 160px;color: #FFFFFF;cursor: pointer;"
-            (click)="ToggleMenuLat($event)">menu</mat-icon>
-        </span>
-        <li>Casa</li>
-        <li>Productos</li>
-        <li>Servicios</li>
-        <li>¿Quienes Somos?</li>
-        <li>Contacto</li>
-      </ul>
-    </div>
-  </div>
+  <stg-menu-header [isHeader]="false"></stg-menu-header>
 </div>

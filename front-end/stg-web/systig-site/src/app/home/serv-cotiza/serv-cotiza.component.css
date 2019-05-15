@@ -1,8 +1,3 @@
-.items-serv-cont ul li{
-  display: inline-grid;
-  margin: 30px;
-}
-
 .servicios-titulo{
   margin-top: 40px;
   text-align: center;
@@ -19,7 +14,17 @@
   display:flex;
 }
 
+.items-serv-cont ul {
+  margin: 0px;
+  padding: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
 .items-serv-cont > ul li{
+  display: inline-grid;
+  margin: 30px;
   color:#fff;
   border: solid 2px #17C2A6;
   text-decoration:none;

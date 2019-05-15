@@ -12,10 +12,16 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DlgCaracteristicaComponent } from './home/serv-cotiza/dlg-caracteristica/dlg-caracteristica.component';
-import { DesconectadosService } from './servicios/desconectados';
+import { DesconectadosService } from './shared/desconectados';
 import { HeadSomosComponent } from './home/head-somos/head-somos.component';
 import { DlgCurriculumComponent } from './home/head-somos/dlg-curriculum/dlg-curriculum.component';
 import { DlgResumenCotizaComponent } from './home/serv-cotiza/dlg-resumen-cotiza/dlg-resumen-cotiza.component';
+import { MenuHeaderComponent } from './menu-header/menu-header.component';
+import { ProductosComponent } from './productos/productos.component';
+import { GlobalHeaderComponent } from './global-header/global-header.component';
+import { ServiciosComponent } from './servicios/servicios.component';
+import { SomosSystigComponent } from './somos-systig/somos-systig.component';
+import { ContactoSystigComponent } from './contacto-systig/contacto-systig.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,13 @@ import { DlgResumenCotizaComponent } from './home/serv-cotiza/dlg-resumen-cotiza
     DlgCaracteristicaComponent,
     HeadSomosComponent,
     DlgCurriculumComponent,
-    DlgResumenCotizaComponent
+    DlgResumenCotizaComponent,
+    MenuHeaderComponent,
+    ProductosComponent,
+    GlobalHeaderComponent,
+    ServiciosComponent,
+    SomosSystigComponent,
+    ContactoSystigComponent
   ],
   imports: [
     BrowserModule,
