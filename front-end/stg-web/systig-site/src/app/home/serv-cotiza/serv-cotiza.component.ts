@@ -33,14 +33,14 @@ export class ServCotizaComponent implements OnInit {
 
   OpenCaracteristicas(itemId: ItemCotizacion) {
     this.dialog.open(DlgCaracteristicaComponent, {
-      width: '250px',
+      width: '350px',
       data: itemId
     });
   }
 
   OpenResumenCotizacion(itemId: CotizacionGeneral) {
     this.dialog.open(DlgResumenCotizaComponent, {
-      width: '250px',
+      width: '380px',
       data: itemId
     });
   }

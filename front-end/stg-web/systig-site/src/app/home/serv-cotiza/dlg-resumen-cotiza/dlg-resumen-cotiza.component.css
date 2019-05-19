@@ -1,0 +1,21 @@
+.mat-form-field{
+  width: 100%;
+}
+.mat-list-icon {
+  color:#00CFB4;
+}
+.button-closed{
+  background: transparent;
+  border: none;
+  COLOR: orangered;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+.button-closed:focus{
+  outline: none;
+}
+
+.stg-button-cabs>button{
+  background-color: red;
+}

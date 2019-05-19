@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dlg-caracteristica.component.css']
 })
 export class DlgCaracteristicaComponent implements OnInit {
-
+  step = 0;
   constructor(public dialogRef: MatDialogRef<DlgCaracteristicaComponent>, @Inject(MAT_DIALOG_DATA) public data: ItemCotizacion) { }
 
   ngOnInit() {
@@ -15,5 +15,17 @@ export class DlgCaracteristicaComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 }

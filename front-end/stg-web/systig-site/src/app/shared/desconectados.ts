@@ -18,9 +18,10 @@ export class DesconectadosService {
             id: 1,
             imagen: 'wapp.svg',
             titulo: 'Desarrollo web',
-            descripcionCorta: '',
-            descripcionLarga: '',
-            seleccionado: false
+            descripcionCorta: 'Desarrollamos páginas web de calidad de acuerdo a las necesidades de tu marca.',
+            descripcionLarga: '<ul><li>Asesoría especializada</li><li>Plantilla prediseñada</li><li>Responsive</li><li>Integración con redes sociales</li><li>Gestor de noticias o blog personal</li><li>Chat Interactivo</li><li>Soporte y actualizaciones</li></ul>',
+            seleccionado: false,
+            disponible: true
           },
           {
             id: 2,
@@ -28,7 +29,8 @@ export class DesconectadosService {
             titulo: 'Desarrollo movil',
             descripcionCorta: '',
             descripcionLarga: '',
-            seleccionado: false
+            seleccionado: false,
+            disponible: false
           },
           {
             id: 3,
@@ -36,7 +38,8 @@ export class DesconectadosService {
             titulo: 'Tienda online',
             descripcionCorta: '',
             descripcionLarga: '',
-            seleccionado: false
+            seleccionado: false,
+            disponible: true
           },
           {
             id: 4,
@@ -44,7 +47,8 @@ export class DesconectadosService {
             titulo: 'Branding',
             descripcionCorta: '',
             descripcionLarga: '',
-            seleccionado: false
+            seleccionado: false,
+            disponible: true
           }
         ],
         seleccionUnica: true,
@@ -70,7 +74,8 @@ export class DesconectadosService {
         titulo: 'Desarrollo web',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       },
       {
         id: 2,
@@ -78,7 +83,8 @@ export class DesconectadosService {
         titulo: 'Desarrollo movil',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: false
       },
       {
         id: 3,
@@ -86,7 +92,8 @@ export class DesconectadosService {
         titulo: 'Tienda online',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       },
       {
         id: 4,
@@ -94,7 +101,8 @@ export class DesconectadosService {
         titulo: 'Branding',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       }
     ],
     seleccionUnica: true,
@@ -113,7 +121,8 @@ export class DesconectadosService {
         titulo: 'Control 1',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       },
       {
         id: 2,
@@ -121,7 +130,8 @@ export class DesconectadosService {
         titulo: 'Control 2',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       },
       {
         id: 3,
@@ -129,7 +139,8 @@ export class DesconectadosService {
         titulo: 'Control 3',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       },
       {
         id: 4,
@@ -137,7 +148,8 @@ export class DesconectadosService {
         titulo: 'Control 4',
         descripcionCorta: '',
         descripcionLarga: '',
-        seleccionado: false
+        seleccionado: false,
+        disponible: true
       }
     ],
     seleccionUnica: false,
@@ -255,6 +267,32 @@ export class DesconectadosService {
     imagen: 'assets/home3.png'
   }];
 
+  paisesDisponibles: PaisDisponible[] = [{
+    id: 1,
+    code: 'ARG',
+    nombre: 'Argentina'
+  },
+  {
+    id: 2,
+    code: 'COL',
+    nombre: 'Colombia'
+  },
+  {
+    id: 3,
+    code: 'ECU',
+    nombre: 'Ecuador'
+  },
+  {
+    id: 4,
+    code: 'PER',
+    nombre: 'Peru'
+  },
+  {
+    id: 5,
+    code: 'VEN',
+    nombre: 'Venezuela'
+  }];
+
   constructor(private httpClient: HttpClient) { }
 
   getCotizacion(): Observable<any> {
@@ -283,5 +321,9 @@ export class DesconectadosService {
 
   getProductosGenerales(): Observable<any> {
     return of(this.listaProductos);
+  }
+
+  getPaisesDisponibles(): Observable<any> {
+    return of(this.paisesDisponibles);
   }
 }

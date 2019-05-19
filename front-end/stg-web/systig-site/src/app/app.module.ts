@@ -22,6 +22,12 @@ import { GlobalHeaderComponent } from './global-header/global-header.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { SomosSystigComponent } from './somos-systig/somos-systig.component';
 import { ContactoSystigComponent } from './contacto-systig/contacto-systig.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,13 @@ import { ContactoSystigComponent } from './contacto-systig/contacto-systig.compo
     MatIconModule,
     MatSlideToggleModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatListModule
   ],
   providers: [DesconectadosService],
   bootstrap: [AppComponent],

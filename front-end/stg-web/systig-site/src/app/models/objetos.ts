@@ -1,3 +1,5 @@
+
+
 interface ItemSplash {
   id: number;
   titulo: string;
@@ -13,6 +15,7 @@ interface ItemCotizacion {
   descripcionCorta: string;
   descripcionLarga: string;
   seleccionado: boolean;
+  disponible: boolean;
 }
 
 interface UsuarioCotizacion {
@@ -83,4 +86,10 @@ interface TrabajosRealizados{
     cliente: string;
     descripcion: string;
     fecha: string;
+}
+
+interface PaisDisponible{
+  id: number;
+  code: string;
+  nombre: string;
 }

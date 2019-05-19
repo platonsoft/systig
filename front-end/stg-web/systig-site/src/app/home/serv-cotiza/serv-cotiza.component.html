@@ -2,6 +2,7 @@
   <h1>Servicios</h1>
   <i class="stg-separador"
           style="width: 90px;margin: 0px;margin-left: auto;margin-right: auto;"></i>
+  <h2>{{this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].titulo}}</h2>
 </div>
 <div class="items-serv-cont">
   <ul>
@@ -17,8 +18,8 @@
           <button class="stg-button-cabs" style="margin-top: 0px" (click)="OpenCaracteristicas(item)">Características ></button>
         </div>
         <div class="items-serv-cont-pie">
-          <mat-slide-toggle *ngIf="! this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica" [checked]="item.seleccionado" (input)="item.seleccionado = $event.target.checked">Seleccionar</mat-slide-toggle>
-          <mat-radio-button [value]="item.id" *ngIf=" this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica"  (input)="item.seleccionado = $event.target.checked" (change)="SeleccionUnica($event)">Seleccionar</mat-radio-button>
+          <mat-slide-toggle [disabled]="!item.disponible" *ngIf="! this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica" [checked]="item.seleccionado" (input)="item.seleccionado = $event.target.checked">Seleccionar</mat-slide-toggle>
+          <mat-radio-button [disabled]="!item.disponible" [value]="item.id" *ngIf=" this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica"  (input)="item.seleccionado = $event.target.checked" (change)="SeleccionUnica($event)">Seleccionar</mat-radio-button>
         </div>
       </li>
     </mat-radio-group>
