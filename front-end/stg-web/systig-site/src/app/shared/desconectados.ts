@@ -169,7 +169,7 @@ export class DesconectadosService {
   itemSplash: ItemSplash[] = [
     {
       id: 1,
-      titulo: `Creamos <br />Aplicaciones <br />y Sitios Webs`,
+      titulo: `Creamos Sitios Webs<br />y Aplicaciones`,
       subTitulo: 'Diseño inteligente',
       imagen: 'url(assets/home1.png)',
       linkMas: '#'
