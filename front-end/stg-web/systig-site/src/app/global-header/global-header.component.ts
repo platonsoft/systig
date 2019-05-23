@@ -93,7 +93,7 @@ export class GlobalHeaderComponent implements OnInit {
   }
 
   ItemsSplash() {
-    this.servicios.getItemsSplash().subscribe(result => {
+    this.servicios.getItemsSplash('splash').subscribe(result => {
       this.itemSplash = result;
     });
   }

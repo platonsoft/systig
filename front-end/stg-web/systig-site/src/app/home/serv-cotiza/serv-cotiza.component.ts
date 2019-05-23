@@ -33,14 +33,15 @@ export class ServCotizaComponent implements OnInit {
 
   OpenCaracteristicas(itemId: ItemCotizacion) {
     this.dialog.open(DlgCaracteristicaComponent, {
-      width: '350px',
+      width: '400px',
       data: itemId
     });
+
   }
 
   OpenResumenCotizacion(itemId: CotizacionGeneral) {
     this.dialog.open(DlgResumenCotizaComponent, {
-      width: '380px',
+      width: '400px',
       data: itemId
     });
   }
@@ -74,10 +75,6 @@ export class ServCotizaComponent implements OnInit {
     this.cotizacionCompleta.etapas.pop();
     this.cotizacionCompleta.etapaActual -= 1;
     console.log(JSON.stringify(this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual]));
-  }
-
-  EtapaFinal() {
-
   }
 
 }

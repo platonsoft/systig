@@ -19,3 +19,17 @@
 .stg-button-cabs>button{
   background-color: red;
 }
+
+
+.upload-drop-zone{
+  height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  border: dashed 1px #ccc;
+  padding-top: 30px;
+}
+
+input[type='file']#singleFile {
+  display: none;
+  }
+

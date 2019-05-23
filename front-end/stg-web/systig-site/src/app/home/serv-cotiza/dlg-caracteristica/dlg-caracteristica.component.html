@@ -10,7 +10,7 @@
           Descripcion
         </mat-panel-title>
       </mat-expansion-panel-header>
-        <p>{{data.descripcionCorta}}</p>
+        <p style="color: #808080">{{data.descripcionCorta}}</p>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
@@ -24,6 +24,6 @@
 
   </mat-accordion>
 
-<div mat-dialog-actions style="display: inline;">
+<!--div mat-dialog-actions style="display: inline;">
   <mat-slide-toggle [disabled]="!data.disponible" [checked]="data.seleccionado" (input)="data.seleccionado = $event.target.checked">Seleccionar</mat-slide-toggle>
-</div>
+</div-->

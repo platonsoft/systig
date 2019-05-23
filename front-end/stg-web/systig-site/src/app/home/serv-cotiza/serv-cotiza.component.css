@@ -1,5 +1,4 @@
 .servicios-titulo{
-  margin-top: 40px;
   text-align: center;
   align-items: center;
 }
@@ -12,6 +11,7 @@
 
 .items-serv-cont{
   display:flex;
+  margin-top: 60px;
 }
 
 .items-serv-cont ul {
@@ -24,9 +24,8 @@
 
 .items-serv-cont > ul li{
   display: inline-grid;
-  margin: 30px;
+  margin: 12px;
   color:#fff;
-  border: solid 2px #17C2A6;
   text-decoration:none;
   list-style:none;
   background-color:#7268FD;
@@ -59,18 +58,4 @@
 .items-serv-cont-pie{
   display: inline;
   text-align: center;
-}
-
-h1{
-    color: #7268FD;
-    margin-block-end: 0px;
-    margin-block-start: 0px;
-}
-
-h2{
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 36px;
-  color: #808080;
 }

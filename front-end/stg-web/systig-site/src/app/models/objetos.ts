@@ -2,8 +2,10 @@
 
 interface ItemSplash {
   id: number;
+  icono?: string;
   titulo: string;
   subTitulo: string;
+  descripcion?: string;
   imagen: string;
   linkMas: string;
 }
@@ -77,7 +79,9 @@ interface EmpleadosSystig {
   id: number;
   nombres: string;
   apellidos: string;
+  descripcion: string;
   cargo: string;
+  habilidades: string[];
   foto: string;
 }
 

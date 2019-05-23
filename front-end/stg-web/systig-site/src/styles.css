@@ -1,14 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Poppins, Roboto, sans-serif; }
+body { margin: 0; font-family: Poppins, Roboto, sans-serif; background-color: #E5E5E5;}
 
 h1{
+  margin: 0px;
   font-weight: 600;
   font-size: 48px;
   line-height: 72px;
-  text-align: center;
-  color: #7069FD;
+  color: #FFF;
+}
+
+h2{
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  color: #FFFFFF;
+}
+
+h3{
+  margin: 0px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 36px;
+  color: #FFF;
+}
+
+p{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 25px;
+  color: #FFF;
 }
 header{
   width: 100%;
@@ -64,7 +90,6 @@ header{
   display: block;
   background-color: #00CFB4;
   height: .3em;
-  margin: 1em 0px;
 }
 
 .header-titulo{
@@ -215,9 +240,7 @@ header{
 }
 
 .publicidad {
-  display: inline-flex;
-  height: 100vh;
-  padding: 40px;
+  padding-top: 40px;
 }
 
 @media (max-width: 1200px) {
@@ -238,7 +261,7 @@ header{
   }
 
   .empleados-container{
-    display: block;
+    display: inline-block;
   }
 }
 

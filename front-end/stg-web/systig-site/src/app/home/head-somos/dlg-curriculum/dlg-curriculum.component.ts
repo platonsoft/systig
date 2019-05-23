@@ -8,6 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DlgCurriculumComponent implements OnInit {
 
+  step = 0;
   constructor(public dialogRef: MatDialogRef<DlgCurriculumComponent>, @Inject(MAT_DIALOG_DATA) public data: EmpleadosSystig) { }
 
   ngOnInit() {
@@ -15,5 +16,8 @@ export class DlgCurriculumComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+  setStep(index: number) {
+    this.step = index;
   }
 }

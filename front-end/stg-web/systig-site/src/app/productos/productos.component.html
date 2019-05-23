@@ -1,41 +1,34 @@
-<stg-global-header [paginaActiva]="'productos'"></stg-global-header>
-<section id="productos" style="background-color: #7069FD">
-  <div style="flex: 1 auto">
-    <div class="producto-destacado">
-      <h1 style="color: #FFF" [innerHTML]="this.productoDestacado.titulo"></h1>
-      <i class="stg-separador" style="width: 217px;margin: 0px;"></i>
-      <img src="../assets/LogoSystig.svg" alt="" width=230 height=50>
-      <h1 style="font-size: 24px;line-height: 36px;font-style: normal;font-weight: normal;">
-        {{this.productoDestacado.subTitulo}}</h1>
-      <p style="font-style: normal;font-weight: normal;font-size: 17px;line-height: 25px;">
-        {{this.productoDestacado.descripcionCorta}}</p>
-      <button class="stg-button-cabs">Leer más ></button>
-    </div>
+<div id="prev-producto">
+  <div class="prev-detalle">
+    <h1 [innerHTML]="this.productoDestacado.titulo"></h1>
+    <i class="stg-separador" style="width: 217px;margin-bottom: 20px"></i>
+    <img src="../assets/LogoSystig.svg" alt="" width=230 height=50>
+    <h3 style="margin-top: 20px;" [innerHTML]="this.productoDestacado.subTitulo"></h3>
+    <p [innerHTML]="this.productoDestacado.descripcionCorta"></p>
   </div>
-  <div>
-    <img class="imagen-destacada" src="../assets/{{this.productoDestacado.imagen}}" alt="" height=560 width=758></div>
-</section>
-<section id="sec-caracteristicas" style="padding: 40px">
-  <h1>Clientes y Trabajos Realizados:</h1>
-  <div style="margin-left: 40px; margin-right: 40px;line-height: 40px;">
-    <ul>
-      <li *ngFor="let trabajo of this.trabajos"> {{trabajo.descripcion}} </li>
-    </ul>
+  <div class="prev-imagen">
+    <img class="imagen-destacada" src="../assets/{{this.productoDestacado.imagen}}" alt="" height=560 width=758>
   </div>
-</section>
-<section id="sec-otros-productos" style="padding: 40px">
-  <h1>Otros Productos</h1>
+</div>
+<div class="producto-extendido" [ngClass]="{'expandir': this.onExpandProduct,'contraer': !this.onExpandProduct}">
   <div class="producto-container" *ngFor="let producto of productos">
     <div class="producto-content">
-      <div class="producto-titulo">{{producto.titulo}}</div>
-      <div class="producto-descripcion">{{producto.descripcionCorta}}</div>
+      <div class="producto-titulo">
+        <h2 [innerHTML]="producto.titulo"></h2>
+      </div>
+      <div class="producto-descripcion">
+        <p [innerHTML]="producto.descripcionCorta"></p>
+      </div>
       <div class="producto-boton"><button class="stg-button-cabs">Leer más ></button></div>
     </div>
     <div class="producto-imagen">
       <img src="{{producto.imagen}}" alt="Imagen" class="producto-imagen-logo">
     </div>
   </div>
-</section>
-<div style="height: 220px;background: #3434B2;">
-  <stg-menu-header [isHeader]="false"></stg-menu-header>
+</div>
+<div class="boton-producto" (click)="this.ToggleProductosDetail()">
+  <h4 *ngIf="!onExpandProduct" style="margin: 0px; color: #FFF;" >Ver tros productos</h4>
+  <h4 *ngIf="onExpandProduct" style="margin: 0px; color: #FFF;" >Ocultar</h4>
+  <span *ngIf="!onExpandProduct" style="margin: 0px;" ><mat-icon class="botonmas">expand_more</mat-icon></span>
+  <span *ngIf="onExpandProduct" style="margin: 0px;" ><mat-icon class="botonmas">expand_less</mat-icon></span>
 </div>

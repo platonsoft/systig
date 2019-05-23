@@ -10,6 +10,7 @@ export class ProductosComponent implements OnInit {
   productoDestacado: ProductoDestacado;
   trabajos: TrabajosRealizados[];
   productos: ProductoGeneral[];
+  onExpandProduct: boolean
 
   constructor(private servicios: DesconectadosService) { }
 
@@ -17,6 +18,7 @@ export class ProductosComponent implements OnInit {
     this.ProductoDestacado();
     this.TrabajoRealizado();
     this.ListaProductosGenerales();
+    this.onExpandProduct = false;
   }
 
   ProductoDestacado() {
@@ -35,5 +37,8 @@ export class ProductosComponent implements OnInit {
     this.servicios.getProductosGenerales().subscribe(result => {
       this.productos = result;
     });
+  }
+  ToggleProductosDetail(){
+    this.onExpandProduct = !this.onExpandProduct;
   }
 }
