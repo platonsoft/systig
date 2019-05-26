@@ -3,7 +3,7 @@
   <mat-icon>backspace</mat-icon>
 </button>
 
-<h1 mat-dialog-title style="text-align: left;">Resumen de productos</h1>
+<h1 mat-dialog-title style="text-align: left; color: #808080">Resumen de productos</h1>
 <i class="stg-separador" style="width: 217px;margin: 0px;"></i>
 
 <mat-dialog-content>
@@ -23,6 +23,9 @@
         </mat-list-item>
       </mat-list>
     </div>
+    <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
   </mat-expansion-panel>
 
   <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
@@ -45,6 +48,10 @@
               Arrastrar y Soltar Aqui
           </div>
       </div>
+      <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
     </mat-expansion-panel>
 
   <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
@@ -58,17 +65,14 @@
         <mat-form-field>
           <input matInput placeholder="Nombre completo" formControlName="nombreFormControl"
             [errorStateMatcher]="matcher">
-          <mat-hint>Indique su nombre completo o el de su negocio</mat-hint>
           <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Email" formControlName="emailFormControl" [errorStateMatcher]="matcher">
-          <mat-hint>Indique su direccion de Email para contactarle</mat-hint>
           <mat-error *ngIf="emailFormControl.invalid">La direccion es invalida</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="Telefono" formControlName="movilFormControl" [errorStateMatcher]="matcher">
-          <mat-hint>Indique su numero de telefono movil para contactarle</mat-hint>
           <mat-error *ngIf="emailFormControl.invalid">El numero de telefono es requerido</mat-error>
         </mat-form-field>
         <mat-form-field>
@@ -80,9 +84,11 @@
         </mat-form-field>
       </form>
     </div>
+    <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Enviar Cotizacion</button>
+      </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 </mat-dialog-content>
-<div mat-dialog-actions style="display: block;text-align: center">
-    <button class="stg-button-cabs">Enviar cotizacion</button>
-</div>
+

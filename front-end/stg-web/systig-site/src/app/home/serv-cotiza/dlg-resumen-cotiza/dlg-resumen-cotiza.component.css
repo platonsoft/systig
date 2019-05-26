@@ -20,6 +20,13 @@
   background-color: red;
 }
 
+.stg-button-cabs:hover{
+  background-color: transparent;
+  border-radius: none;
+  color: #808080;
+  cursor: pointer;
+}
+
 
 .upload-drop-zone{
   height: 60px;

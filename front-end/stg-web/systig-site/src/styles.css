@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; scroll-behavior: smooth;}
 body { margin: 0; font-family: Poppins, Roboto, sans-serif; background-color: #E5E5E5;}
 
 h1{
@@ -114,6 +114,7 @@ header{
 
 #stg-header-content{
   padding-left: 40px;
+  display: inline-block;
 }
 .stg-button-cabs{
   border: solid 1px #00CFB4;
@@ -264,4 +265,3 @@ header{
     display: inline-block;
   }
 }
-

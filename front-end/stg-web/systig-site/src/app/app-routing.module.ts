@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/casa', pathMatch: 'full' },
   { path: 'casa', component: HomeComponent },
   { path: 'productos', component: ProductosComponent },
-  { path: 'servicios', component: ServiciosComponent },
+  { path: 'servicios', component: HomeComponent },
   { path: 'somos', component: SomosSystigComponent },
   { path: 'contacto', component: ContactoSystigComponent }
 ];

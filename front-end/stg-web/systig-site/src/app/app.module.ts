@@ -29,6 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     ReactiveFormsModule,
     MatSelectModule,
     MatListModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatButtonModule
   ],
   providers: [DesconectadosService],
   bootstrap: [AppComponent],

@@ -1,10 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, HostListener } from '@angular/core';
 import { DesconectadosService } from '../shared/desconectados';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'stg-global-header',
   templateUrl: './global-header.component.html',
-  styleUrls: ['./global-header.component.css']
+  styleUrls: ['./global-header.component.css'],
+  animations: [
+      trigger('fade',
+      [
+        state('void', style({ opacity : 0})),
+        transition(':enter', [ animate(300)]),
+        transition(':leave', [ animate(500)]),
+      ]
+  )]
 })
 export class GlobalHeaderComponent implements OnInit {
 
@@ -12,10 +23,23 @@ export class GlobalHeaderComponent implements OnInit {
   itemSplasActivo: ItemSplash;
   idItemActivo = 0;
   interval: any;
+  hidePass = true;
+  options: FormGroup;
+  switchLogin = false;
   @Input() paginaActiva = 'home';
   @Input() conNavegador = true;
 
-  constructor(private servicios: DesconectadosService) { }
+  constructor(private servicios: DesconectadosService, @Inject(DOCUMENT) document) {
+    this.options = new FormGroup({
+      emailFormControl: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      passwordFormControl: new FormControl('', [
+        Validators.required
+      ])
+   });
+  }
 
   ngOnInit() {
     switch (this.paginaActiva) {
@@ -96,5 +120,18 @@ export class GlobalHeaderComponent implements OnInit {
     this.servicios.getItemsSplash('splash').subscribe(result => {
       this.itemSplash = result;
     });
+  }
+
+  ToggleLogin() {
+    this.switchLogin = !this.switchLogin;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(e) {
+     if (window.pageYOffset > 550) {
+       document.getElementById('navbar-menu').classList.add('sticky');
+     } else {
+      document.getElementById('navbar-menu').classList.remove('sticky');
+     }
   }
 }

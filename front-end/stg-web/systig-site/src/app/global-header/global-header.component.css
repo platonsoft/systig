@@ -34,3 +34,49 @@
   content: "\e901";
   color: #fff;
 }
+
+.form-login-container{
+  box-shadow: 4px 4px 15px rgba(112, 105, 253, 0.65);
+  border-radius: 18px;
+  float: right;
+  margin-right: 10vw;
+   min-width: 300px;
+  padding: 20px;
+  background-color: #FFF;
+  animation: 1s fadeIn;
+  animation-fill-mode: both;
+  display: none;
+}
+
+@keyframes fadeIn {
+  1% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.mostrar-login{
+  opacity: 0;
+  display: block;
+  visibility: visible;
+}
+
+.ocultar-login{
+  visibility: hidden;
+}
+
+.form-login>*{
+  display: block;
+  width: 100%;
+}
+
+.sticky {
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,.08);
+  position: fixed;
+  top: 0;
+  height: 110px;
+  width: 100%;
+  z-index: 999;
+}
