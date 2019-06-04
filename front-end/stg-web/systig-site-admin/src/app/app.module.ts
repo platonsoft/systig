@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 import { RouterModule } from '@angular/router';
@@ -21,7 +20,6 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTooltipModule,
-    FormsModule,
     HttpClientModule,
     ComponentsModule,
     RouterModule

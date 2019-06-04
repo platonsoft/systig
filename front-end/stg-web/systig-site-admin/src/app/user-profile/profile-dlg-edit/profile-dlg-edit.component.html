@@ -1,0 +1,59 @@
+<h1 mat-dialog-title *ngIf="data.sentencia=='nuevo'">Agregar nuevo</h1>
+<h1 mat-dialog-title *ngIf="data.sentencia=='editar'">Editar Elemento</h1>
+<h1 mat-dialog-title *ngIf="data.sentencia=='borrar'">Confirme borrar</h1>
+<div mat-dialog-content *ngIf="data.sentencia!='borrar'">
+    <form class="row" [formGroup]="myGroup">
+        <div class="col-md-12">
+          <mat-form-field>
+            <input matInput placeholder="Titulo" name="tituloFormControl" formControlName="tituloFormControl" [(ngModel)]="data.item.titulo"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="myGroup.get('tituloFormControl').hasError('required')">El titulo es requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <textarea matInput placeholder="Detalles del Cargo" name="descripcionFormControl" formControlName="descripcionFormControl" [(ngModel)]="data.item.descripcion"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Institucion o Empresa" name="institucionFormControl" formControlName="institucionFormControl" [(ngModel)]="data.item.institucion"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="myGroup.get('institucionFormControl').hasError('required')">El nombre de la institucion es requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email" name="emailInstitucionFormControl" formControlName="emailInstitucionFormControl" [(ngModel)]="data.item.emailInstitucion"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="myGroup.get('emailInstitucionFormControl').hasError('required')">El correo de la institucion es requerida</mat-error>
+            <mat-error *ngIf="myGroup.get('emailInstitucionFormControl').hasError('email')">El correo de la institucion es invalida</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Telefono" name="telefonoInstitucionFormControl" formControlName="telefonoInstitucionFormControl" [(ngModel)]="data.item.telefonoInstitucion"
+              [errorStateMatcher]="matcher">
+            <mat-error *ngIf="myGroup.get('telefonoInstitucionFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Inicio" name="fechaInicioFormControl" formControlName="fechaInicioFormControl" [(ngModel)]="data.item.fechaInicio">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="myGroup.get('fechaInicioFormControl').hasError('required')">La fecha es requerido</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Finallizacion" name="fechaFinalFormControl" formControlName="fechaFinalFormControl" [(ngModel)]="data.item.fechaFinal">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="myGroup.get('fechaFinalFormControl').hasError('required')">La fecha es requerido</mat-error>
+          </mat-form-field>
+          <mat-slide-toggle name="isCursoFormControl" formControlName="isCursoControl" [(ngModel)]="data.item.isEnCurso">En curso actualmente</mat-slide-toggle>
+        </div>
+      </form>
+</div>
+
+<div mat-dialog-content *ngIf="data.sentencia=='borrar'">
+    <p>Esta seguro de borrar el elemento <em aria-relevant="all" [innerHTML]="data.item.titulo"></em> ?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button *ngIf="data.sentencia=='borrar'" mat-button [mat-dialog-close]="data" color="warn" cdkFocusInitial>Ok</button>
+  <button *ngIf="data.sentencia!='borrar'" mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial>Ok</button>
+</div>

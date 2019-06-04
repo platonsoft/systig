@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -46,4 +47,5 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'stg-admin',      component: DashboardComponent },
+    { path: 'profile',      component: UserProfileComponent },
 ];

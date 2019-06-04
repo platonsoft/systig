@@ -9,7 +9,7 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/stg-admin', title: 'Tablero',  icon: 'dashboard', class: '' },
-    { path: '/stg-admin/usuario', title: 'Mi cuenta',  icon: 'person', class: '' },
+    { path: '/profile', title: 'Mi cuenta',  icon: 'person', class: '' },
 ];
 
 @Component({
