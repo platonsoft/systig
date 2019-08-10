@@ -62,6 +62,8 @@ export class UserProfileComponent implements OnInit {
           if (result.sentencia === 'nuevo') {
             FORMACION_DATA.push(result.item);
             this.dataSource = new MatTableDataSource<FormacionItem>(FORMACION_DATA);
+          }else if (result.sentencia === 'borrar') {
+            alert('Borrando');
           }
         }
         console.log('The dialog was closed');

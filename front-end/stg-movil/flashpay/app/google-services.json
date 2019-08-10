@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "70632523932",
+    "firebase_url": "https://flashpay-edbd7.firebaseio.com",
+    "project_id": "flashpay-edbd7",
+    "storage_bucket": "flashpay-edbd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70632523932:android:6bcb2c2f5ce1b02b",
+        "android_client_info": {
+          "package_name": "com.stg.flashpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70632523932-jq4nk645o6cbs0lf387sq8vs07q1idvj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stg.flashpay",
+            "certificate_hash": "84143a78a1f9aa0ba5f2767a725de5385365fcdc"
+          }
+        },
+        {
+          "client_id": "70632523932-nnhcae8blblur7hn5ah1tmtl6b7ag6bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJY-6tORzJ4LqlJIF0QZMa8L71HgLiIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70632523932-nnhcae8blblur7hn5ah1tmtl6b7ag6bf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
