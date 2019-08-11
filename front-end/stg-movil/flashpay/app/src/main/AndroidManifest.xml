@@ -12,8 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeFlashPay">
         <activity
+            android:name=".HomeMainActivity"
+            android:label="@string/title_activity_home_main"
+            android:theme="@style/AppThemeFlashPay.NoActionBar">
+        </activity>
+        <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
