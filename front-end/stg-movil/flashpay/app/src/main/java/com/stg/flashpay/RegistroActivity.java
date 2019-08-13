@@ -114,8 +114,20 @@ public class RegistroActivity extends AppCompatActivity implements
 
                 Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 0);
+                steep+=1;
+                break;
+            case 5:
+                Intent intentLoging = new Intent (this, LoginActivity.class);
+                startActivityForResult(intentLoging, 0);
+                steep=1;
                 break;
             default:
+                this.fr = new DatosPersonalesFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment,fr)
+                        .addToBackStack(null)
+                        .commit();
+                steep=2;
                 break;
         }
     }
@@ -133,7 +145,7 @@ public class RegistroActivity extends AppCompatActivity implements
                 args.putByteArray("foto", byteArray);
 
                 this.usuario.setFotoX64(Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT));
-                datosUsuario.insertaUsuario(this.usuario);
+                datosUsuario.insertaUsuarioFirebase(this.usuario);
 
                 FotoValidarFragment fr3=new FotoValidarFragment();
                 fr3.setArguments(args);

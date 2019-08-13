@@ -60,8 +60,9 @@ public class HomeMainActivity extends AppCompatActivity
         setContentView(R.layout.activity_home_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
         Usuario myUsuario = datosUsuario.getDatosUsuario();
+        /*FloatingActionButton fab = findViewById(R.id.fab);
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,7 @@ public class HomeMainActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 

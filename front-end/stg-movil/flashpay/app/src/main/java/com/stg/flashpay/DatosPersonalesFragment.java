@@ -105,7 +105,7 @@ public class DatosPersonalesFragment extends Fragment implements DatePickerDialo
                 .setOnDateSetListener(DatosPersonalesFragment.this)
                 .setFirstDayOfWeek(Calendar.SUNDAY)
                 .setPreselectedDate(2019, 1,1)
-                .setDateRange(new MonthAdapter.CalendarDay(2000,1,1), null)
+                .setDateRange(new MonthAdapter.CalendarDay(1900,1,1), null)
                 .setDoneText("Yay")
                 .setCancelText("Nop");
         cdp.show(this.getFragmentManager(), FRAG_TAG_DATE_PICKER);

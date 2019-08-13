@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Usuario {
-    private Long codigo;
+    private String codigo;
     private String nombres;
     private String apellidos;
     private String tipoDocumento;
@@ -26,11 +26,11 @@ public class Usuario {
 
     private String fotoX64;
 
-    public Long getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

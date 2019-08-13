@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PagarSt1Fragment">
+    tools:context=".RecargaSt1Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +31,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_sub_titulo"
                     style="@style/CampoTexto"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_text_nombres"
                     android:paddingBottom="12dp">
@@ -42,58 +43,41 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center|center_horizontal|center_vertical"
-                        android:text="@string/titulo_pagar" />
+                        android:text="@string/titulo_recarga" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_input_nombres"
+                    style="@style/CampoTexto"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_text_numero_cuenta">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_input_nro_cuenta_pago"
-                        style="@style/CampoTexto"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_nombres"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="10"
-                        android:hint="@string/hint_text_numero_cuenta">
+                        android:textColor="@color/colorBlanco"
+                        android:maxLines="1"
+                        android:nextFocusDown="@id/input_apellidos" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/input_nro_cuenta_pago"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:nextFocusDown="@id/input_apellidos"
-                            android:textColor="@color/colorBlanco" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/button_start_scanQr"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/qr"
-                        android:gravity="center_vertical" />
-
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_input_monto_pago"
+                    android:id="@+id/layout_input_apellidos"
                     style="@style/CampoTexto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_text_monto">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input__monto_pago"
+                        android:id="@+id/input_apellidos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlanco"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:nextFocusDown="@id/spinner_tipo_documento" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,15 +99,27 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/button_realizar_pago"
+                    android:id="@+id/button_start_scanQr"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="8dp"
+                    android:foreground="@drawable/qr"
+                    android:gravity="center|center_horizontal|center_vertical" />
+
+                <Button
+                    android:id="@+id/button_solicitar_recarga"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="35dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/boton_realizar_pago" />
+                    android:text="@string/boton_solicitar_recarga" />
             </LinearLayout>
         </ScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

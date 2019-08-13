@@ -1,14 +1,31 @@
 package com.stg.flashpay;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.stg.flashpay.datos.Usuario;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -24,6 +41,9 @@ public class RecargaSt1Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private IntentIntegrator scanQR;
+    TextView montoAQR;
+    ImageView fotoQR;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,7 +86,33 @@ public class RecargaSt1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recarga_st1, container, false);
+        View vista = inflater.inflate(R.layout.fragment_recarga_st1, container, false);
+
+        Button btn = (Button) vista.findViewById(R.id.button_generar_qr);
+        montoAQR = (TextView) vista.findViewById(R.id.input_monto_recarga);
+        fotoQR = (ImageView) vista.findViewById(R.id.imagen_qr);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startQRGen(v);
+            }
+        });
+
+        //new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
+        return vista;
+    }
+
+    private void startQRGen(View v){
+        try {
+            Usuario usuario = new UsuariosHelper(this.getActivity()).getDatosUsuario();
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.encodeBitmap("{cuenta:'" + usuario.getCodigo() + "',monto:" + montoAQR.getText() + "}", BarcodeFormat.QR_CODE, 400, 400);
+            fotoQR.setImageBitmap(bitmap);
+            fotoQR.setVisibility(View.VISIBLE);
+        } catch(Exception e) {
+            Log.w("GeneradorQR",e.getMessage());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

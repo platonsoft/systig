@@ -67,4 +67,15 @@
     <string name="menu_soporte">Soporte</string>
     <string name="menu_configuracion">Configuracion</string>
     <string name="menu_salida">Salir</string>
+    <string name="titulo_recarga">Recargar Saldo</string>
+    <string name="hint_text_numero_cuenta">Numero de cuenta</string>
+    <string name="hint_text_monto">Monto a recibir</string>
+    <string name="hint_text_codigo_temporal">Codigo Temporal</string>
+    <string name="boton_leer_qr">Leer QR</string>
+    <string name="boton_solicitar_recarga">Solicitar Recarga</string>
+    <string name="btn_generar_qr">Generar QR</string>
+    <string name="titulo_pagar">Realizar pago</string>
+    <string name="titulo_liberar">Liberar al banco</string>
+    <string name="boton_solicitar_liberacion">Solicitar liberacion</string>
+    <string name="boton_realizar_pago">Pagar</string>
 </resources>

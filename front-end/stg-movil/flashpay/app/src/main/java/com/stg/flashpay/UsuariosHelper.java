@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.stg.flashpay.datos.Usuario;
 
@@ -62,14 +63,12 @@ public class UsuariosHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //db.execSQL("DROP TABLE IF EXISTS Usuario");
+        db.execSQL("DROP TABLE Usuario");
         db.execSQL(sqlCreate);
     }
 
-    public boolean insertaUsuario(Usuario usuario) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        final Boolean[] creadoFirebase = {false};
-        mAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getClave())
+    public boolean insertaUsuarioFirebase(final Usuario usuario) {
+        return mAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getClave())
                 .addOnCompleteListener((Activity) thisContext, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,39 +76,43 @@ public class UsuariosHelper extends SQLiteOpenHelper {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "creacionUsuario:Correcto");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            insertarUsuarioBD(usuario, user.getUid());
                             Toast.makeText(thisContext, "Se ha registrado correctamente.", Toast.LENGTH_SHORT).show();
-                            creadoFirebase[0] =true;
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "creacionUsuario:Fallido", task.getException());
                             Toast.makeText(thisContext, "Error al crear el usuario.", Toast.LENGTH_SHORT).show();
-                            creadoFirebase[0] =false;
                         }
                     }
-                });
-        if (creadoFirebase[0]){
-            ContentValues nuevoRegistro = new ContentValues();
-            nuevoRegistro.put("codigo","00");
-            nuevoRegistro.put("nombres",usuario.getNombres());
-            nuevoRegistro.put("apellidos",usuario.getApellidos());
-            nuevoRegistro.put("tipo_documento",usuario.getTipoDocumento());
-            nuevoRegistro.put("nro_documento",usuario.getNroDocumento().intValue());
-            nuevoRegistro.put("fecha_nacimiento",usuario.getFechaNacimiento());
-            nuevoRegistro.put("email",usuario.getEmail());
-            nuevoRegistro.put("telefono",usuario.getTelefono());
-            nuevoRegistro.put("pais",usuario.getPais());
-            nuevoRegistro.put("entidad_bancaria",usuario.getEntidadBancaria());
-            nuevoRegistro.put("numero_cuenta_bancaria",usuario.getNumeroCuentaBancaria());
-            nuevoRegistro.put("tipo_cuenta_bancaria",usuario.getTipoCuentaBancaria());
-            nuevoRegistro.put("nombre_usuario",usuario.getUsuario());
-            nuevoRegistro.put("clave_usuario",usuario.getClave());
-            nuevoRegistro.put("pin_usuario",usuario.getPin());
-            nuevoRegistro.put("fotox64",usuario.getFotoX64());
+                }).isSuccessful();
+    }
 
-            db.insert(NOMBRE_TABLA,null,nuevoRegistro);
-            return true;
-        }
-        return false;
+    private Boolean insertarUsuarioBD(Usuario usuario, String uid){
+        ContentValues nuevoRegistro = new ContentValues();
+
+        nuevoRegistro.put("codigo",uid);
+        nuevoRegistro.put("nombres",usuario.getNombres());
+        nuevoRegistro.put("apellidos",usuario.getApellidos());
+        nuevoRegistro.put("tipo_documento",usuario.getTipoDocumento());
+        nuevoRegistro.put("nro_documento",usuario.getNroDocumento().intValue());
+        nuevoRegistro.put("fecha_nacimiento",usuario.getFechaNacimiento());
+        nuevoRegistro.put("email",usuario.getEmail());
+        nuevoRegistro.put("telefono",usuario.getTelefono());
+        nuevoRegistro.put("pais",usuario.getPais());
+        nuevoRegistro.put("entidad_bancaria",usuario.getEntidadBancaria());
+        nuevoRegistro.put("numero_cuenta_bancaria",usuario.getNumeroCuentaBancaria());
+        nuevoRegistro.put("tipo_cuenta_bancaria",usuario.getTipoCuentaBancaria());
+        nuevoRegistro.put("nombre_usuario",usuario.getUsuario());
+        nuevoRegistro.put("clave_usuario",usuario.getClave());
+        nuevoRegistro.put("pin_usuario",usuario.getPin());
+        nuevoRegistro.put("fotox64",usuario.getFotoX64());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        System.out.println("Creando registro en BD");
+        db.insert(NOMBRE_TABLA,null,nuevoRegistro);
+        System.out.println("Se ha creado el registro correctamente");
+        return true;
     }
 
     public Usuario getDatosUsuario() {
@@ -118,7 +121,7 @@ public class UsuariosHelper extends SQLiteOpenHelper {
             Cursor registro = db.rawQuery(" SELECT * FROM " + NOMBRE_TABLA, null);
             if(registro.moveToFirst()){
                 Usuario usuario = new Usuario();
-                usuario.setCodigo(registro.getLong(registro.getColumnIndex("codigo")));
+                usuario.setCodigo(registro.getString(registro.getColumnIndex("codigo")));
                 usuario.setNombres(registro.getString(registro.getColumnIndex("nombres")));
                 usuario.setApellidos(registro.getString(registro.getColumnIndex("apellidos")));
                 usuario.setTipoDocumento(registro.getString(registro.getColumnIndex("tipo_documento")));
@@ -134,7 +137,6 @@ public class UsuariosHelper extends SQLiteOpenHelper {
                 usuario.setClave(registro.getString(registro.getColumnIndex("clave_usuario")));
                 usuario.setPin(registro.getInt(registro.getColumnIndex("pin_usuario")));
                 usuario.setFotoX64(registro.getString(registro.getColumnIndex("fotox64")));
-
                 return usuario;
             }
         }
@@ -142,21 +144,20 @@ public class UsuariosHelper extends SQLiteOpenHelper {
     }
 
     public Boolean inicioSesion(String usuario, String clave){
-        mAuth.signInWithEmailAndPassword(usuario, clave)
-                .addOnCompleteListener((Activity) thisContext, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "InicioSesion:Correcto");
-                            Toast.makeText(thisContext, "Bienvenido.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "InicioSesion:Fallido", task.getException());
-                            Toast.makeText(thisContext, "Acceso Denegado.", Toast.LENGTH_SHORT).show();
+        return mAuth.signInWithEmailAndPassword(usuario, clave)
+                    .addOnCompleteListener((Activity) thisContext, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "InicioSesion:Correcto");
+                                Toast.makeText(thisContext, "Bienvenido.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "InicioSesion:Fallido", task.getException());
+                                Toast.makeText(thisContext, "Acceso Denegado.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-        return true;
+                    }).isSuccessful();
     }
 }
