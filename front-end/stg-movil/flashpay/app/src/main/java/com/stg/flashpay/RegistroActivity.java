@@ -72,7 +72,7 @@ public class RegistroActivity extends AppCompatActivity implements
                 this.usuario.setNombres(String.valueOf(nombre.getText()));
                 this.usuario.setApellidos(String.valueOf(apellido.getText()));
                 this.usuario.setTipoDocumento(String.valueOf(tipoDocumento.getText()).trim());
-                this.usuario.setNroDocumento(new BigInteger(String.valueOf(numeroDocumento.getText())));
+                this.usuario.setNroDocumento(String.valueOf(numeroDocumento.getText()));
                 this.usuario.setFechaNacimiento(String.valueOf(fechaNac.getText()));
                 this.usuario.setEmail(String.valueOf(email.getText()));
                 this.usuario.setTelefono(String.valueOf(telefono.getText()));

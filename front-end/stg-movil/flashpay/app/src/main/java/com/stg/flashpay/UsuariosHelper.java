@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.stg.flashpay.datos.Usuario;
 
 import java.math.BigInteger;
@@ -73,13 +76,23 @@ public class UsuariosHelper extends SQLiteOpenHelper {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "creacionUsuario:Correcto");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            insertarUsuarioBD(usuario, user.getUid());
-                            Toast.makeText(thisContext, "Se ha registrado correctamente.", Toast.LENGTH_SHORT).show();
+
+                            FirebaseDatabase.getInstance().getReference("usuarios")
+                                    .child(mAuth.getCurrentUser().getUid()).setValue(usuario)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            insertarUsuarioBD(usuario, mAuth.getCurrentUser().getUid());
+                                            Toast.makeText(thisContext, "Se ha registrado correctamente.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(thisContext, "La transaccion fallo: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "creacionUsuario:Fallido", task.getException());
                             Toast.makeText(thisContext, "Error al crear el usuario.", Toast.LENGTH_SHORT).show();
                         }
@@ -94,7 +107,7 @@ public class UsuariosHelper extends SQLiteOpenHelper {
         nuevoRegistro.put("nombres",usuario.getNombres());
         nuevoRegistro.put("apellidos",usuario.getApellidos());
         nuevoRegistro.put("tipo_documento",usuario.getTipoDocumento());
-        nuevoRegistro.put("nro_documento",usuario.getNroDocumento().intValue());
+        nuevoRegistro.put("nro_documento",usuario.getNroDocumento());
         nuevoRegistro.put("fecha_nacimiento",usuario.getFechaNacimiento());
         nuevoRegistro.put("email",usuario.getEmail());
         nuevoRegistro.put("telefono",usuario.getTelefono());
@@ -125,7 +138,7 @@ public class UsuariosHelper extends SQLiteOpenHelper {
                 usuario.setNombres(registro.getString(registro.getColumnIndex("nombres")));
                 usuario.setApellidos(registro.getString(registro.getColumnIndex("apellidos")));
                 usuario.setTipoDocumento(registro.getString(registro.getColumnIndex("tipo_documento")));
-                usuario.setNroDocumento(new BigInteger(registro.getString(registro.getColumnIndex("nro_documento"))));
+                usuario.setNroDocumento(registro.getString(registro.getColumnIndex("nro_documento")));
                 usuario.setFechaNacimiento(registro.getString(registro.getColumnIndex("nro_documento")));
                 usuario.setEmail(registro.getString(registro.getColumnIndex("email")));
                 usuario.setTelefono(registro.getString(registro.getColumnIndex("telefono")));

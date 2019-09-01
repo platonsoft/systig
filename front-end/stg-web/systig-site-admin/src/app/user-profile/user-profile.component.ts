@@ -55,15 +55,20 @@ export class UserProfileComponent implements OnInit {
   openDialogEditFormacion(itemSelect: FormacionItem, tipoSentencia: string): void {
       const dialogRef = this.dialog.open(ProfileDlgEditComponent, {
         width: '80wh',
-        data: {item: itemSelect != null ? itemSelect : new FormacionItem(), sentencia: tipoSentencia}
+        data: {item: itemSelect != null ? itemSelect : n
+          ew FormacionItem(), sentencia: tipoSentencia}
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           if (result.sentencia === 'nuevo') {
             FORMACION_DATA.push(result.item);
             this.dataSource = new MatTableDataSource<FormacionItem>(FORMACION_DATA);
-          }else if (result.sentencia === 'borrar') {
-            alert('Borrando');
+          } else if (result.sentencia === 'borrar') {
+            FORMACION_DATA.forEach(element => {
+              if(element.id === itemSelect.id){
+                FORMACION_DATA.splice();
+              }
+            });
           }
         }
         console.log('The dialog was closed');

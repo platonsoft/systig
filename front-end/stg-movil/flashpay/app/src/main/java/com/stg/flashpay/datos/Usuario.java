@@ -1,16 +1,11 @@
 package com.stg.flashpay.datos;
 
-import android.graphics.Bitmap;
-
-import java.math.BigInteger;
-import java.util.Date;
-
 public class Usuario {
     private String codigo;
     private String nombres;
     private String apellidos;
     private String tipoDocumento;
-    private BigInteger nroDocumento;
+    private String nroDocumento;
     private String email;
     private String telefono;
     private String fechaNacimiento;
@@ -58,11 +53,11 @@ public class Usuario {
         this.tipoDocumento = tipoDocumento;
     }
 
-    public BigInteger getNroDocumento() {
+    public String getNroDocumento() {
         return nroDocumento;
     }
 
-    public void setNroDocumento(BigInteger nroDocumento) {
+    public void setNroDocumento(String nroDocumento) {
         this.nroDocumento = nroDocumento;
     }
 

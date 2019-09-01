@@ -136,7 +136,7 @@ public class PagarSt1Fragment extends Fragment {
         pay.setUidReceptor(String.valueOf(textoNroCuenta.getText()));
         pay.setMontoOperacion(String.valueOf(textoMontoPago.getText()));
         String nrotrans = String.valueOf(Math.random()*pay.hashCode()+1).replace(".","").replace(",","");
-        FirebaseDatabase.getInstance().getReference("transacciones").child(usuario.getCodigo())
+        FirebaseDatabase.getInstance().getReference("usuarios").child(usuario.getCodigo()).child("transacciones")
                 .child("TRPG"+nrotrans).setValue(pay)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
