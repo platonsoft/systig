@@ -95,13 +95,22 @@ public class PagarSt1Fragment extends Fragment {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_pagar_st1, container, false);
 
-        Button btn = (Button) vista.findViewById(R.id.button_start_scanQr);
-        Button btn_pagar = (Button) vista.findViewById(R.id.button_realizar_pago);
+        //Button btn = (Button) vista.findViewById(R.id.button_start_scanQr);
+        //Button btn_pagar = (Button) vista.findViewById(R.id.button_realizar_pago);
         textoNroCuenta = (EditText) vista.findViewById(R.id.input_nro_cuenta_pago);
         textoMontoPago = (EditText) vista.findViewById(R.id.input__monto_pago);
         textoClaveTemp = (EditText) vista.findViewById(R.id.input_codigo_temporal);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        int opc = getArguments().getInt("opc");
+
+        if(opc==1){
+            startQRScan();
+        }else if (opc==2){
+            Fragment myFragment = null;
+            myFragment = new UsuarioFragment();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedor_base,myFragment).commit();
+        }
+        /*btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startQRScan();
@@ -112,7 +121,7 @@ public class PagarSt1Fragment extends Fragment {
             public void onClick(View v) {
                 enviarPago();
             }
-        });
+        });*/
 
         //new IntentIntegrator(this).initiateScan(); // `this` is the current Activity
         return vista;

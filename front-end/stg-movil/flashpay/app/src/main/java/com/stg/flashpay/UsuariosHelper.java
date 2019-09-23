@@ -77,7 +77,7 @@ public class UsuariosHelper extends SQLiteOpenHelper {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "creacionUsuario:Correcto");
-
+                            usuario.setCodigo(mAuth.getCurrentUser().getUid());
                             FirebaseDatabase.getInstance().getReference("usuarios")
                                     .child(mAuth.getCurrentUser().getUid()).setValue(usuario)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {

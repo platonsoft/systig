@@ -56,7 +56,6 @@ public class RegistroActivity extends AppCompatActivity implements
                 this.fr = new DatosPersonalesFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment,fr)
-                        .addToBackStack(null)
                         .commit();
                 steep+=1;
                 break;
@@ -125,7 +124,6 @@ public class RegistroActivity extends AppCompatActivity implements
                 this.fr = new DatosPersonalesFragment();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment,fr)
-                        .addToBackStack(null)
                         .commit();
                 steep=2;
                 break;
@@ -151,7 +149,6 @@ public class RegistroActivity extends AppCompatActivity implements
                 fr3.setArguments(args);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment,fr3)
-                        .addToBackStack(null)
                         .commit();
                 System.out.println(this.usuario.toString());
             }

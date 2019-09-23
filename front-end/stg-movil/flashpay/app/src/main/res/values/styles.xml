@@ -26,6 +26,24 @@
         <item name="android:shadowRadius">4</item>
     </style>
 
+    <style name="flashpay">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#4D000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
+
+    <style name="flashpay_moneda">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#4D000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
+
     <style name="CampoTexto" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textColorHint">@color/colorBlanco</item>
         <item name="android:strokeColor">@color/colorAzulElectrico</item>
@@ -46,4 +64,13 @@
     <style name="AppThemeFlashPay.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppThemeFlashPay.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="flashpay_etiqueta_mini">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#4D000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
 </resources>

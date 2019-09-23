@@ -29,13 +29,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void otro(){
-        if (datosUsuario.getDatosUsuario()==null){
-            Intent intent = new Intent (this, RegistroActivity.class);
-            startActivityForResult(intent, 0);
-        }else{
-            Intent intent = new Intent (this, LoginActivity.class);
-            startActivityForResult(intent, 0);
-        }
+        Intent intent = new Intent (this, LoginActivity.class);
+        startActivityForResult(intent, 0);
     }
 
 }

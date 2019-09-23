@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAzulElectrico"
     tools:context=".PagarSt1Fragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -27,6 +28,32 @@
                 tools:layout_editor_absoluteX="213dp"
                 tools:layout_editor_absoluteY="8dp">
 
+                <TextView
+                    android:id="@+id/flashpay_moneda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/saldo_moneda"
+                    android:textAppearance="@style/flashpay_moneda" />
+
+                <TextView
+                    android:id="@+id/flashpay"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/saldo_cero"
+                    android:textAppearance="@style/flashpay" />
+
+                <TextView
+                    android:id="@+id/flashpay_etiqueta_saldo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/saldo_etiqueta"
+                    android:textAppearance="@style/flashpay_etiqueta_mini" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_sub_titulo"
                     style="@style/CampoTexto"
@@ -46,10 +73,10 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal">-->
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_input_nro_cuenta_pago"
@@ -69,7 +96,7 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
+                    <!--<Button
                         android:id="@+id/button_start_scanQr"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -79,7 +106,17 @@
                         android:background="@drawable/qr"
                         android:gravity="center_vertical" />
 
-                </LinearLayout>
+                    <Button
+                        android:id="@+id/button_buscar_usuario"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/ic_search_holo_light"
+                        android:gravity="center_vertical" />
+
+                </LinearLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_input_monto_pago"
@@ -94,23 +131,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlanco"
                         android:maxLines="1" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layout_input_codigo_temporal"
-                    style="@style/CampoTexto"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_text_codigo_temporal">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_codigo_temporal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlanco"
-                        android:maxLines="1"
-                        android:nextFocusDown="@id/spinner_tipo_documento" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

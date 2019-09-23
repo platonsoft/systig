@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameEditText;
     EditText passwordEditText;
     Button loginButton;
+    Button loginRegistro;
     ProgressBar loadingProgressBar;
 
     private FirebaseAuth mAuth;
@@ -34,9 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         this.usernameEditText = findViewById(R.id.input_usuario_login);
         this.passwordEditText = findViewById(R.id.input_clave_login);
         this.loginButton = findViewById(R.id.login_login);
+        this.loginRegistro = findViewById(R.id.login_registro);
         this.loadingProgressBar = findViewById(R.id.loading_login);
         mAuth = FirebaseAuth.getInstance();
 
+        loginRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registrarCuenta();
+            }
+        });
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         Toast.makeText(this, "Introduzca sus credenciales de acceso", Toast.LENGTH_LONG).show();
+    }
+    private void registrarCuenta(){
+        Intent intent = new Intent (this, RegistroActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     private void sesionIniciada(){

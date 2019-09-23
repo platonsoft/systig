@@ -42,6 +42,7 @@ public class HomeMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeSt1Fragment.OnFragmentInteractionListener,
         PagarSt1Fragment.OnFragmentInteractionListener,
+        PagarSt0Fragment.OnFragmentInteractionListener,
         RecargaSt1Fragment.OnFragmentInteractionListener,
         LiberarSt1Fragment.OnFragmentInteractionListener,
         TransaccionFragment.OnListFragmentInteractionListener,
@@ -49,9 +50,11 @@ public class HomeMainActivity extends AppCompatActivity
         EventosFragment.OnListFragmentInteractionListener,
         TerminosSt1Fragment.OnFragmentInteractionListener,
         SoporteSt1Fragment.OnFragmentInteractionListener,
+        UsuarioFragment.OnListFragmentInteractionListener,
         ConfiguracionSt1Fragment.OnFragmentInteractionListener
 {
     private UsuariosHelper datosUsuario = new UsuariosHelper(this);
+    private Menu myMenu;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -108,7 +111,8 @@ public class HomeMainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.home_main, menu);
+        // getMenuInflater().inflate(R.menu.home_main, menu);
+        this.myMenu=menu;
         return true;
     }
 
@@ -120,7 +124,7 @@ public class HomeMainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_leer_qr) {
             return true;
         }
 
@@ -133,27 +137,38 @@ public class HomeMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment myFragment = null;
+        this.myMenu.clear();
 
         if (id == R.id.nav_home) {
             myFragment = new HomeSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_realizar_pago) {
-            myFragment = new PagarSt1Fragment();
+            myFragment = new PagarSt0Fragment();
+            getMenuInflater().inflate(R.menu.home_main, this.myMenu);
         } else if (id == R.id.nav_recibir_recarga) {
             myFragment = new RecargaSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_liberar_banco) {
             myFragment = new LiberarSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_historico) {
             myFragment = new TransaccionFragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_ver_estadistica) {
             myFragment = new EstadisticasSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_eventos) {
             myFragment = new EventosFragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_terminos_condiciones) {
             myFragment = new TerminosSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_soporte) {
             myFragment = new SoporteSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_configuracion) {
             myFragment = new ConfiguracionSt1Fragment();
+            getMenuInflater().inflate(R.menu.home_main_base, this.myMenu);
         } else if (id == R.id.nav_salida) {
             //myFragment = new TransaccionFragment();
         }
