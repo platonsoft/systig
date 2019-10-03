@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
+import { StgProductosComponent } from 'src/app/stg-productos/stg-productos.component';
+import { StgClientesComponent } from 'src/app/stg-clientes/stg-clientes.component';
+import { StgFacturasComponent } from 'src/app/stg-facturas/stg-facturas.component';
+import { StgContabilidadComponent } from 'src/app/stg-contabilidad/stg-contabilidad.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -48,4 +52,8 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'stg-admin',      component: DashboardComponent },
     { path: 'profile',      component: UserProfileComponent },
+    { path: 'productos',      component: StgProductosComponent },
+    { path: 'clientes',      component: StgClientesComponent },
+    { path: 'facturas',      component: StgFacturasComponent },
+    { path: 'contable',      component: StgContabilidadComponent },
 ];

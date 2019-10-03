@@ -24,6 +24,13 @@ import {
 } from '@angular/material';
 import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 import { ProfileDlgEditComponent } from '../../user-profile/profile-dlg-edit/profile-dlg-edit.component';
+import { StgProductosComponent } from '../../stg-productos/stg-productos.component';
+import { StgClientesComponent } from '../../stg-clientes/stg-clientes.component';
+import { StgFacturasComponent } from '../../stg-facturas/stg-facturas.component';
+import { StgContabilidadComponent } from '../../stg-contabilidad/stg-contabilidad.component';
+import { ClienteDlgEditComponent } from '../../stg-clientes/cliente-dlg-edit/cliente-dlg-edit.component';
+import { FacturasDlgEditComponent } from '../../stg-facturas/facturas-dlg-edit/facturas-dlg-edit.component';
+import { ProductosDlgEditComponent } from '../../stg-productos/productos-dlg-edit/productos-dlg-edit.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -49,10 +56,20 @@ import { ProfileDlgEditComponent } from '../../user-profile/profile-dlg-edit/pro
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    ProfileDlgEditComponent
+    ProfileDlgEditComponent,
+    StgProductosComponent,
+    StgClientesComponent,
+    StgFacturasComponent,
+    StgContabilidadComponent,
+    ClienteDlgEditComponent,
+    FacturasDlgEditComponent,
+    ProductosDlgEditComponent
   ],
   entryComponents: [
-    ProfileDlgEditComponent
+    ProfileDlgEditComponent,
+    ProductosDlgEditComponent,
+    ClienteDlgEditComponent,
+    FacturasDlgEditComponent
   ]
 })
 

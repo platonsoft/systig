@@ -55,8 +55,7 @@ export class UserProfileComponent implements OnInit {
   openDialogEditFormacion(itemSelect: FormacionItem, tipoSentencia: string): void {
       const dialogRef = this.dialog.open(ProfileDlgEditComponent, {
         width: '80wh',
-        data: {item: itemSelect != null ? itemSelect : n
-          ew FormacionItem(), sentencia: tipoSentencia}
+        data: {item: itemSelect != null ? itemSelect : new FormacionItem(), sentencia: tipoSentencia}
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
@@ -65,8 +64,8 @@ export class UserProfileComponent implements OnInit {
             this.dataSource = new MatTableDataSource<FormacionItem>(FORMACION_DATA);
           } else if (result.sentencia === 'borrar') {
             FORMACION_DATA.forEach(element => {
-              if(element.id === itemSelect.id){
-                FORMACION_DATA.splice();
+              if (element.id === itemSelect.id) {
+                FORMACION_DATA.splice(element.id, 1);
               }
             });
           }
