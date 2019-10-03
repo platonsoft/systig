@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SystigHome:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SystigHome</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="home-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="SystigHome:war exploded" />
+    </root>
+  </artifact>
+</component>
