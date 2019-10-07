@@ -9,7 +9,7 @@
                 <button mat-icon-button aria-label="Agregar nuevo" (click)="openDialogEditProducto(null,'nuevo')">
                     <mat-icon>add</mat-icon>
                 </button>
-                <button mat-icon-button aria-label="Importar/Exportar" (click)="openDialogEditProducto(element,'borrar')">
+                <button mat-icon-button aria-label="Importar/Exportar" (click)="openDialogImportarExportarProducto()">
                   <mat-icon>swap_vert</mat-icon>
                 </button>
                 <button mat-icon-button aria-label="Inventario" (click)="openDialogEditProducto(element,'editar')">
@@ -26,16 +26,13 @@
 
                   </th>
                   <td mat-cell class="text-right" *matCellDef="let element">
-                    <button mat-icon-button aria-label="Ver" (click)="openDialogEditProducto(element,'editar')">
-                        <mat-icon>launch</mat-icon>
-                    </button>
                     <button mat-icon-button aria-label="Editar" (click)="openDialogEditProducto(element,'editar')">
                       <mat-icon>create</mat-icon>
                     </button>
                     <button mat-icon-button aria-label="Borrar" (click)="openDialogEditProducto(element,'borrar')">
                       <mat-icon>delete</mat-icon>
                     </button>
-                    <button mat-icon-button aria-label="Historia" (click)="openDialogEditProducto(element,'editar')">
+                    <button mat-icon-button aria-label="Historia" (click)="openDialogEditProducto(element,'historial')">
                         <mat-icon>history</mat-icon>
                     </button>
                   </td>
@@ -56,7 +53,7 @@
                 <!-- Duracion Column -->
                 <ng-container matColumnDef="cantidad">
                   <th mat-header-cell class="text-center" *matHeaderCellDef> Cantidad </th>
-                  <td mat-cell class="text-center" *matCellDef="let element"> {{element.cantidad}} </td>
+                  <td mat-cell class="text-center" *matCellDef="let element"> {{element.cantidadExistencia}} ({{element.unidad}}) </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

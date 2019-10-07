@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06a5f137-93f7-4318-912d-ccac65fff854" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/components/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/components/sidebar/sidebar.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/user-profile/user-profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/objetos/Objetos.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/objetos/Objetos.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-clientes/stg-clientes.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-clientes/stg-clientes.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-clientes/stg-clientes.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-clientes/stg-clientes.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/productos-dlg-edit/productos-dlg-edit.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/productos-dlg-edit/productos-dlg-edit.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/productos-dlg-edit/productos-dlg-edit.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/productos-dlg-edit/productos-dlg-edit.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/stg-productos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/stg-productos.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/stg-productos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../../../front-end/stg-web/systig-site-admin/src/app/stg-productos/stg-productos.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,44 +27,7 @@
     <option name="delegatedBuild" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systig/home/dao/ClienteDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systig/home/repositorio/ICliente.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systig/home/config/SystigConfiguracion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/systig/home/mapper/ClienteMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -97,7 +65,13 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="width" value="981" />
     <option name="height" value="1032" />
@@ -119,46 +93,7 @@
             <path>
               <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
               <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SystigHome" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SystigHome" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-              <item name="repositorio" type="462c0819:PsiDirectoryNode" />
+              <item name="Clientes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -172,6 +107,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -243,7 +179,7 @@
       <option name="presentableId" value="Default" />
       <updated>1569102751420</updated>
       <workItem from="1569102754532" duration="16609000" />
-      <workItem from="1569609757285" duration="1790000" />
+      <workItem from="1569609757285" duration="3148000" />
     </task>
     <task id="LOCAL-00001" summary="Avances systig facturacion">
       <created>1569210012960</created>
@@ -256,13 +192,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18399000" />
+    <option name="totallyTimeSpent" value="19757000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11983806" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23724696" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -291,7 +226,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.32955465" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Mongo Explorer" order="6" />

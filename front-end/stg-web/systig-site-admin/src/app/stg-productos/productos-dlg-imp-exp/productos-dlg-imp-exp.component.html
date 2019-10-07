@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Importar/Exportar</h1>
+<div mat-dialog-content>
+    <mat-accordion style="padding: 20px 0px;display: inline-block; width: 100%;">
+
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Importar productos
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div style="text-align: center">
+                <label class="stg-button-cabs" for="singleFile">Subir Archivos CSV</label>
+                <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
+                <br>
+                <mat-file-upload-queue #fileUploadQueue
+                    [fileAlias]="'file'"
+                    [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+
+                    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+                </mat-file-upload-queue>
+                <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+                    Arrastrar y Soltar Aqui
+                </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Exportar productos
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="text-align: center">
+
+              </div>
+            </mat-expansion-panel>
+
+      </mat-accordion>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="null" color="primary" cdkFocusInitial>Aceptar</button>
+</div>

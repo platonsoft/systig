@@ -1,50 +1,89 @@
-<h1 mat-dialog-title *ngIf="data.sentencia=='nuevo'">Agregar nuevo</h1>
-<h1 mat-dialog-title *ngIf="data.sentencia=='editar'">Editar Elemento</h1>
+<h1 mat-dialog-title *ngIf="data.sentencia=='nuevo'">Producto nuevo</h1>
+<h1 mat-dialog-title *ngIf="data.sentencia=='editar'">Editar producto</h1>
 <h1 mat-dialog-title *ngIf="data.sentencia=='borrar'">Confirme borrar</h1>
-<div mat-dialog-content *ngIf="data.sentencia!='borrar'">
+<h1 mat-dialog-title *ngIf="data.sentencia=='vistap'">Vista previa del producto</h1>
+<h1 mat-dialog-title *ngIf="data.sentencia=='historial'">Historial del producto</h1>
+<div mat-dialog-content *ngIf="data.sentencia!='borrar' && data.sentencia!='historial'">
     <form class="row" [formGroup]="myGroup">
-        <div class="col-md-12">
+      <div class="col-md-12">
           <mat-form-field>
-            <input matInput placeholder="Titulo" name="tituloFormControl" formControlName="tituloFormControl" [(ngModel)]="data.item.titulo"
+            <input matInput placeholder="Nombre del producto" name="nombreFormControl" formControlName="nombreFormControl" [(ngModel)]="data.item.nombre"
               [errorStateMatcher]="matcher">
-            <mat-error *ngIf="myGroup.get('tituloFormControl').hasError('required')">El titulo es requerido</mat-error>
+            <mat-error *ngIf="myGroup.get('nombreFormControl').hasError('required')">El titulo es requerido</mat-error>
+          </mat-form-field>
+      </div>
+        <div class="col-md-8">
+          <mat-form-field>
+              <textarea matInput placeholder="Descripcion del producto" name="descripcionFormControl" formControlName="descripcionFormControl" [(ngModel)]="data.item.descripcion"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field>
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoriaFormControl">
+              <mat-option>Ninguno</mat-option>
+              <mat-option value="defecto">Por defecto</mat-option>
+              <mat-option value="servicio">Servicio</mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field>
-              <textarea matInput placeholder="Detalles del Cargo" name="descripcionFormControl" formControlName="descripcionFormControl" [(ngModel)]="data.item.descripcion"></textarea>
+            <mat-label>Almacen</mat-label>
+            <mat-select formControlName="almacenFormControl">
+              <mat-option>Ninguno</mat-option>
+              <mat-option value="defecto">Por defecto</mat-option>
+              <mat-option value="servicio">Almacen 1</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Proveedor</mat-label>
+            <mat-select formControlName="proveedorFormControl">
+              <mat-option>Ninguno</mat-option>
+              <mat-option value="defecto">Por defecto</mat-option>
+              <mat-option value="servicio">Proveedor 1</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field>
+              <mat-label>Unidad</mat-label>
+              <mat-select formControlName="unidadFormControl" [(value)]="data.item.unidad">
+                <mat-option>Unidad</mat-option>
+                <mat-option value="Kg">Kilogramo</mat-option>
+                <mat-option value="L">Litro</mat-option>
+                <mat-option value="Caja">Caja</mat-option>
+                <mat-option value="m">metro</mat-option>
+              </mat-select>
             </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Cantidad Minima" name="cantidadMinimaFormControl" formControlName="cantidadMinimaFormControl" [(ngModel)]="data.item.cantidadMinima"
+                [errorStateMatcher]="matcher">
+                <span matSuffix>&nbsp; {{data.item.unidad}}</span>
+              <mat-error *ngIf="myGroup.get('cantidadMinimaFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Cantidad en existencia" name="cantidadExistenteFormControl" formControlName="cantidadExistenteFormControl" [(ngModel)]="data.item.cantidadExistencia"
+                [errorStateMatcher]="matcher">
+                <span matSuffix>&nbsp; {{data.item.unidad}}</span>
+              <mat-error *ngIf="myGroup.get('cantidadExistenteFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+          <mat-slide-toggle name="isCursoFormControl" formControlName="isCursoControl" [(ngModel)]="data.item.disponible">Disponibilidad</mat-slide-toggle>
         </div>
         <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Institucion o Empresa" name="institucionFormControl" formControlName="institucionFormControl" [(ngModel)]="data.item.institucion"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="myGroup.get('institucionFormControl').hasError('required')">El nombre de la institucion es requerido</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Email" name="emailInstitucionFormControl" formControlName="emailInstitucionFormControl" [(ngModel)]="data.item.emailInstitucion"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="myGroup.get('emailInstitucionFormControl').hasError('required')">El correo de la institucion es requerida</mat-error>
-            <mat-error *ngIf="myGroup.get('emailInstitucionFormControl').hasError('email')">El correo de la institucion es invalida</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Telefono" name="telefonoInstitucionFormControl" formControlName="telefonoInstitucionFormControl" [(ngModel)]="data.item.telefonoInstitucion"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="myGroup.get('telefonoInstitucionFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker1" placeholder="Inicio" name="fechaInicioFormControl" formControlName="fechaInicioFormControl" [(ngModel)]="data.item.fechaInicio">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="myGroup.get('fechaInicioFormControl').hasError('required')">La fecha es requerido</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker2" placeholder="Finallizacion" name="fechaFinalFormControl" formControlName="fechaFinalFormControl" [(ngModel)]="data.item.fechaFinal">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            <mat-error *ngIf="myGroup.get('fechaFinalFormControl').hasError('required')">La fecha es requerido</mat-error>
-          </mat-form-field>
-          <mat-slide-toggle name="isCursoFormControl" formControlName="isCursoControl" [(ngModel)]="data.item.isEnCurso">En curso actualmente</mat-slide-toggle>
+            <mat-form-field>
+              <input matInput placeholder="Descuento" name="descuentoFormControl" stgPorcentajeund formControlName="descuentoFormControl" [(ngModel)]="data.item.descuento"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('descuentoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Impuesto" name="impuestoFormControl" stgPorcentajeund formControlName="impuestoFormControl" [(ngModel)]="data.item.impuesto"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('impuestoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Monto" name="montoFormControl" stgPesocol formControlName="montoFormControl" [(ngModel)]="data.item.monto"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('montoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
         </div>
       </form>
 </div>
@@ -52,8 +91,38 @@
 <div mat-dialog-content *ngIf="data.sentencia=='borrar'">
     <p>Esta seguro de borrar el elemento <em aria-relevant="all" [innerHTML]="data.item.titulo"></em> ?</p>
 </div>
+
+<div mat-dialog-content *ngIf="data.sentencia=='historial'" style="padding: 20px">
+    <div class="col-md-12">
+        <table mat-table [dataSource]="dataSourceHistorico" class="mat-elevation-z8 col-md-12">
+
+          <!-- descripcion Column -->
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef style="min-width: 230px"> Descripcion </th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+          </ng-container>
+
+          <!-- accion Column -->
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef style="min-width: 230px"> Accion </th>
+            <td mat-cell *matCellDef="let element"> {{element.accion}} </td>
+          </ng-container>
+
+          <!-- fecha Column -->
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell class="text-center" *matHeaderCellDef> Fecha </th>
+            <td mat-cell class="text-center" *matCellDef="let element"> {{element.fecha}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      </div>
+</div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button *ngIf="data.sentencia=='borrar'" mat-button [mat-dialog-close]="data" color="warn" cdkFocusInitial>Ok</button>
-  <button *ngIf="data.sentencia!='borrar'" mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial>Ok</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button *ngIf="data.sentencia=='borrar'" mat-button [mat-dialog-close]="data" color="warn" cdkFocusInitial>Aceptar</button>
+  <button *ngIf="data.sentencia!='borrar'" mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial>Aceptar</button>
 </div>

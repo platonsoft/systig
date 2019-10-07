@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
+import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import { Historial, PRODUCTOS_HISTORIAL_DATA } from 'src/app/objetos/Objetos';
 
 @Component({
   selector: 'stg-productos-dlg-edit',
@@ -14,30 +14,43 @@ export class ProductosDlgEditComponent implements OnInit {
   myGroup: FormGroup;
   matcher = new MyErrorStateMatcher();
 
+  displayedColumns: string[] = ['descripcion', 'accion', 'fecha'];
+  dataSourceHistorico = new MatTableDataSource<Historial>(PRODUCTOS_HISTORIAL_DATA);
+
   constructor(public dialogRef: MatDialogRef<ProductosDlgEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private fb: FormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.myGroup = new FormGroup({
-      emailInstitucionFormControl: new FormControl('', [
+      nombreFormControl: new FormControl('', [
         Validators.required,
-        Validators.email,
       ]),
-      tituloFormControl: new FormControl('', [
+      cantidadMinimaFormControl: new FormControl('', [
         Validators.required
       ]),
       descripcionFormControl: new FormControl('', [
         Validators.required
       ]),
-      institucionFormControl: new FormControl('', [
+      cantidadExistenteFormControl: new FormControl('', [
         Validators.required
       ]),
-      telefonoInstitucionFormControl: new FormControl('', [
+      descuentoFormControl: new FormControl('', [
         Validators.required
       ]),
-      fechaInicioFormControl: new FormControl('', [
+      impuestoFormControl: new FormControl('', [
         Validators.required
       ]),
-      fechaFinalFormControl: new FormControl('', [
+      categoriaFormControl: new FormControl('', [
+        Validators.required
+      ]),
+      almacenFormControl: new FormControl('', [
+        Validators.required
+      ]),
+      proveedorFormControl: new FormControl('', [
+        Validators.required
+      ]),
+      unidadFormControl: new FormControl('', [
+        Validators.required
+      ]),
+      montoFormControl: new FormControl('', [
         Validators.required
       ]),
       isCursoControl: new FormControl('', []),
@@ -61,7 +74,7 @@ export class ProductosDlgEditComponent implements OnInit {
           return;
       }
 
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.myGroup.value))
+      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.myGroup.value));
   }
 
 }

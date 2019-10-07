@@ -17,8 +17,8 @@ export class StgClientesComponent implements OnInit {
   ngOnInit() {
   }
 
-  openDialogEditFormacion(itemSelect: FormacionItem, tipoSentencia: string): void {
-    const dialogRef = this.dialog.open(ProfileDlgEditComponent, {
+  openDialogEditCliente(itemSelect: FormacionItem, tipoSentencia: string): void {
+    const dialogRef = this.dialog.open(StgClientesComponent, {
       width: '80wh',
       data: {item: itemSelect != null ? itemSelect : new FormacionItem(), sentencia: tipoSentencia}
     });
@@ -41,7 +41,7 @@ export class StgClientesComponent implements OnInit {
 }
 
 openDialogEditExperiencia(itemSelect: ExperienciAItem, tipoSentencia: string): void {
-  const dialogRef = this.dialog.open(ProfileDlgEditComponent, {
+  const dialogRef = this.dialog.open(StgClientesComponent, {
     width: '80wh',
     data: {item: itemSelect != null ? itemSelect : new ExperienciAItem(), sentencia: tipoSentencia}
   });

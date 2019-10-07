@@ -6,10 +6,10 @@
             <div class="card-header card-header-primary">
               <h4 class="card-title">Manejador de clientes</h4>
               <div class="card-category text-right">
-                  <button mat-icon-button aria-label="Agregar nuevo" (click)="openDialogEditFormacion(null,'nuevo')">
+                  <button mat-icon-button aria-label="Agregar nuevo" (click)="openDialogEditCliente(null,'nuevo')">
                       <mat-icon>add</mat-icon>
                   </button>
-                  <button mat-icon-button aria-label="Importar/Exportar" (click)="openDialogEditFormacion(element,'borrar')">
+                  <button mat-icon-button aria-label="Importar/Exportar" (click)="openDialogEditCliente(element,'borrar')">
                     <mat-icon>swap_vert</mat-icon>
                   </button>
               </div>
@@ -23,16 +23,16 @@
 
                     </th>
                     <td mat-cell class="text-right" *matCellDef="let element">
-                      <button mat-icon-button aria-label="Ver" (click)="openDialogEditFormacion(element,'editar')">
+                      <button mat-icon-button aria-label="Ver" (click)="openDialogEditCliente(element,'editar')">
                           <mat-icon>launch</mat-icon>
                       </button>
-                      <button mat-icon-button aria-label="Editar" (click)="openDialogEditFormacion(element,'editar')">
+                      <button mat-icon-button aria-label="Editar" (click)="openDialogEditCliente(element,'editar')">
                         <mat-icon>create</mat-icon>
                       </button>
-                      <button mat-icon-button aria-label="Borrar" (click)="openDialogEditFormacion(element,'borrar')">
+                      <button mat-icon-button aria-label="Borrar" (click)="openDialogEditCliente(element,'borrar')">
                         <mat-icon>delete</mat-icon>
                       </button>
-                      <button mat-icon-button aria-label="Historia" (click)="openDialogEditFormacion(element,'editar')">
+                      <button mat-icon-button aria-label="Historia" (click)="openDialogEditCliente(element,'editar')">
                           <mat-icon>history</mat-icon>
                       </button>
                     </td>

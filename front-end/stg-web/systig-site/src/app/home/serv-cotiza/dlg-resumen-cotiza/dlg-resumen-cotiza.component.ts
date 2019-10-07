@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/models/MyErrorStateMatcher';
 import { DesconectadosService } from 'src/app/shared/desconectados';
-import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'stg-dlg-resumen-cotiza',
