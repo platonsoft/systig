@@ -17,37 +17,25 @@ public class JwtUtil {
 
         String token = Jwts.builder()
                 .setSubject(username)
-
-                // Vamos a asignar un tiempo de expiracion de 1 minuto
-                .setExpiration(new Date(System.currentTimeMillis()+60000))
-
-                // Hash con el que firmaremos la clave
+                .setExpiration(new Date(System.currentTimeMillis()+180000))
                 .signWith(SignatureAlgorithm.HS512, "Pl@tonSoft")
                 .compact();
 
-        //agregamos al encabezado el token
-        res.addHeader("authorization", "Bearer " + token);
-        res.setHeader("expires", (new Date(System.currentTimeMillis()+60000)).toString());
+        res.addHeader("Authorization", "STG" + token);
+        res.setHeader("expires", (new Date(System.currentTimeMillis()+180000)).toString());
     }
 
     // Método para validar el token enviado por el cliente
     static Authentication getAuthentication(HttpServletRequest request) {
-
-        // Obtenemos el token que viene en el encabezado de la peticion
-        String token = request.getHeader("authorization");
-
-        // si hay un token presente, entonces lo validamos
+        String token = request.getHeader("Authorization");
 
         if (token != null) {
             String user = Jwts.parser()
                     .setSigningKey("Pl@tonSoft")
-                    .parseClaimsJws(token.replace("Bearer", "")) //este metodo es el que valida
+                    .parseClaimsJws(token.replace("STG", ""))
                     .getBody()
                     .getSubject();
 
-            // Recordamos que para las demás peticiones que no sean /login
-            // no requerimos una autenticacion por username/password
-            // por este motivo podemos devolver un UsernamePasswordAuthenticationToken sin password
             return user != null ?
                     new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
                     null;

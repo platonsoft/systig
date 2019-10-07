@@ -1,5 +1,8 @@
 package com.systig.systigmaster.inventario.modelos;
 
+import lombok.Data;
+
+@Data
 public class Proveedor {
     private Long id;
     private Long tipo_doc;

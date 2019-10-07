@@ -1,5 +1,8 @@
 package com.systig.systigmaster.inventario.modelos;
 
+import lombok.Data;
+
+@Data
 public class Historial {
     private Long id;
     private String accion;

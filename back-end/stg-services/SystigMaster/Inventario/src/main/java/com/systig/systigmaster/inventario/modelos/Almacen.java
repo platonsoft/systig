@@ -1,5 +1,8 @@
 package com.systig.systigmaster.inventario.modelos;
 
+import lombok.Data;
+
+@Data
 public class Almacen {
     private Long id;
     private String nombre;

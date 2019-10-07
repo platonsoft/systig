@@ -21,24 +21,18 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new AutenticacionFiltro("/api/login", authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
-
-                // Las demás peticiones pasarán por este filtro para validar el token
-                .addFilterBefore(new AutorizacionFiltro(),
-                        UsernamePasswordAuthenticationFilter.class);
-
-
+                .addFilterBefore(new AutenticacionFiltro("/api/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AutorizacionFiltro(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Creamos una cuenta de usuario por default
         auth.userDetailsService(userDetailsServiceBean());
     }
 
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
+        System.out.println("Entramos a Credenciales");
         UserDetails user =
                 User.withDefaultPasswordEncoder()
                         .username("jesus")

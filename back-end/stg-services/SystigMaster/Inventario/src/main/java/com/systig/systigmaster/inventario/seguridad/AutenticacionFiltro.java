@@ -1,11 +1,11 @@
 package com.systig.systigmaster.inventario.seguridad;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.catalina.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -26,16 +26,10 @@ public class AutenticacionFiltro extends AbstractAuthenticationProcessingFilter 
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
-        // obtenemos el body de la peticion que asumimos viene en formato JSON
         InputStream body = httpServletRequest.getInputStream();
 
-        // Asumimos que el body tendrá el siguiente JSON  {"username":"ask", "password":"123"}
-        // Realizamos un mapeo a nuestra clase User para tener ahi los datos
         User user = new ObjectMapper().readValue(body, User.class);
 
-        // Finalmente autenticamos
-        // Spring comparará el user/password recibidos
-        // contra el que definimos en la clase SecurityConfig
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
