@@ -3,10 +3,10 @@ package com.systig.systigmaster.inventario.modelos;
 import lombok.Data;
 
 @Data
-public class Historial {
+public class Historia {
     private Long id;
-    private String accion;
-    private Long idProducto;
+    private String elemento;
     private String descripcion;
+    private String operacion;
     private Long fecha;
 }

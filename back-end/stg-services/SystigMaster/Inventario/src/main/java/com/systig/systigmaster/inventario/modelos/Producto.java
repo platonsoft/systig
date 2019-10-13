@@ -3,7 +3,6 @@ package com.systig.systigmaster.inventario.modelos;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 public class Producto {
@@ -15,11 +14,12 @@ public class Producto {
     private BigDecimal impuesto;
     private BigDecimal descuento;
     private BigDecimal cantidadMinima;
+    private BigDecimal cantidadOptima;
     private BigDecimal cantidadExistencia;
     private BigDecimal monto;
     private Categoria categoria;
     private Almacen almacen;
     private Proveedor proveedor;
+    private Propietario propietario;
     private Boolean disponible;
-    private List<Historial> historial;
 }
