@@ -2,9 +2,15 @@ package com.systig.systigmaster.inventario.modelos;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "STG_INV_PROVEEDORES")
 public class Proveedor {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idProveedor;
     private Long tipoDocumento;
     private String numeroDocumento;
     private String razonSocial;

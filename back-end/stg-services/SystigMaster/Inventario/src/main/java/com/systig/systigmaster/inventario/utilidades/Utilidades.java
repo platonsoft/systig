@@ -1,15 +1,21 @@
 package com.systig.systigmaster.inventario.utilidades;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.inventario.modelos.UsuarioActivo;
+import com.systig.systigmaster.inventario.modelos.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Utilidades {
 
-    public static String retornoToken(UsuarioActivo usuario){
+    public static String retornoToken(Usuario usuario){
         return Jwts.builder()
                 .setSubject((new Gson()).toJson(usuario))
                 .setExpiration(new Date(System.currentTimeMillis()+60000))
@@ -17,49 +23,32 @@ public class Utilidades {
                 .compact();
     }
 
-    public static UsuarioActivo retornoUsuario(String token){
-
+    public static Usuario retornoUsuario(String token){
         String userJson = Jwts.parser()
                 .setSigningKey("Pl@tonSoft")
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        return (new Gson()).fromJson(userJson,UsuarioActivo.class);
+        return (new Gson()).fromJson(userJson,Usuario.class);
+    }
+
+    public static Usuario statusSession(HttpHeaders headers, HttpSession session){
+        try{
+            String token =  String.valueOf(headers.get("TokenSystig")).replace("[","").replace("]","");
+            Usuario usuarioActivo = Utilidades.retornoUsuario(token);
+            if(usuarioActivo.getSessionId().equals(session.getId())){
+                return usuarioActivo;
+            }
+            return null;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static class QUERIES_ORACLE{
         public enum QUERY{
             PRODUCTO_SYSTIG_CODIGO(100),
-
-            SQL_LISTA_PRODUCTOS("SELECT * FROM STG_FACT_PRODUCTOS p WHERE p.CLIENTE_ID=?"),
-            SQL_PRODUCTOS("SELECT * FROM STG_FACT_PRODUCTOS WHERE ID=?"),
-            SQL_AGREGAR_PRODUCTOS("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_ACTUALIZAR_PRODUCTOS("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_BORRAR_PRODUCTOS("DELETE FROM STG_FACT_PRODUCTOS WHERE ID = ?"),
-
-            SQL_LISTA_CATEGORIAS("SELECT * FROM STG_FACT_CATEGORIAS WHERE USERNAME=?"),
-            SQL_CATEGORIA("SELECT * FROM STG_FACT_CATEGORIAS WHERE ID=?"),
-            SQL_AGREGAR_CATEGORIAS("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_ACTUALIZAR_CATEGORIAS("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_BORRAR_CATEGORIAS("DELETE FROM STG_FACT_CATEGORIAS WHERE ID = ?"),
-
-            SQL_LISTA_ALMACEN("SELECT * FROM STG_FACT_ALMACEN a WHERE a.USERNAME=?"),
-            SQL_ALMACEN("SELECT * FROM STG_FACT_ALMACEN a WHERE a.ID=?"),
-            SQL_AGREGAR_ALMACEN("INSERT INTO STG_FACT_ALMACEN(ID,NOMBRE,DESCRIPCION,TIPO,UBICACION,USERNAME) VALUES (?,?,?,?,?,?)"),
-            SQL_ACTUALIZAR_ALMACEN("UPDATE STG_FACT_ALMACEN SET NOMBRE = ?, DESCRIPCION = ?, TIPO = ?, UBICACION = ?, USERNAME = ? WHERE ID = ?"),
-            SQL_BORRAR_ALMACEN("DELETE FROM STG_FACT_ALMACEN WHERE ID = ?"),
-
-            SQL_LISTA_PROVEEDOR("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_PROVEEDOR("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_AGREGAR_PROVEEDOR("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_ACTUALIZAR_PROVEEDOR("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_BORRAR_PROVEEDOR("DELETE FROM STG_FACT_ALMACEN WHERE ID = ?"),
-
-            SQL_PROPIETARIO("SELECT * FROM STG_FACT_CATEGORIAS"),
-
-            SQL_LISTA_HISTORIAL("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_HISTORIAL("SELECT * FROM STG_FACT_CATEGORIAS"),
-            SQL_AGREGAR_HISTORIAL("SELECT * FROM STG_FACT_CATEGORIAS"),
 
             SQL_USUARIO("SELECT USERNAME, PASSWORD, ENABLED FROM STG_USUARIOS WHERE USERNAME = ?"),
             SQL_USUARIO_ROLE("SELECT USERNAME, ROLE FROM STG_USUARIOS_ROLES WHERE USERNAME = ?"),

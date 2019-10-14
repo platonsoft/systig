@@ -1,4 +1,4 @@
-package com.systig.systigmaster.inventario.modelos;
+package com.systig.systigmaster.clientes.modelos;
 
 import lombok.Data;
 

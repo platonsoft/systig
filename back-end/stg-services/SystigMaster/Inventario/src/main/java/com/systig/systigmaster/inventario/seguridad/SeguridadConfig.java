@@ -1,7 +1,5 @@
 package com.systig.systigmaster.inventario.seguridad;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.systig.systigmaster.inventario.modelos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,13 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-
-import java.io.InputStream;
 
 import static com.systig.systigmaster.inventario.utilidades.Utilidades.QUERIES_ORACLE.QUERY.SQL_USUARIO;
 import static com.systig.systigmaster.inventario.utilidades.Utilidades.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
@@ -32,7 +25,7 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/*").hasRole("CLIENTE")
+                .antMatchers("/api/inv*").hasRole("CLIENTE")
                 //.antMatchers("/api/administrador/*").hasRole("ADMINISTRADOR")
                 .anyRequest().authenticated()
                 .and()

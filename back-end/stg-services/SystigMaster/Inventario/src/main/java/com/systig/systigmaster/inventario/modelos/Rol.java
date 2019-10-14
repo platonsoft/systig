@@ -6,14 +6,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "STG_INV_CATEGORIAS")
-public class Categoria {
-
+@Table(name = "STG_USUARIOS_ROLES")
+public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idCategoria;
-    private String nombre;
-    private String descripcion;
-    private Long idPadre;
+    private Long idRol;
     private String username;
+    private String role;
+    private String descripcion;
 }

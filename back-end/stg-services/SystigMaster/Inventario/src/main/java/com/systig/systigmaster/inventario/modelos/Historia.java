@@ -2,9 +2,15 @@ package com.systig.systigmaster.inventario.modelos;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
+@Entity
+@Table(name = "STG_INV_HISTORIAL")
 public class Historia {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idHistoria;
     private String elemento;
     private String descripcion;
     private String operacion;

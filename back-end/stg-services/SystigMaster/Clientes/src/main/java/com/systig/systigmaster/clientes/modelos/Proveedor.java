@@ -1,4 +1,4 @@
-package com.systig.systigmaster.inventario.modelos;
+package com.systig.systigmaster.clientes.modelos;
 
 import lombok.Data;
 
@@ -6,23 +6,20 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "STG_INV_PROPIETARIOS")
-public class Propietario {
+@Table(name = "STG_INV_PROVEEDORES")
+public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idPropietario;
-    private Integer tipo;
-    private String tipoIdentificacion;
-    private String nroIdentificacion;
-    private String nombres;
-    private String apellidos;
+    private Long idProveedor;
+    private Long tipoDocumento;
+    private String numeroDocumento;
     private String razonSocial;
     private String telefonoLocal;
     private String telefonoMovil;
     private String email;
+    private String web;
     private String direccionFiscal;
     private String codigoPostal;
     private String provincia;
     private String pais;
-
 }
