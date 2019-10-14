@@ -26,6 +26,7 @@ public class Comprador {
     private String ciudad;
     private String provincia;
     private String pais;
+    private String username;
     @JoinColumn(name = "id_etapa", referencedColumnName = "idEtapa", nullable = false)
     @OneToOne()
     private Etapa etapa;
