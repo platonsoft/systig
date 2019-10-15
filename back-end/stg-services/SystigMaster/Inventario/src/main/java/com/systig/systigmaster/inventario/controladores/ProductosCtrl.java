@@ -1,6 +1,6 @@
 package com.systig.systigmaster.inventario.controladores;
 
-import com.systig.systigmaster.inventario.modelos.Producto;
+import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
 import com.systig.systigmaster.inventario.servicios.interfaces.IProductosServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.systig.systigmaster.inventario.seguridad;
+package com.systig.systigmaster.proveedores.seguridad;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
-import static com.systig.systigmaster.inventario.repositorios.interfaces.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO;
-import static com.systig.systigmaster.inventario.repositorios.interfaces.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
+import static com.systig.systigmaster.proveedores.utilidades.Utilidades.QUERIES_ORACLE.QUERY.SQL_USUARIO;
+import static com.systig.systigmaster.proveedores.utilidades.Utilidades.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +33,7 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .and();
-                //.addFilterAfter(new TokenFiltro(), BasicAuthenticationFilter.class);
+        //.addFilterAfter(new TokenFiltro(), BasicAuthenticationFilter.class);
     }
 
     @Override

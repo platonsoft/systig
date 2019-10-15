@@ -1,54 +1,50 @@
-package com.systig.systigmaster.inventario.repositorios.interfaces;
+package com.systig.systigmaster.proveedores.utilidades;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.inventario.repositorios.modelos.Usuario;
+import com.systig.systigmaster.proveedores.repositorios.modelos.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-@Repository
-public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
-    Usuario getByUsernameEquals(String username);
+public class Utilidades {
 
-    default String retornoToken(Usuario usuario){
+    public static String retornoToken(Usuario usuario) {
         return Jwts.builder()
                 .setSubject((new Gson()).toJson(usuario))
-                .setExpiration(new Date(System.currentTimeMillis()+60000))
+                .setExpiration(new Date(System.currentTimeMillis() + 60000))
                 .signWith(SignatureAlgorithm.HS512, "Pl@tonSoft")
                 .compact();
     }
 
-    default Usuario retornoUsuario(String token){
+    public static Usuario retornoUsuario(String token) {
         String userJson = Jwts.parser()
                 .setSigningKey("Pl@tonSoft")
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        return (new Gson()).fromJson(userJson,Usuario.class);
+        return (new Gson()).fromJson(userJson, Usuario.class);
     }
 
-    default Usuario statusSession(HttpHeaders headers, HttpSession session){
-        try{
-            String token =  String.valueOf(headers.get("TokenSystig")).replace("[","").replace("]","");
-            Usuario usuarioActivo = retornoUsuario(token);
-            if(usuarioActivo.getSessionId().equals(session.getId())){
+    public static Usuario statusSession(HttpHeaders headers, HttpSession session) {
+        try {
+            String token = String.valueOf(headers.get("TokenSystig")).replace("[", "").replace("]", "");
+            Usuario usuarioActivo = Utilidades.retornoUsuario(token);
+            if (usuarioActivo.getSessionId().equals(session.getId())) {
                 return usuarioActivo;
             }
             return null;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    class QUERIES_ORACLE{
-        public enum QUERY{
-            PRODUCTO_SYSTIG_CODIGO(100),
+    public static class QUERIES_ORACLE {
+        public enum QUERY {
+            PRODUCTO_SYSTIG_CODIGO(101),
 
             SQL_USUARIO("SELECT USERNAME, PASSWORD, ENABLED FROM STG_USUARIOS WHERE USERNAME = ?"),
             SQL_USUARIO_ROLE("SELECT USERNAME, ROLE FROM STG_USUARIOS_ROLES WHERE USERNAME = ?"),
@@ -57,16 +53,18 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
             String retornoValor;
             Integer retornoValorEntero;
 
-            QUERY(String cadenaSQL){
+            QUERY(String cadenaSQL) {
                 this.retornoValor = cadenaSQL;
             }
-            QUERY(Integer cadenaSQL){
+
+            QUERY(Integer cadenaSQL) {
                 this.retornoValorEntero = cadenaSQL;
             }
 
             public String getSQL() {
                 return this.retornoValor;
             }
+
             public Integer getNumeros() {
                 return this.retornoValorEntero;
             }

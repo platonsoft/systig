@@ -1,21 +1,17 @@
-package com.systig.systigmaster.inventario.repositorios.interfaces;
+package com.systig.systigmaster.contable.utilidades;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.inventario.repositorios.modelos.Usuario;
+import com.systig.systigmaster.contable.modelos.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-@Repository
-public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
-    Usuario getByUsernameEquals(String username);
+public class Utilidades {
 
-    default String retornoToken(Usuario usuario){
+    public static String retornoToken(Usuario usuario){
         return Jwts.builder()
                 .setSubject((new Gson()).toJson(usuario))
                 .setExpiration(new Date(System.currentTimeMillis()+60000))
@@ -23,7 +19,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
                 .compact();
     }
 
-    default Usuario retornoUsuario(String token){
+    public static Usuario retornoUsuario(String token){
         String userJson = Jwts.parser()
                 .setSigningKey("Pl@tonSoft")
                 .parseClaimsJws(token)
@@ -32,10 +28,10 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
         return (new Gson()).fromJson(userJson,Usuario.class);
     }
 
-    default Usuario statusSession(HttpHeaders headers, HttpSession session){
+    public static Usuario statusSession(HttpHeaders headers, HttpSession session){
         try{
             String token =  String.valueOf(headers.get("TokenSystig")).replace("[","").replace("]","");
-            Usuario usuarioActivo = retornoUsuario(token);
+            Usuario usuarioActivo = Utilidades.retornoUsuario(token);
             if(usuarioActivo.getSessionId().equals(session.getId())){
                 return usuarioActivo;
             }
@@ -46,7 +42,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
         }
     }
 
-    class QUERIES_ORACLE{
+    public static class QUERIES_ORACLE{
         public enum QUERY{
             PRODUCTO_SYSTIG_CODIGO(100),
 

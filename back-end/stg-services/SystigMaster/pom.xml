@@ -18,8 +18,7 @@
         <module>Clientes</module>
         <module>Inventario</module>
         <module>Contable</module>
-        <module>Facturacion</module>
-        <module>Repositorios</module>
+        <module>Proveedores</module>
     </modules>
 
     <properties>
