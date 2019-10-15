@@ -19,6 +19,7 @@
         <module>Inventario</module>
         <module>Contable</module>
         <module>Facturacion</module>
+        <module>Repositorios</module>
     </modules>
 
     <properties>
