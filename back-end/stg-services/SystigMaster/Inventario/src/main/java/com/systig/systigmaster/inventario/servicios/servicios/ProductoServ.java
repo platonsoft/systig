@@ -20,20 +20,14 @@ import java.util.List;
 public class ProductoServ implements IProductosServ {
 
     private final IProductoDao iProductoDao;
-    private final IAlmacenDao iAlmacenDao;
-    private final ICategoriaDao iCategoriaDao;
+    private final IItemProductoDao iItemProductoDao;
     private final IHistoriaDao iHistoriaDao;
-    private final IPropietarioDao iPropietarioDao;
-    private final IProveedorDao iProveedorDao;
     private final IUsuarioDao iUsuarioDao;
 
-    public ProductoServ(IProductoDao iProductoDao, IAlmacenDao iAlmacenDao, ICategoriaDao iCategoriaDao, IHistoriaDao iHistoriaDao, IPropietarioDao iPropietarioDao, IProveedorDao iProveedorDao, IUsuarioDao iUsuarioDao) {
+    public ProductoServ(IProductoDao iProductoDao, IItemProductoDao iItemProductoDao, IHistoriaDao iHistoriaDao, IUsuarioDao iUsuarioDao) {
         this.iProductoDao = iProductoDao;
-        this.iAlmacenDao = iAlmacenDao;
-        this.iCategoriaDao = iCategoriaDao;
+        this.iItemProductoDao = iItemProductoDao;
         this.iHistoriaDao = iHistoriaDao;
-        this.iPropietarioDao = iPropietarioDao;
-        this.iProveedorDao = iProveedorDao;
         this.iUsuarioDao = iUsuarioDao;
     }
 
@@ -53,11 +47,26 @@ public class ProductoServ implements IProductosServ {
     }
 
     @Override
-    public ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session) {
+    public ResponseEntity<?> getListadoProductos(HttpHeaders headers, HttpSession session) {
         try{
             Usuario usuario = iUsuarioDao.statusSession(headers,session);
             if(usuario!=null){
                 return new ResponseEntity<List>(this.iProductoDao.findAllByPropietarioIdPropietario(usuario.getPropietario().getIdPropietario()), HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
+        try{
+            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            if(usuario!=null){
+                return new ResponseEntity<List>(
+                        this.iItemProductoDao.findAllByIdDocumentoEquals(idDocumento), HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
@@ -81,7 +90,7 @@ public class ProductoServ implements IProductosServ {
     }
 
     @Override
-    public ResponseEntity<?> nuevoProducto(HttpHeaders headers, HttpSession session, Producto producto) {
+    public ResponseEntity<?> addProducto(HttpHeaders headers, HttpSession session, Producto producto) {
         try{
             Usuario usuario = iUsuarioDao.statusSession(headers,session);
             if(usuario!=null){
@@ -96,7 +105,7 @@ public class ProductoServ implements IProductosServ {
     }
 
     @Override
-    public ResponseEntity<?> actualizarProducto(HttpHeaders headers, HttpSession session, Producto producto) {
+    public ResponseEntity<?> setProducto(HttpHeaders headers, HttpSession session, Producto producto) {
         try{
             Usuario usuario = iUsuarioDao.statusSession(headers,session);
             if(usuario!=null){
@@ -111,7 +120,7 @@ public class ProductoServ implements IProductosServ {
     }
 
     @Override
-    public ResponseEntity<?> borrarProducto(HttpHeaders headers, HttpSession session, Long idProducto) {
+    public ResponseEntity<?> delProducto(HttpHeaders headers, HttpSession session, Long idProducto) {
         try{
             Usuario usuario = iUsuarioDao.statusSession(headers,session);
             if(usuario!=null){

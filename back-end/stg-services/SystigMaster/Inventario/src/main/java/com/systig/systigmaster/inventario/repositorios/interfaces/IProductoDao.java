@@ -10,4 +10,5 @@ import java.util.List;
 public interface IProductoDao extends JpaRepository<Producto, Long> {
     List<Producto> findAllByPropietarioIdPropietario(Long idPropietario);
     List<Producto> findAllByIdProduto(Long idProducto);
+
 }

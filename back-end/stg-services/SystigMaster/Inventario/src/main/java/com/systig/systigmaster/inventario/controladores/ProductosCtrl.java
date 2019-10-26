@@ -33,7 +33,12 @@ public class ProductosCtrl {
 
     @GetMapping("/api/inv/productos")
     public ResponseEntity<?> getListaProductos(@RequestHeader HttpHeaders headers, HttpSession session) {
-        return this.productosServ.getListadoLigero(headers,session);
+        return this.productosServ.getListadoProductos(headers,session);
+    }
+
+    @GetMapping("/api/inv/productos/documento/{id_documento}")
+    public ResponseEntity<?> getListaProductosDocumento(@RequestHeader HttpHeaders headers, HttpSession session, @PathVariable Long id_documento) {
+        return this.productosServ.getListadoProductosDocumento(headers,session,id_documento);
     }
 
     @GetMapping("/api/inv/producto/{id_producto}")
@@ -45,19 +50,19 @@ public class ProductosCtrl {
     @PostMapping("/api/inv/producto")
     public ResponseEntity<?> agregarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
                                                 @RequestBody Producto producto) {
-        return this.productosServ.nuevoProducto(headers,session,producto);
+        return this.productosServ.addProducto(headers,session,producto);
     }
 
     @PutMapping("/api/inv/producto")
     public ResponseEntity<?> actualizarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
                                                   @RequestBody Producto producto) {
-        return this.productosServ.actualizarProducto(headers,session,producto);
+        return this.productosServ.setProducto(headers,session,producto);
     }
 
     @DeleteMapping("/api/inv/producto/{id_producto}")
     public ResponseEntity<?> borrarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
                                                      @PathVariable Long id_producto) {
-        return this.productosServ.borrarProducto(headers,session,id_producto);
+        return this.productosServ.delProducto(headers,session,id_producto);
     }
 
     @GetMapping("/api/inv/producto/historia/{id_producto}")

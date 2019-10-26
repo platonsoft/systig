@@ -1,17 +1,21 @@
-package com.systig.systigmaster.contable.utilidades;
+package com.systig.systigmaster.contable.repositorios.interfaces;
 
 import com.google.gson.Gson;
 import com.systig.systigmaster.contable.repositorios.modelos.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
-public class Utilidades {
+@Repository
+public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
+    Usuario getByUsernameEquals(String username);
 
-    public static String retornoToken(Usuario usuario){
+    default String retornoToken(Usuario usuario){
         return Jwts.builder()
                 .setSubject((new Gson()).toJson(usuario))
                 .setExpiration(new Date(System.currentTimeMillis()+60000))
@@ -19,7 +23,7 @@ public class Utilidades {
                 .compact();
     }
 
-    public static Usuario retornoUsuario(String token){
+    default Usuario retornoUsuario(String token){
         String userJson = Jwts.parser()
                 .setSigningKey("Pl@tonSoft")
                 .parseClaimsJws(token)
@@ -28,10 +32,10 @@ public class Utilidades {
         return (new Gson()).fromJson(userJson,Usuario.class);
     }
 
-    public static Usuario statusSession(HttpHeaders headers, HttpSession session){
+    default Usuario statusSession(HttpHeaders headers, HttpSession session){
         try{
             String token =  String.valueOf(headers.get("TokenSystig")).replace("[","").replace("]","");
-            Usuario usuarioActivo = Utilidades.retornoUsuario(token);
+            Usuario usuarioActivo = retornoUsuario(token);
             if(usuarioActivo.getSessionId().equals(session.getId())){
                 return usuarioActivo;
             }
@@ -42,7 +46,7 @@ public class Utilidades {
         }
     }
 
-    public static class QUERIES_ORACLE{
+    class QUERIES_ORACLE{
         public enum QUERY{
             PRODUCTO_SYSTIG_CODIGO(100),
 

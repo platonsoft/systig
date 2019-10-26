@@ -41,6 +41,13 @@ public class CompradorCtrl {
         return this.compradorServ.getComprador(headers, session, id_cliente);
     }
 
+    @GetMapping("/api/crm/cliente/{campo_filtro}/{numero_identificacion}")
+    public ResponseEntity<?> getCliente(@RequestHeader HttpHeaders headers, HttpSession session,
+                                        @PathVariable String campo_filtro,
+                                        @PathVariable String numero_identificacion) {
+        return this.compradorServ.getComprador(headers, session, campo_filtro, numero_identificacion);
+    }
+
     @PostMapping("/api/crm/cliente")
     public ResponseEntity<?> agregarCliente(@RequestHeader HttpHeaders headers, HttpSession session,
                                             @RequestBody Comprador comprador) {

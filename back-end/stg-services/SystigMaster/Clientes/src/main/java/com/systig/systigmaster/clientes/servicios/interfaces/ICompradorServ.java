@@ -15,6 +15,8 @@ public interface ICompradorServ {
 
     ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, Long idComprador);
 
+    ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, String campoFiltro, String numeroIdentificacion);
+
     ResponseEntity<?> nuevoComprador(HttpHeaders headers, HttpSession session, Comprador comprador);
 
     ResponseEntity<?> actualizarComprador(HttpHeaders headers, HttpSession session, Comprador comprador);

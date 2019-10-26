@@ -11,11 +11,12 @@ import java.security.Principal;
 public interface IProductosServ {
 
     ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
-    ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session);
+    ResponseEntity<?> getListadoProductos(HttpHeaders headers, HttpSession session);
+    ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
     ResponseEntity<?> getProducto(HttpHeaders headers, HttpSession session, Long idProducto);
-    ResponseEntity<?> nuevoProducto(HttpHeaders headers, HttpSession session, Producto producto);
-    ResponseEntity<?> actualizarProducto(HttpHeaders headers, HttpSession session, Producto producto);
-    ResponseEntity<?> borrarProducto(HttpHeaders headers, HttpSession session, Long idProducto);
+    ResponseEntity<?> addProducto(HttpHeaders headers, HttpSession session, Producto producto);
+    ResponseEntity<?> setProducto(HttpHeaders headers, HttpSession session, Producto producto);
+    ResponseEntity<?> delProducto(HttpHeaders headers, HttpSession session, Long idProducto);
     ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, HttpSession session, Long idProducto);
 
 }

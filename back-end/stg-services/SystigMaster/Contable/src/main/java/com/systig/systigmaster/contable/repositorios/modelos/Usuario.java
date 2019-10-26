@@ -1,4 +1,4 @@
-package com.systig.systigmaster.contable.modelos;
+package com.systig.systigmaster.contable.repositorios.modelos;
 
 import lombok.Data;
 

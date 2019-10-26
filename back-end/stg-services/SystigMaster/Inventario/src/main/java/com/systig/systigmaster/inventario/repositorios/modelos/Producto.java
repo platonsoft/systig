@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +23,7 @@ public class Producto {
     private BigDecimal cantidadOptima;
     private BigDecimal cantidadExistencia;
     private BigDecimal monto;
+    private String modelo;
     @JoinColumn(name = "id_categoria", referencedColumnName = "idCategoria", nullable = false)
     @ManyToOne()
     private Categoria categoria;
@@ -35,4 +37,7 @@ public class Producto {
     @ManyToOne()
     private Propietario propietario;
     private Boolean disponible;
+
+    @OneToMany( targetEntity=ItemProducto.class )
+    private List itemsProductos;
 }

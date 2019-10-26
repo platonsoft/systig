@@ -9,4 +9,5 @@ public interface ICompradorDao extends JpaRepository<Comprador, Long> {
     List<Comprador> findAllByUsernameEquals(String username);
 
     Comprador getByIdCompradorEquals(Long id_comprador);
+    Comprador getByNumeroIdentificacionContains(String numeroIdentificacion);
 }

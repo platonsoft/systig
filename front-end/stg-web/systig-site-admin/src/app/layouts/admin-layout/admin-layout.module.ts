@@ -60,7 +60,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatTableModule,
     MatDialogModule,
     MatIconModule,
-    ChartistModule
+    ChartistModule,
   ],
   declarations: [
     DashboardComponent,

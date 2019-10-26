@@ -9,10 +9,10 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/stg-admin', title: 'Principal',  icon: 'dashboard', class: '' },
-    { path: '/productos', title: 'Mis productos',  icon: 'list_alt', class: '' },
     { path: '/contable', title: 'Contabilidad',  icon: 'assignment', class: '' },
-    { path: '/facturas', title: 'Facturacion',  icon: 'receipt', class: '' },
+    { path: '/productos', title: 'Inventario',  icon: 'list_alt', class: '' },
     { path: '/clientes', title: 'Clientes',  icon: 'people', class: '' },
+    { path: '/proveedores', title: 'Proveedores',  icon: 'people', class: '' },
 ];
 
 @Component({

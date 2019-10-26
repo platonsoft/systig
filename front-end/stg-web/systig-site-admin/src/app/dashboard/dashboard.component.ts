@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as Chartist from 'chartist';
 
 
 @Component({
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  public pieChartData: number[] = [21, 39, 10, 14, 16];
+
   constructor() {
   }
   ngOnInit() {}

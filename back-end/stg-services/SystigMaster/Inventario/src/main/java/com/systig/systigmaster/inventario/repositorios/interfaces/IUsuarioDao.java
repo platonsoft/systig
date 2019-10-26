@@ -48,7 +48,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
 
     class QUERIES_ORACLE{
         public enum QUERY{
-            PRODUCTO_SYSTIG_CODIGO(100),
+            PRODUCTO_SYSTIG_CODIGO(102),
 
             SQL_USUARIO("SELECT USERNAME, PASSWORD, ENABLED FROM STG_USUARIOS WHERE USERNAME = ?"),
             SQL_USUARIO_ROLE("SELECT USERNAME, ROLE FROM STG_USUARIOS_ROLES WHERE USERNAME = ?"),
