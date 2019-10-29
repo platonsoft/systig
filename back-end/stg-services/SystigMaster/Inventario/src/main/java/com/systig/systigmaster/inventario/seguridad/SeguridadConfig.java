@@ -1,13 +1,16 @@
 package com.systig.systigmaster.inventario.seguridad;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.SessionManagementFilter;
 
 import javax.sql.DataSource;
 
@@ -21,18 +24,26 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Bean
+    CorsFilter corsFilter() {
+        CorsFilter filter = new CorsFilter();
+        return filter;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.addFilterBefore(corsFilter(), SessionManagementFilter.class)
+                .csrf().disable()
+                .httpBasic()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/inv*").hasRole("CLIENTE")
+                //.antMatchers( HttpMethod.GET,"/api/inv**").hasRole("CLIENTE")
+                //.antMatchers( HttpMethod.POST,"/api/inv**").hasRole("CLIENTE")
                 //.antMatchers("/api/administrador/*").hasRole("ADMINISTRADOR")
                 .anyRequest().authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and()
-                .httpBasic()
-                .and();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 //.addFilterAfter(new TokenFiltro(), BasicAuthenticationFilter.class);
     }
 

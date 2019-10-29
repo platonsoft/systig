@@ -18,7 +18,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
     default String retornoToken(Usuario usuario){
         return Jwts.builder()
                 .setSubject((new Gson()).toJson(usuario))
-                .setExpiration(new Date(System.currentTimeMillis()+60000))
+                .setExpiration(new Date(System.currentTimeMillis()+600000))
                 .signWith(SignatureAlgorithm.HS512, "Pl@tonSoft")
                 .compact();
     }

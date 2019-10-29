@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Productos } from '../objetos/Objetos';
+import { Productos, ProductoItem, PRODUCTOS_DATA } from '../objetos/Objetos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +16,7 @@ const httpOptions = {
 })
 export class ProductosService {
 
-  listadoUrl = 'assets/config.json';
+  listadoUrl = 'http://localhost:8090/api/inv/productos';
   insertarUrl = 'assets/config.json';
   actualizarUrl = 'assets/config.json';
 
@@ -28,10 +28,14 @@ export class ProductosService {
     return this.http.get<Productos>(this.listadoUrl + '?codigo=' + codigo, httpOptions);
   }
 
-  getListaProductos(): Observable<Productos[]> {
+  getListaProductos(): Observable<ProductoItem[]> {
     const token = sessionStorage.getItem('tokenSystig');
     httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.get<Productos[]>(this.listadoUrl, httpOptions);
+    return this.http.get<ProductoItem[]>(this.listadoUrl, httpOptions);
+  }
+
+  getListaProductos2(): Observable<ProductoItem[]> {
+    return of(PRODUCTOS_DATA);
   }
 
   insertarProducto(producto: Productos): Observable<Productos> {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { PRODUCTOS_DATA, ProductoItem, ClienteItem } from '../objetos/Objetos';
+import { ProductoItem, ClienteItem } from '../objetos/Objetos';
 import { ProductosDlgEditComponent } from './productos-dlg-edit/productos-dlg-edit.component';
 import { ProductosDlgImpExpComponent } from './productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { ProductosService } from './productos.service';
@@ -12,11 +12,18 @@ import { ProductosService } from './productos.service';
 })
 export class StgProductosComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'codigo', 'descripcion', 'cantidad', 'edicion'];
-  dataSource = new MatTableDataSource<ProductoItem>(PRODUCTOS_DATA);
-  constructor(public dialog: MatDialog, public productosService: ProductosService) { }
+  displayedColumns: string[] = [ 'descripcion', 'cantidad', 'edicion'];
+  PRODUCTOS_DATA: ProductoItem[];
+  dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
+  constructor(public dialog: MatDialog, public productosService: ProductosService) {
+    this.productosService.getListaProductos().subscribe(lista =>{
+      this.PRODUCTOS_DATA = lista;
+      this.dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
+    });
+  }
 
   ngOnInit() {
+
   }
 
   openDialogEditProducto(itemSelect: ClienteItem, tipoSentencia: string): void {
@@ -28,15 +35,15 @@ export class StgProductosComponent implements OnInit {
       if (result) {
         if (result.sentencia === 'nuevo') {
           this.productosService.insertarProducto(result.item).subscribe(
-            producto => PRODUCTOS_DATA.push(result.item));
+            producto => this.PRODUCTOS_DATA.push(result.item));
           // PRODUCTOS_DATA.push(result.item);
-          this.dataSource = new MatTableDataSource<ProductoItem>(PRODUCTOS_DATA);
+          this.dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
         } else if (result.sentencia === 'borrar') {
           this.productosService.eliminarProducto(result.item.codigo).subscribe(
             resultado => {
-              PRODUCTOS_DATA.forEach(element => {
+              this.PRODUCTOS_DATA.forEach(element => {
                 if (element.id === itemSelect.id) {
-                  PRODUCTOS_DATA.splice(element.id, 1);
+                  this.PRODUCTOS_DATA.splice(element.id, 1);
                 }
               });
             });

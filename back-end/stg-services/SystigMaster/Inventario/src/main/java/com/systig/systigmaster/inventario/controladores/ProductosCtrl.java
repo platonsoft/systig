@@ -47,7 +47,7 @@ public class ProductosCtrl {
         return this.productosServ.getProducto(headers, session, id_producto);
     }
 
-    @PostMapping("/api/inv/producto")
+    @PostMapping(value = "/api/inv/producto")
     public ResponseEntity<?> agregarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
                                                 @RequestBody Producto producto) {
         return this.productosServ.addProducto(headers,session,producto);

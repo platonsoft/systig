@@ -1,10 +1,15 @@
 package com.systig.systigmaster.inventario.repositorios.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -12,7 +17,7 @@ import java.util.List;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idProduto;
+    private Long idProducto;
     private String codigo;
     private String nombre;
     private String descripcion;
@@ -38,6 +43,8 @@ public class Producto {
     private Propietario propietario;
     private Boolean disponible;
 
-    @OneToMany( targetEntity=ItemProducto.class )
-    private List itemsProductos;
+    @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<ItemProducto> itemsProductos;
+
 }
