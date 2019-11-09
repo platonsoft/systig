@@ -15,5 +15,5 @@ public class Almacen {
     private String descripcion;
     private String tipo;
     private String ubicacion;
-    private String username;
+    private Long idPropietario;
 }

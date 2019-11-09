@@ -1,11 +1,7 @@
 package com.systig.systigmaster.sesiones.controladores;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.systig.systigmaster.sesiones.repositorios.modelos.GeoIP;
 import com.systig.systigmaster.sesiones.repositorios.modelos.Propietario;
-import com.systig.systigmaster.sesiones.repositorios.modelos.Usuario;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionServ;
-import com.systig.systigmaster.sesiones.servicios.servicios.GeoIPLocationServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 import java.security.Principal;
-import java.util.Map;
 
 @RestController
+@CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
 public class SesionCtrl {
 
     private final ISesionServ sesionServ;
@@ -45,7 +41,7 @@ public class SesionCtrl {
     }
 
     @GetMapping("/api/test")
-    public ResponseEntity<?> test(@Context HttpServletRequest request) throws Exception {
-        return new ResponseEntity<>(new Propietario(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> test(@Context HttpServletRequest request) {
+        return new ResponseEntity<>(new Propietario(), HttpStatus.OK);
     }
 }

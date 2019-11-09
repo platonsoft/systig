@@ -8,10 +8,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Repository;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -37,7 +35,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
         }
         return Jwts.builder()
                 .setSubject(result)
-                .setExpiration(new Date(System.currentTimeMillis()+600000))
+                .setExpiration(new Date(System.currentTimeMillis()+90000))
                 .signWith(SignatureAlgorithm.HS512, "Pl@tonSoft")
                 .compact();
     }

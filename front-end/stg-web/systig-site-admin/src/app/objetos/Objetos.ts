@@ -1,3 +1,8 @@
+import { DataSource } from '@angular/cdk/table';
+import { ProductosService } from '../stg-productos/productos.service';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 export interface EvolucionProfileItem {
   id: number;
   titulo: string;
@@ -11,33 +16,13 @@ export interface EvolucionProfileItem {
   isEnCurso: boolean;
 }
 
-export interface Historial{
+export interface Historial {
   id: number;
   accion: string;
   idProducto: number;
   descripcion: string;
   fecha: string;
 }
-
-export interface Productos {
-  id: number;
-  codigo?: string;
-  nombre?: string;
-  descripcion?: string;
-  unidad?: string;
-  impuesto?: number;
-  descuento?: number;
-  cantidadMinima?: number;
-  cantidadExistencia?: number;
-  monto?: number;
-  categoria?: string;
-  almacen?: string;
-  proveedor_id?: number;
-  disponible?: boolean;
-  historial?: Array<Historial>;
-}
-
-
 
 export class FormacionItem implements EvolucionProfileItem {
   id = 0;  titulo = '';
@@ -51,27 +36,70 @@ export class FormacionItem implements EvolucionProfileItem {
   isEnCurso = false;
 }
 
-export class ProductoItem implements Productos {
-  id = 0;
-  codigo = '';
-  nombre = '';
-  descripcion = '';
-  cantidadExistencia = 10;
-  unidad = 'UND';
-  cantidadMinima = 3;
-  disponible = true;
+/* Objetos para Modulo de Productos */
+
+export interface Categoria {
+  idCategoria: number;
+  nombre?: string;
+  descripcion?: string;
+  idPadre?: number;
+  idPropietario?: number;
 }
 
-export class ProductoHistorialItem implements Productos {
-  id = 0;
-  historial = [{
-    id: 0,
-    accion: 'Creacion de producto',
-    idProducto: 1,
-    descripcion: 'Creacion de producto',
-    fecha: '27/01/2019',
-  }];
+export interface Almacen {
+  idAlmacen: number;
+  nombre?: string;
+  descripcion?: string;
+  tipo?: number;
+  ubicacion?: string;
+  idPropietario?: number;
 }
+
+export interface Proveedor {
+  idProveedor: number;
+  tipoDocumento?: string;
+  numeroDocumento?: string;
+  razonSocial?: string;
+  telefonoLocal?: string;
+  telefonoMovil?: string;
+  email?: string;
+  web?: string;
+  direccionFiscal?: string;
+  codigoPostal?: number;
+  provincia?: string;
+  pais?: string;
+  idPropietario?: number;
+}
+
+export interface ItemsProductos {
+  idItemProducto: number;
+  idDocumento?: number;
+  serial?: string;
+  unidad?: string;
+  cantidad?: number;
+  monto?: number;
+}
+
+export interface Productos {
+    idProducto: number;
+    codigo?: string;
+    nombre?: string;
+    descripcion?: string;
+    unidad?: string;
+    impuesto?: number;
+    descuento?: number;
+    cantidadMinima?: number;
+    cantidadOptima?: number;
+    cantidadExistencia?: number;
+    monto?: number;
+    modelo?: number;
+    categoria?: Categoria;
+    almacen?: Almacen;
+    proveedor?: Proveedor;
+    idPropietario?: number;
+    itemsProductos?: ItemsProductos[];
+}
+
 
 export class ClienteItem {
   id = 0;
@@ -135,36 +163,33 @@ export const FORMACION_DATA: FormacionItem[] = [
   },
 ];
 
-export const PRODUCTOS_DATA: ProductoItem[] = [
+export const PRODUCTOS_DATA: Productos[] = [
   {
-    id: 1,
+    idProducto: 1,
     codigo: '000001',
     nombre: 'Producto de muestra 1',
     descripcion: 'Producto de muestra 1',
     unidad: 'Kg',
     cantidadMinima: 1,
     cantidadExistencia: 16,
-    disponible: true,
   },
   {
-    id: 2,
+    idProducto: 2,
     codigo: '000002',
     nombre: 'Producto de muestra 2',
     descripcion: 'Producto de muestra 2',
     unidad: 'Kg',
     cantidadMinima: 1,
     cantidadExistencia: 16,
-    disponible: true,
   },
   {
-    id: 3,
+    idProducto: 3,
     codigo: '000003',
     nombre: 'Producto de muestra 3',
     descripcion: 'Producto de muestra 3',
     unidad: 'UND',
     cantidadMinima: 1,
     cantidadExistencia: 16,
-    disponible: true,
   },
 ];
 
@@ -256,3 +281,25 @@ export const EXPERIENCIA_DATA: ExperienciAItem[] = [
     isEnCurso: false,
   },
 ];
+
+export interface Respuesta {
+  token: string;
+  resultado: any;
+}
+
+export class ProductosDataSource extends DataSource<any> {
+  PRODUCTOS_DATA: Productos[];
+
+  constructor(private productoService: ProductosService) {
+    super();
+  }
+  connect(): Observable<Productos[]> {
+    return this.productoService.getListaProductos().pipe(
+      map((resp: Respuesta) => {
+        this.PRODUCTOS_DATA = resp.resultado;
+        localStorage.setItem('tokenSystig', resp.token);
+        return this.PRODUCTOS_DATA;
+      }));
+  }
+  disconnect() {}
+}

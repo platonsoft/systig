@@ -19,6 +19,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     private Boolean enabled;
@@ -32,7 +33,6 @@ public class Usuario {
 
     @JoinColumn(name = "id_propietario", referencedColumnName = "idPropietario", nullable = false)
     @ManyToOne(optional = false)
-    @JsonBackReference(value = "usuarios")
     private Propietario propietario;
 
     @OneToMany( mappedBy = "idUsuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

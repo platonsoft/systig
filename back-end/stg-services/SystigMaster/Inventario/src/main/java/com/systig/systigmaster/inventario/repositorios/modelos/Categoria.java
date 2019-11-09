@@ -15,5 +15,5 @@ public class Categoria {
     private String nombre;
     private String descripcion;
     private Long idPadre;
-    private String username;
+    private Long idPropietario;
 }

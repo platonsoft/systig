@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({

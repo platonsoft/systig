@@ -22,4 +22,5 @@ public class Proveedor {
     private String codigoPostal;
     private String provincia;
     private String pais;
+    private Long idPropietario;
 }

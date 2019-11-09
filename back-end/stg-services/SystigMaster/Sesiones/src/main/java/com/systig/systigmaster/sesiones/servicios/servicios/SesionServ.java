@@ -65,7 +65,6 @@ public class SesionServ implements ISesionServ {
             String unClave =iUsuarioDao.getClaveAleatoria();
 
             try {
-                // Establecemos la ubicacion del cliente
                 GeoIP geoIP = this.locationService.getLocation(request.getRemoteAddr());
                 propietario.setPais(geoIP.getCountry());
                 propietario.setProvincia(geoIP.getCity());
@@ -74,8 +73,6 @@ public class SesionServ implements ISesionServ {
                 propietario.setProvincia("NP");
             }
 
-
-            // creamos el usuario con clave aleatoria
             Usuario usuario = new Usuario();
             usuario.setUsername(propietario.getEmail());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

@@ -38,6 +38,7 @@ import { PorcentajeundDirective } from '../../objetos/porcentajeund.directive';
 import { PercentMaskService } from 'src/app/objetos/percent-mask.service';
 import { ProductosDlgImpExpComponent } from '../../stg-productos/productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { StgProveedoresComponent } from '../../stg-proveedores/stg-proveedores.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -75,7 +76,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     ProductosDlgEditComponent,
     PesocolDirective,
     PorcentajeundDirective,
-    ProductosDlgImpExpComponent
+    ProductosDlgImpExpComponent,
+    StgProveedoresComponent
   ],
   entryComponents: [
     ProfileDlgEditComponent,

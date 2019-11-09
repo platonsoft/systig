@@ -2,7 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
-import { Historial, PRODUCTOS_HISTORIAL_DATA } from 'src/app/objetos/Objetos';
+import { Historial, PRODUCTOS_HISTORIAL_DATA, Almacen, Categoria, Respuesta, Proveedor, Productos } from 'src/app/objetos/Objetos';
+import { ProductosService } from '../productos.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'stg-productos-dlg-edit',
@@ -13,51 +15,79 @@ export class ProductosDlgEditComponent implements OnInit {
 
   myGroup: FormGroup;
   matcher = new MyErrorStateMatcher();
+  listaAlmacenes: Almacen[];
+  listaCategorias: Categoria[];
+  listaProveedores: Proveedor[];
+
+
+  selCategoria: Categoria = {idCategoria: 0};
+  selAlmacen: Almacen = {idAlmacen: 0};
+  selProveedor: Proveedor = {idProveedor: 0};
 
   displayedColumns: string[] = ['descripcion', 'accion', 'fecha'];
   dataSourceHistorico = new MatTableDataSource<Historial>(PRODUCTOS_HISTORIAL_DATA);
 
   constructor(public dialogRef: MatDialogRef<ProductosDlgEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any, public servicioProducto: ProductosService) {
     this.myGroup = new FormGroup({
-      nombreFormControl: new FormControl('', [
+      nombre: new FormControl('', [
         Validators.required,
       ]),
-      cantidadMinimaFormControl: new FormControl('', [
+      cantidadMinima: new FormControl('', [
         Validators.required
       ]),
-      descripcionFormControl: new FormControl('', [
+      descripcion: new FormControl(),
+      cantidadOptima: new FormControl('', [
         Validators.required
       ]),
-      cantidadExistenteFormControl: new FormControl('', [
+      descuento: new FormControl('', [
         Validators.required
       ]),
-      descuentoFormControl: new FormControl('', [
+      impuesto: new FormControl('', [
         Validators.required
       ]),
-      impuestoFormControl: new FormControl('', [
+      categoria: new FormControl('', [
         Validators.required
       ]),
-      categoriaFormControl: new FormControl('', [
+      almacen: new FormControl('', [
         Validators.required
       ]),
-      almacenFormControl: new FormControl('', [
+      proveedor: new FormControl('', [
         Validators.required
       ]),
-      proveedorFormControl: new FormControl('', [
+      unidad: new FormControl('', [
         Validators.required
       ]),
-      unidadFormControl: new FormControl('', [
+      monto: new FormControl('', [
         Validators.required
       ]),
-      montoFormControl: new FormControl('', [
-        Validators.required
-      ]),
-      isCursoControl: new FormControl('', []),
+      disponible: new FormControl('', []),
     });
+
+    this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaAlmacenes = result.resultado;
+    }});
+
+    this.servicioProducto.getListaCategorias().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaCategorias = result.resultado;
+    }});
+
+    this.servicioProducto.getListaProveedores().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaProveedores = result.resultado;
+    }});
+
+    if (this.data.item) {
+      this.selCategoria = this.data.item.categoria;
+      this.selAlmacen = this.data.item.almacen;
+      this.selProveedor = this.data.item.proveedor;
+    }
   }
 
   ngOnInit() {
+
   }
 
   onNoClick(): void {
@@ -67,14 +97,22 @@ export class ProductosDlgEditComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.myGroup.controls; }
 
+
   onSubmit() {
+    // stop here if form is invalid
+    if (this.myGroup.invalid) {
+      console.log('Invalidado');
+      return;
+    }
 
-      // stop here if form is invalid
-      if (this.myGroup.invalid) {
-          return;
-      }
+    const productoItem: Productos = this.myGroup.value;
+    this.data.item = productoItem;
 
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.myGroup.value));
+    this.data.item.almacen = this.selAlmacen;
+    this.data.item.categoria = this.selCategoria;
+    this.data.item.proveedor = this.selProveedor;
+
+    console.log('Antes:  ' + JSON.stringify(productoItem));
+
   }
-
 }

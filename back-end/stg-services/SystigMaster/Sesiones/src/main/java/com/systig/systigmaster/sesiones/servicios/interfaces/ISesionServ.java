@@ -1,7 +1,6 @@
 package com.systig.systigmaster.sesiones.servicios.interfaces;
 
 import com.systig.systigmaster.sesiones.repositorios.modelos.Propietario;
-import com.systig.systigmaster.sesiones.repositorios.modelos.Usuario;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 

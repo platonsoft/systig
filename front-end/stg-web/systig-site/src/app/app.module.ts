@@ -30,6 +30,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import {MatButtonModule} from '@angular/material/button';
+import { SesionComponent } from './sesion/sesion.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import {MatButtonModule} from '@angular/material/button';
     GlobalHeaderComponent,
     ServiciosComponent,
     SomosSystigComponent,
-    ContactoSystigComponent
+    ContactoSystigComponent,
+    SesionComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatSelectModule,
     MatListModule,
     MatFileUploadModule,
+    MatTabsModule,
     MatButtonModule
   ],
   providers: [DesconectadosService],

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { Productos, ProductoItem, PRODUCTOS_DATA } from '../objetos/Objetos';
+import { Productos, PRODUCTOS_DATA, Respuesta } from '../objetos/Objetos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,56 +16,63 @@ const httpOptions = {
 })
 export class ProductosService {
 
-  listadoUrl = 'http://localhost:8090/api/inv/productos';
-  insertarUrl = 'assets/config.json';
-  actualizarUrl = 'assets/config.json';
+  listadoUrl = '/api/inv/productos';
+  listadoAlmacenesUrl = '/api/inv/almacenes';
+  listadoCategoriasUrl = '/api/inv/categorias';
+  listadoProveedoresUrl = '/api/inv/proveedores';
+  getProductoUrl = '/api/inv/producto/';
+  insertarUrl = '/api/inv/producto';
+  actualizarUrl = '/api/inv/producto/';
+  borrarUrl = '/api/inv/producto/';
 
   constructor(private http: HttpClient) { }
 
   getProducto(codigo: string): Observable<Productos> {
     const token = sessionStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.get<Productos>(this.listadoUrl + '?codigo=' + codigo, httpOptions);
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.get<Productos>(this.listadoUrl + codigo, httpOptions);
   }
 
-  getListaProductos(): Observable<ProductoItem[]> {
-    const token = sessionStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.get<ProductoItem[]>(this.listadoUrl, httpOptions);
+  getListaProductos(): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.get<Respuesta>(this.listadoUrl, httpOptions);
   }
 
-  getListaProductos2(): Observable<ProductoItem[]> {
-    return of(PRODUCTOS_DATA);
+  getListaAlmacenes(): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.get<Respuesta>(this.listadoAlmacenesUrl, httpOptions);
   }
 
-  insertarProducto(producto: Productos): Observable<Productos> {
-    const token = sessionStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.post<Productos>(this.insertarUrl, producto, httpOptions)
-    .pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+  getListaCategorias(): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.get<Respuesta>(this.listadoCategoriasUrl, httpOptions);
   }
 
-  actualizarProducto(producto: Productos): Observable<Productos> {
-    const token = sessionStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.put<Productos>(this.actualizarUrl, producto, httpOptions)
-    .pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+  getListaProveedores(): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.get<Respuesta>(this.listadoProveedoresUrl, httpOptions);
   }
 
-  eliminarProducto(codigo: string): Observable<{}> {
-    const token = sessionStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.delete(this.actualizarUrl, httpOptions)
-    .pipe(
-      retry(3),
-      catchError(this.handleError)
-    );
+  insertarProducto(producto: Productos): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.post<Respuesta>(this.insertarUrl, producto, httpOptions);
+  }
+
+  actualizarProducto(producto: Productos, idProducto: number): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.put<Respuesta>(this.actualizarUrl + idProducto, producto, httpOptions);
+  }
+
+  eliminarProducto(idProducto: number): Observable<{}> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.delete(this.borrarUrl + idProducto, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -78,5 +85,5 @@ export class ProductosService {
     }
     return throwError(
       'Algo anda mal; Por favor intentalo mas tarde.');
-  };
+  }
 }

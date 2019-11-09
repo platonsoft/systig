@@ -18,6 +18,7 @@ import java.security.Principal;
 
 
 @RestController
+@CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
 public class ProductosCtrl {
 
     private final IProductosServ productosServ;
@@ -26,49 +27,60 @@ public class ProductosCtrl {
         this.productosServ = productosServ;
     }
 
-    @GetMapping("/api/login")
-    public ResponseEntity<?> login(Principal principal, HttpServletRequest requests,HttpSession session) {
-        return this.productosServ.getTokenSession(principal,requests,session);
+    @GetMapping("/api/inv/productos")
+    public ResponseEntity<?> getListaProductos(@RequestHeader HttpHeaders headers) {
+        return this.productosServ.getListadoProductos(headers);
     }
 
-    @GetMapping("/api/inv/productos")
-    public ResponseEntity<?> getListaProductos(@RequestHeader HttpHeaders headers, HttpSession session) {
-        return this.productosServ.getListadoProductos(headers,session);
+    @GetMapping("/api/inv/almacenes")
+    public ResponseEntity<?> getListaAlmacenes(@RequestHeader HttpHeaders headers) {
+        return this.productosServ.getListadoAlmacenPropietario(headers);
+    }
+
+    @GetMapping("/api/inv/proveedores")
+    public ResponseEntity<?> getListaProveedores(@RequestHeader HttpHeaders headers) {
+        return this.productosServ.getListadoProveedoresPropietario(headers);
+    }
+
+    @GetMapping("/api/inv/categorias")
+    public ResponseEntity<?> getListaCategorias(@RequestHeader HttpHeaders headers) {
+        return this.productosServ.getListadoCategoriaPropietario(headers);
     }
 
     @GetMapping("/api/inv/productos/documento/{id_documento}")
-    public ResponseEntity<?> getListaProductosDocumento(@RequestHeader HttpHeaders headers, HttpSession session, @PathVariable Long id_documento) {
-        return this.productosServ.getListadoProductosDocumento(headers,session,id_documento);
+    public ResponseEntity<?> getListaProductosDocumento(@RequestHeader HttpHeaders headers, @PathVariable Long id_documento) {
+        return this.productosServ.getListadoProductosDocumento(headers,id_documento);
     }
 
     @GetMapping("/api/inv/producto/{id_producto}")
-    public ResponseEntity<?> getProducto(@RequestHeader HttpHeaders headers, HttpSession session,
+    public ResponseEntity<?> getProducto(@RequestHeader HttpHeaders headers,
                                                 @PathVariable Long id_producto) {
-        return this.productosServ.getProducto(headers, session, id_producto);
+        return this.productosServ.getProducto(headers, id_producto);
     }
 
     @PostMapping(value = "/api/inv/producto")
-    public ResponseEntity<?> agregarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
+    public ResponseEntity<?> agregarProducto(@RequestHeader HttpHeaders headers,
                                                 @RequestBody Producto producto) {
-        return this.productosServ.addProducto(headers,session,producto);
+        return this.productosServ.addProducto(headers,producto);
     }
 
-    @PutMapping("/api/inv/producto")
-    public ResponseEntity<?> actualizarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
-                                                  @RequestBody Producto producto) {
-        return this.productosServ.setProducto(headers,session,producto);
+    @PutMapping("/api/inv/producto/{id_producto}")
+    public ResponseEntity<?> actualizarProducto(@RequestHeader HttpHeaders headers,
+                                                  @RequestBody Producto producto,
+                                                @PathVariable Long id_producto) {
+        return this.productosServ.setProducto(headers,producto, id_producto);
     }
 
     @DeleteMapping("/api/inv/producto/{id_producto}")
-    public ResponseEntity<?> borrarProducto(@RequestHeader HttpHeaders headers, HttpSession session,
+    public ResponseEntity<?> borrarProducto(@RequestHeader HttpHeaders headers,
                                                      @PathVariable Long id_producto) {
-        return this.productosServ.delProducto(headers,session,id_producto);
+        return this.productosServ.delProducto(headers,id_producto);
     }
 
     @GetMapping("/api/inv/producto/historia/{id_producto}")
-    public ResponseEntity<?> getHistoriaProducto(@RequestHeader HttpHeaders headers, HttpSession session,
+    public ResponseEntity<?> getHistoriaProducto(@RequestHeader HttpHeaders headers,
                                                         @PathVariable Long id_producto) {
-        return this.productosServ.getHistoriaProducto(headers,session,id_producto);
+        return this.productosServ.getHistoriaProducto(headers,id_producto);
     }
 
     @PostMapping(value = "/api/inv/producto/importar", consumes = {"multipart/form-data"})

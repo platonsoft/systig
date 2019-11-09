@@ -6,6 +6,9 @@ import { StgProductosComponent } from 'src/app/stg-productos/stg-productos.compo
 import { StgClientesComponent } from 'src/app/stg-clientes/stg-clientes.component';
 import { StgFacturasComponent } from 'src/app/stg-facturas/stg-facturas.component';
 import { StgContabilidadComponent } from 'src/app/stg-contabilidad/stg-contabilidad.component';
+import { AuthGuard } from 'src/app/objetos/auth-guard';
+import { AccesoGuard } from 'src/app/objetos/acceso-guard';
+import { StgProveedoresComponent } from 'src/app/stg-proveedores/stg-proveedores.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -50,10 +53,12 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'stg-admin',      component: DashboardComponent },
-    { path: 'profile',      component: UserProfileComponent },
-    { path: 'productos',      component: StgProductosComponent },
-    { path: 'clientes',      component: StgClientesComponent },
-    { path: 'facturas',      component: StgFacturasComponent },
-    { path: 'contable',      component: StgContabilidadComponent },
+    { path: 'inicio/:token', canActivate: [AuthGuard] },
+    { path: 'profile',      component: UserProfileComponent, canActivate: [AccesoGuard] },
+    { path: 'principal',      component: DashboardComponent, canActivate: [AccesoGuard] },
+    { path: 'productos',      component: StgProductosComponent, canActivate: [AccesoGuard] },
+    { path: 'clientes',      component: StgClientesComponent, canActivate: [AccesoGuard] },
+    { path: 'facturas',      component: StgFacturasComponent, canActivate: [AccesoGuard] },
+    { path: 'contable',      component: StgContabilidadComponent, canActivate: [AccesoGuard] },
+    { path: 'proveedores',      component: StgProveedoresComponent, canActivate: [AccesoGuard] },
 ];

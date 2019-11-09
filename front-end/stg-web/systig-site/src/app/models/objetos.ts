@@ -97,3 +97,8 @@ interface PaisDisponible{
   code: string;
   nombre: string;
 }
+
+interface RespuestaWS {
+  resultado: any;
+  token: string;
+}

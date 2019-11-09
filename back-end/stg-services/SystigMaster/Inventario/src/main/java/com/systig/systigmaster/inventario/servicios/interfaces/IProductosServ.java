@@ -10,13 +10,16 @@ import java.security.Principal;
 
 public interface IProductosServ {
 
-    ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
-    ResponseEntity<?> getListadoProductos(HttpHeaders headers, HttpSession session);
-    ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
-    ResponseEntity<?> getProducto(HttpHeaders headers, HttpSession session, Long idProducto);
-    ResponseEntity<?> addProducto(HttpHeaders headers, HttpSession session, Producto producto);
-    ResponseEntity<?> setProducto(HttpHeaders headers, HttpSession session, Producto producto);
-    ResponseEntity<?> delProducto(HttpHeaders headers, HttpSession session, Long idProducto);
-    ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, HttpSession session, Long idProducto);
+    ResponseEntity<?> getListadoProductos(HttpHeaders headers);
+    ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento);
+    ResponseEntity<?> getProducto(HttpHeaders headers, Long idProducto);
+    ResponseEntity<?> addProducto(HttpHeaders headers, Producto producto);
+    ResponseEntity<?> setProducto(HttpHeaders headers, Producto producto, Long idProducto);
+    ResponseEntity<?> delProducto(HttpHeaders headers, Long idProducto);
+    ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, Long idProducto);
+
+    ResponseEntity<?> getListadoAlmacenPropietario(HttpHeaders headers);
+    ResponseEntity<?> getListadoProveedoresPropietario(HttpHeaders headers);
+    ResponseEntity<?> getListadoCategoriaPropietario(HttpHeaders headers);
 
 }

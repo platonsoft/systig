@@ -19,27 +19,7 @@
     </div>
     <div class="form-login-container"
       [ngClass]="{'mostrar-login': this.switchLogin, 'ocultar-login': !this.switchLogin}">
-      <form class="form-login" [formGroup]="options">
-        <mat-form-field appearance="outline">
-          <input matInput placeholder="Nombre de usuario o email" formControlName="emailFormControl">
-          <span matPrefix>
-            <mat-icon>person</mat-icon>&nbsp;&nbsp;
-          </span>
-          <mat-error *ngIf="options.get('emailFormControl')?.invalid">El formato del usuario no es correcto</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <input matInput placeholder="Contraseña" [type]="hidePass ? 'password' : 'text'"
-            formControlName="passwordFormControl">
-          <span matPrefix>
-            <mat-icon>lock</mat-icon>&nbsp;&nbsp;
-          </span>
-          <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
-          <mat-error *ngIf="options.get('passwordFormControl')?.invalid">Se requiere una contraseña</mat-error>
-        </mat-form-field>
-        <div style="text-align: right;font-style: normal;font-weight: 500;font-size: 14px;line-height: 15px;"><span>¿Has
-            olvidado la contraseña?</span></div>
-        <button class="stg-button-cabs" style="border-radius: 0px">Inicia sesión</button>
-      </form>
+      <stg-sesion></stg-sesion>
     </div>
     <div style="margin-top: 50px" *ngIf="this.paginaActiva=='contacto'">
       <h1

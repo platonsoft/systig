@@ -1,10 +1,9 @@
 <div [ngClass]="{'stg-menu-main': isHeader, 'stg-menu-main2': !isHeader}">
     <div id="stg-menu-container" class="main-menu-container">
-      <div><img src="../assets/logo-systig.png" alt="Logotipo"></div>
+      <div><a href="casa#sec-home"><img src="../assets/logo-systig.png" alt="Logotipo"></a></div>
       <div class="stg-menu-large">
         <div>
           <ul>
-            <li><a href="casa#sec-home">Casa</a></li>
             <li><a href="casa#sec-productos">Productos</a></li>
             <li><a href="casa#sec-servicios">Servicios</a></li>
             <li><a href="casa#sec-publicidad">¿Quienes Somos?</a></li>
@@ -27,7 +26,6 @@
           <mat-icon style="font-size: 48px;margin-left: 160px;color: #FFFFFF;cursor: pointer;"
             (click)="ToggleMenuLat($event)">menu</mat-icon>
         </span>
-        <li>Casa</li>
         <li>Productos</li>
         <li>Servicios</li>
         <li>¿Quienes Somos?</li>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
-import { ProductoItem, ClienteItem } from '../objetos/Objetos';
+import { MatDialog } from '@angular/material';
+import { ClienteItem, ProductosDataSource, Productos, Respuesta } from '../objetos/Objetos';
 import { ProductosDlgEditComponent } from './productos-dlg-edit/productos-dlg-edit.component';
 import { ProductosDlgImpExpComponent } from './productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { ProductosService } from './productos.service';
@@ -13,45 +13,82 @@ import { ProductosService } from './productos.service';
 export class StgProductosComponent implements OnInit {
 
   displayedColumns: string[] = [ 'descripcion', 'cantidad', 'edicion'];
-  PRODUCTOS_DATA: ProductoItem[];
-  dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
+  PRODUCTOS_DATA: Productos[];
+  dataSource = new ProductosDataSource(this.productosService);
+
   constructor(public dialog: MatDialog, public productosService: ProductosService) {
-    this.productosService.getListaProductos().subscribe(lista =>{
-      this.PRODUCTOS_DATA = lista;
-      this.dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
-    });
   }
 
   ngOnInit() {
 
   }
 
-  openDialogEditProducto(itemSelect: ClienteItem, tipoSentencia: string): void {
+  openDialogNuevoProducto(): void {
+    const productoNuevo: Productos = {
+      idProducto: 0,
+      almacen: {idAlmacen: 0},
+      categoria: {idCategoria: 0},
+      proveedor: {idProveedor: 0}
+    };
+
     const dialogRef = this.dialog.open(ProductosDlgEditComponent, {
       width: '80vw',
-      data: {item: itemSelect != null ? itemSelect : new ProductoItem(), sentencia: tipoSentencia}
+      data: {item: productoNuevo, sentencia: 'nuevo'}
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (result.sentencia === 'nuevo') {
-          this.productosService.insertarProducto(result.item).subscribe(
-            producto => this.PRODUCTOS_DATA.push(result.item));
-          // PRODUCTOS_DATA.push(result.item);
-          this.dataSource = new MatTableDataSource<ProductoItem>(this.PRODUCTOS_DATA);
-        } else if (result.sentencia === 'borrar') {
-          this.productosService.eliminarProducto(result.item.codigo).subscribe(
-            resultado => {
-              this.PRODUCTOS_DATA.forEach(element => {
-                if (element.id === itemSelect.id) {
-                  this.PRODUCTOS_DATA.splice(element.id, 1);
-                }
-              });
-            });
+          this.productosService.insertarProducto(result.item).subscribe(( resultado: Respuesta) => {
+            if (result) {
+                this.dataSource = new ProductosDataSource(this.productosService);
+                console.log('Despues:  ' + JSON.stringify(resultado));
+          }});
         }
-      }
       console.log('The dialog was closed');
       console.log('Resukt: ' + JSON.stringify(result));
     });
+}
+
+openDialogEditProducto(itemSelect: Productos, idProducto: number): void {
+  const dialogRef = this.dialog.open(ProductosDlgEditComponent, {
+    width: '80vw',
+    data: {item: itemSelect, sentencia: 'editar'}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+        this.productosService.actualizarProducto(result.item, idProducto)
+                              .subscribe(( resultado: Respuesta) => {
+          if (result) {
+              this.dataSource = new ProductosDataSource(this.productosService);
+              console.log('Despues:  ' + JSON.stringify(resultado));
+          }
+        });
+      }
+    console.log('The dialog was closed');
+    console.log('Resukt: ' + JSON.stringify(result));
+    });
+}
+
+openDialogBorrarProducto(idProducto: number): void {
+  const dialogRef = this.dialog.open(ProductosDlgEditComponent, {
+    width: '80vw',
+    data: {item: null, sentencia: 'borrar'}
+  });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.productosService.eliminarProducto(idProducto).subscribe(resultado => {
+        if (resultado) {
+            this.dataSource = new ProductosDataSource(this.productosService);
+            console.log('Despues:  ' + JSON.stringify(resultado));
+        }
+      });
+    }
+    console.log('The dialog was closed');
+    console.log('Resukt: ' + JSON.stringify(result));
+  });
+}
+
+dlgFuncionDesarrollo() {
+  alert('La opcion que ha seleccionado esta en desarrollo, en cualquier momento sera activado');
 }
 
 openDialogImportarExportarProducto(): void {
@@ -63,6 +100,4 @@ openDialogImportarExportarProducto(): void {
     console.log('Resukt: ' + JSON.stringify(result));
   });
 }
-
-
 }

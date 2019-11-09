@@ -8,7 +8,7 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/stg-admin', title: 'Principal',  icon: 'dashboard', class: '' },
+    { path: '/principal', title: 'Principal',  icon: 'dashboard', class: '' },
     { path: '/contable', title: 'Contabilidad',  icon: 'assignment', class: '' },
     { path: '/productos', title: 'Inventario',  icon: 'list_alt', class: '' },
     { path: '/clientes', title: 'Clientes',  icon: 'people', class: '' },

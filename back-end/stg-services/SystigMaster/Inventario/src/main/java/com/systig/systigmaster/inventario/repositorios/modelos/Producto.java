@@ -1,15 +1,11 @@
 package com.systig.systigmaster.inventario.repositorios.modelos;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -38,12 +34,9 @@ public class Producto {
     @JoinColumn(name = "id_proveedor", referencedColumnName = "idProveedor", nullable = false)
     @ManyToOne()
     private Proveedor proveedor;
-    @JoinColumn(name = "id_propietario", referencedColumnName = "idPropietario", nullable = false)
-    @ManyToOne()
-    private Propietario propietario;
-    private Boolean disponible;
+    private Long idPropietario;
 
-    @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<ItemProducto> itemsProductos;
 

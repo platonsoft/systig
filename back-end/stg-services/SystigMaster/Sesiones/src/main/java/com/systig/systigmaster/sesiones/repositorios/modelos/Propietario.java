@@ -1,5 +1,6 @@
 package com.systig.systigmaster.sesiones.repositorios.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -31,6 +32,8 @@ public class Propietario {
     private String pais;
 
     @OneToMany( mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "usuarios")
+    //@JsonManagedReference(value = "usuarios")
+    //@JsonBackReference(value = "usuarios")
+    @JsonIgnore
     private List<Usuario> usuarios = new ArrayList<>();
 }

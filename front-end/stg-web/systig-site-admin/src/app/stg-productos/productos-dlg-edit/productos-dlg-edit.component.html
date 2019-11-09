@@ -7,46 +7,42 @@
     <form class="row" [formGroup]="myGroup">
       <div class="col-md-12">
           <mat-form-field>
-            <input matInput placeholder="Nombre del producto" name="nombreFormControl" formControlName="nombreFormControl" [(ngModel)]="data.item.nombre"
-              [errorStateMatcher]="matcher">
-            <mat-error *ngIf="myGroup.get('nombreFormControl').hasError('required')">El titulo es requerido</mat-error>
+            <input matInput placeholder="Nombre del producto" name="nombre" formControlName="nombre" [(ngModel)]="data.item.nombre">
+            <mat-error *ngIf="myGroup.get('nombre')?.invalid">El nombre del producto es requerido</mat-error>
           </mat-form-field>
       </div>
         <div class="col-md-8">
           <mat-form-field>
-              <textarea matInput placeholder="Descripcion del producto" name="descripcionFormControl" formControlName="descripcionFormControl" [(ngModel)]="data.item.descripcion"></textarea>
+              <textarea matInput placeholder="Descripcion del producto" name="descripcion" formControlName="descripcion" [(ngModel)]="data.item.descripcion"></textarea>
           </mat-form-field>
         </div>
         <div class="col-md-4">
           <mat-form-field>
             <mat-label>Categoria</mat-label>
-            <mat-select formControlName="categoriaFormControl">
+            <mat-select formControlName="categoria" [(ngModel)]="selCategoria.idCategoria">
               <mat-option>Ninguno</mat-option>
-              <mat-option value="defecto">Por defecto</mat-option>
-              <mat-option value="servicio">Servicio</mat-option>
+              <mat-option *ngFor="let categoria of listaCategorias" [value]="categoria.idCategoria">{{categoria.nombre}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Almacen</mat-label>
-            <mat-select formControlName="almacenFormControl">
-              <mat-option>Ninguno</mat-option>
-              <mat-option value="defecto">Por defecto</mat-option>
-              <mat-option value="servicio">Almacen 1</mat-option>
+            <mat-label >Almacen</mat-label>
+            <mat-select formControlName="almacen" [(ngModel)]="selAlmacen.idAlmacen">
+                <mat-option>Ninguno</mat-option>
+              <mat-option *ngFor="let almacen of listaAlmacenes" [value]="almacen.idAlmacen">{{almacen.nombre}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Proveedor</mat-label>
-            <mat-select formControlName="proveedorFormControl">
+            <mat-select formControlName="proveedor" [(ngModel)]="selProveedor.idProveedor">
               <mat-option>Ninguno</mat-option>
-              <mat-option value="defecto">Por defecto</mat-option>
-              <mat-option value="servicio">Proveedor 1</mat-option>
+              <mat-option *ngFor="let proveedor of listaProveedores" [value]="proveedor.idProveedor">{{proveedor.razonSocial}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
         <div class="col-md-6">
             <mat-form-field>
               <mat-label>Unidad</mat-label>
-              <mat-select formControlName="unidadFormControl" [(value)]="data.item.unidad">
+              <mat-select formControlName="unidad" [(ngModel)]="data.item.unidad">
                 <mat-option>Unidad</mat-option>
                 <mat-option value="Kg">Kilogramo</mat-option>
                 <mat-option value="L">Litro</mat-option>
@@ -55,41 +51,41 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Cantidad Minima" name="cantidadMinimaFormControl" formControlName="cantidadMinimaFormControl" [(ngModel)]="data.item.cantidadMinima"
+              <input matInput placeholder="Cantidad Minima" name="cantidadMinima" formControlName="cantidadMinima" [(ngModel)]="data.item.cantidadMinima"
                 [errorStateMatcher]="matcher">
                 <span matSuffix>&nbsp; {{data.item.unidad}}</span>
-              <mat-error *ngIf="myGroup.get('cantidadMinimaFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('cantidadMinima').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Cantidad en existencia" name="cantidadExistenteFormControl" formControlName="cantidadExistenteFormControl" [(ngModel)]="data.item.cantidadExistencia"
+              <input matInput placeholder="Cantidad optima" name="cantidadOptima" formControlName="cantidadOptima" [(ngModel)]="data.item.cantidadOptima"
                 [errorStateMatcher]="matcher">
                 <span matSuffix>&nbsp; {{data.item.unidad}}</span>
-              <mat-error *ngIf="myGroup.get('cantidadExistenteFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('cantidadOptima').hasError('required')">Se requiere una catidad optima</mat-error>
             </mat-form-field>
-          <mat-slide-toggle name="isCursoFormControl" formControlName="isCursoControl" [(ngModel)]="data.item.disponible">Disponibilidad</mat-slide-toggle>
+          <mat-slide-toggle name="disponible" formControlName="disponible" [(ngModel)]="data.item.disponible">Disponibilidad</mat-slide-toggle>
         </div>
         <div class="col-md-6">
             <mat-form-field>
-              <input matInput placeholder="Descuento" name="descuentoFormControl" stgPorcentajeund formControlName="descuentoFormControl" [(ngModel)]="data.item.descuento"
+              <input matInput placeholder="Descuento" name="descuento" stgPorcentajeund formControlName="descuento" [(ngModel)]="data.item.descuento"
                 [errorStateMatcher]="matcher">
-              <mat-error *ngIf="myGroup.get('descuentoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('descuento').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Impuesto" name="impuestoFormControl" stgPorcentajeund formControlName="impuestoFormControl" [(ngModel)]="data.item.impuesto"
+              <input matInput placeholder="Impuesto" name="impuesto" stgPorcentajeund formControlName="impuesto" [(ngModel)]="data.item.impuesto"
                 [errorStateMatcher]="matcher">
-              <mat-error *ngIf="myGroup.get('impuestoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('impuesto').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Monto" name="montoFormControl" stgPesocol formControlName="montoFormControl" [(ngModel)]="data.item.monto"
+              <input matInput placeholder="Precio Unitario" name="monto" stgPesocol formControlName="monto" [(ngModel)]="data.item.monto"
                 [errorStateMatcher]="matcher">
-              <mat-error *ngIf="myGroup.get('montoFormControl').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('monto').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
         </div>
       </form>
 </div>
 
 <div mat-dialog-content *ngIf="data.sentencia=='borrar'">
-    <p>Esta seguro de borrar el elemento <em aria-relevant="all" [innerHTML]="data.item.titulo"></em> ?</p>
+    <p>Esta seguro de borrar el elemento?</p>
 </div>
 
 <div mat-dialog-content *ngIf="data.sentencia=='historial'" style="padding: 20px">
@@ -123,6 +119,6 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button *ngIf="data.sentencia=='borrar'" mat-button [mat-dialog-close]="data" color="warn" cdkFocusInitial>Aceptar</button>
-  <button *ngIf="data.sentencia!='borrar'" mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial>Aceptar</button>
+  <button *ngIf="data.sentencia=='borrar'" mat-button [mat-dialog-close]="data" color="warn" cdkFocusInitial (click)="onSubmit()">Aceptar</button>
+  <button *ngIf="data.sentencia!='borrar'" mat-button [mat-dialog-close]="data" color="primary" cdkFocusInitial (click)="onSubmit()">Aceptar</button>
 </div>
