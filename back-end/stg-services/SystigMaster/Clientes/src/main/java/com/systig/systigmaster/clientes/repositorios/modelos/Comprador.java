@@ -1,4 +1,4 @@
-package com.systig.systigmaster.clientes.modelos;
+package com.systig.systigmaster.clientes.repositorios.modelos;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "STG_INV_COMPRADORES")
+@Table(name = "STG_CLI_COMPRADORES")
 public class Comprador {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +26,11 @@ public class Comprador {
     private String ciudad;
     private String provincia;
     private String pais;
-    private String username;
-    @JoinColumn(name = "id_etapa", referencedColumnName = "idEtapa", nullable = false)
+    private Long idPropietario;
+    @JoinColumn(name = "id_etapa", referencedColumnName = "idEtapa")
     @OneToOne()
     private Etapa etapa;
-    @JoinColumn(name = "id_campana", referencedColumnName = "idCampana", nullable = false)
+    @JoinColumn(name = "id_campana", referencedColumnName = "idCampana")
     @ManyToOne()
     private CampanaPublicidad campanaPublicidad;
     private Long ranking;

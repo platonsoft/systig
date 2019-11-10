@@ -1,4 +1,4 @@
-package com.systig.systigmaster.clientes.modelos;
+package com.systig.systigmaster.clientes.repositorios.modelos;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "STG_INV_ETAPAS")
+@Table(name = "STG_CLI_ETAPAS")
 public class Etapa {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

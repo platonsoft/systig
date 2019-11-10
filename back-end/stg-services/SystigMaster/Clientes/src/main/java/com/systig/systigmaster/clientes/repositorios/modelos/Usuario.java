@@ -1,4 +1,4 @@
-package com.systig.systigmaster.proveedores.repositorios.modelos;
+package com.systig.systigmaster.clientes.repositorios.modelos;
 
 import lombok.Data;
 
@@ -14,4 +14,6 @@ public class Usuario {
     private Object privilegios;
     private Long fecha;
 }
+
+
 

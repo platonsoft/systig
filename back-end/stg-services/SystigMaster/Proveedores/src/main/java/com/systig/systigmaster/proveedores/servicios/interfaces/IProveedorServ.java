@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 public interface IProveedorServ {
-    ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
 
     ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session);
 
@@ -17,9 +16,9 @@ public interface IProveedorServ {
 
     ResponseEntity<?> nuevoProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor);
 
-    ResponseEntity<?> actualizarProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor);
+    ResponseEntity<?> actualizarProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor, Long idProveedor);
 
-    ResponseEntity<?> borrarProveedor(HttpHeaders headers, HttpSession session, Long idComprador);
+    ResponseEntity<?> borrarProveedor(HttpHeaders headers, HttpSession session, Long idProveedor);
 
-    ResponseEntity<?> getHistoriaProveedor(HttpHeaders headers, HttpSession session, Long idComprador);
+    ResponseEntity<?> getHistoriaProveedor(HttpHeaders headers, HttpSession session, Long idProveedor);
 }

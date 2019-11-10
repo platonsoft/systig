@@ -1,4 +1,4 @@
-package com.systig.systigmaster.clientes.modelos;
+package com.systig.systigmaster.clientes.repositorios.modelos;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "STG_INV_CAMPANAS_PUBLICIDAD_DETALLES")
+@Table(name = "STG_CLI_CAMPANAS_PUBLICIDAD_DETALLES")
 public class CampanaPublicidadDetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

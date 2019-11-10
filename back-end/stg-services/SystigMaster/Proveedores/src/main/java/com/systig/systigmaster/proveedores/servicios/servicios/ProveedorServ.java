@@ -1,0 +1,127 @@
+package com.systig.systigmaster.proveedores.servicios.servicios;
+
+import com.google.gson.Gson;
+import com.systig.systigmaster.proveedores.repositorios.interfaces.IProveedorDao;
+import com.systig.systigmaster.proveedores.repositorios.interfaces.IUsuarioDao;
+import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
+import com.systig.systigmaster.proveedores.repositorios.modelos.ResultadoTransaccion;
+import com.systig.systigmaster.proveedores.repositorios.modelos.Usuario;
+import com.systig.systigmaster.proveedores.servicios.interfaces.IProveedorServ;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class ProveedorServ implements IProveedorServ {
+
+    IUsuarioDao iUsuarioDao = new IUsuarioDao();
+
+    @Autowired
+    IProveedorDao proveedorDao;
+
+    @Override
+    public ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.proveedorDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.proveedorDao.getByIdProveedor(idProveedor));
+                return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> nuevoProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+
+            System.out.println("Proveedor recibido --- > " + (new Gson()).toJson(proveedor));
+
+            if(usuario!=null){
+                proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.proveedorDao.save(proveedor));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> actualizarProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor, Long idProveedor) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                System.out.println(idProveedor + " - Proveedor recibido --- > " + (new Gson()).toJson(proveedor));
+                proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                proveedor.setIdProveedor(idProveedor);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.proveedorDao.save(proveedor));
+                return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> borrarProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                this.proveedorDao.deleteById(idProveedor);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado("Borrado Correcto");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getHistoriaProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+        return null;
+    }
+}

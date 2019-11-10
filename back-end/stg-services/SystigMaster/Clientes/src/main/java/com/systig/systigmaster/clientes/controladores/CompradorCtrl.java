@@ -1,6 +1,6 @@
 package com.systig.systigmaster.clientes.controladores;
 
-import com.systig.systigmaster.clientes.modelos.Comprador;
+import com.systig.systigmaster.clientes.repositorios.modelos.Comprador;
 import com.systig.systigmaster.clientes.servicios.interfaces.ICompradorServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,17 +17,13 @@ import java.io.IOException;
 import java.security.Principal;
 
 @RestController
+@CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
 public class CompradorCtrl {
 
     private final ICompradorServ compradorServ;
 
     public CompradorCtrl(ICompradorServ compradorServ) {
         this.compradorServ = compradorServ;
-    }
-
-    @GetMapping("/api/login")
-    public ResponseEntity<?> login(Principal principal, HttpServletRequest requests, HttpSession session) {
-        return this.compradorServ.getTokenSession(principal, requests, session);
     }
 
     @GetMapping("/api/crm/clientes")
@@ -54,10 +50,11 @@ public class CompradorCtrl {
         return this.compradorServ.nuevoComprador(headers, session, comprador);
     }
 
-    @PutMapping("/api/crm/cliente")
+    @PutMapping("/api/crm/cliente/{id_comprador}")
     public ResponseEntity<?> actualizarCliente(@RequestHeader HttpHeaders headers, HttpSession session,
-                                               @RequestBody Comprador comprador) {
-        return this.compradorServ.actualizarComprador(headers, session, comprador);
+                                               @RequestBody Comprador comprador,
+                                               @PathVariable Long id_comprador) {
+        return this.compradorServ.actualizarComprador(headers, session, comprador, id_comprador);
     }
 
     @DeleteMapping("/api/crm/cliente/{id_comprador}")

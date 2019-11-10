@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ClienteItem, ProductosDataSource, Productos, Respuesta } from '../objetos/Objetos';
+import { ProductosDataSource, Productos, Respuesta } from '../objetos/Objetos';
 import { ProductosDlgEditComponent } from './productos-dlg-edit/productos-dlg-edit.component';
 import { ProductosDlgImpExpComponent } from './productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { ProductosService } from './productos.service';

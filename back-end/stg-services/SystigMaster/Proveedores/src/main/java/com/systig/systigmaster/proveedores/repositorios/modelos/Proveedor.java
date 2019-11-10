@@ -2,13 +2,11 @@ package com.systig.systigmaster.proveedores.repositorios.modelos;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "STG_PRV_PROVEEDORES")
 public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
