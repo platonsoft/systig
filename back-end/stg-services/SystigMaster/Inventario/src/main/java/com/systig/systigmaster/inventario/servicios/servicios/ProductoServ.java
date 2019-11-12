@@ -20,17 +20,15 @@ public class ProductoServ implements IProductosServ {
 
     private final IProductoDao iProductoDao;
     private final IAlmacenDao iAlmacenDao;
-    private final IProveedorDao iProveedorDao;
     private final ICategoriaDao iCategoriaDao;
 
     private final IItemProductoDao iItemProductoDao;
     private final IHistoriaDao iHistoriaDao;
     private IUsuarioDao iUsuarioDao = new IUsuarioDao();
 
-    public ProductoServ(IProductoDao iProductoDao, IAlmacenDao iAlmacenDao, IProveedorDao iProveedorDao, ICategoriaDao iCategoriaDao, IItemProductoDao iItemProductoDao, IHistoriaDao iHistoriaDao) {
+    public ProductoServ(IProductoDao iProductoDao, IAlmacenDao iAlmacenDao, ICategoriaDao iCategoriaDao, IItemProductoDao iItemProductoDao, IHistoriaDao iHistoriaDao) {
         this.iProductoDao = iProductoDao;
         this.iAlmacenDao = iAlmacenDao;
-        this.iProveedorDao = iProveedorDao;
         this.iCategoriaDao = iCategoriaDao;
         this.iItemProductoDao = iItemProductoDao;
         this.iHistoriaDao = iHistoriaDao;
@@ -171,23 +169,6 @@ public class ProductoServ implements IProductosServ {
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iAlmacenDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
-                return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
-            }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> getListadoProveedoresPropietario(HttpHeaders headers) {
-        try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Usuario usuario = iUsuarioDao.statusSession(headers);
-            if(usuario!=null){
-                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iProveedorDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);

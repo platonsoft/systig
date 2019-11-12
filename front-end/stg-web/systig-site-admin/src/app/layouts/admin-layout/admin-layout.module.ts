@@ -27,10 +27,8 @@ import { UserProfileComponent } from 'src/app/user-profile/user-profile.componen
 import { ProfileDlgEditComponent } from '../../user-profile/profile-dlg-edit/profile-dlg-edit.component';
 import { StgProductosComponent } from '../../stg-productos/stg-productos.component';
 import { StgClientesComponent } from '../../stg-clientes/stg-clientes.component';
-import { StgFacturasComponent } from '../../stg-facturas/stg-facturas.component';
 import { StgContabilidadComponent } from '../../stg-contabilidad/stg-contabilidad.component';
 import { ClienteDlgEditComponent } from '../../stg-clientes/cliente-dlg-edit/cliente-dlg-edit.component';
-import { FacturasDlgEditComponent } from '../../stg-facturas/facturas-dlg-edit/facturas-dlg-edit.component';
 import { ProductosDlgEditComponent } from '../../stg-productos/productos-dlg-edit/productos-dlg-edit.component';
 import { PesocolDirective } from '../../objetos/pesocol.directive';
 import { CurrencyMaskService } from 'src/app/objetos/currency-mask.service';
@@ -39,6 +37,8 @@ import { PercentMaskService } from 'src/app/objetos/percent-mask.service';
 import { ProductosDlgImpExpComponent } from '../../stg-productos/productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { StgProveedoresComponent } from '../../stg-proveedores/stg-proveedores.component';
+import { ContabilidadDlgEditComponent } from '../../stg-contabilidad/contabilidad-dlg-edit/contabilidad-dlg-edit.component';
+import { ProveedoresDlgEditComponent } from '../../stg-proveedores/proveedores-dlg-edit/proveedores-dlg-edit.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -69,22 +69,22 @@ import { StgProveedoresComponent } from '../../stg-proveedores/stg-proveedores.c
     ProfileDlgEditComponent,
     StgProductosComponent,
     StgClientesComponent,
-    StgFacturasComponent,
     StgContabilidadComponent,
     ClienteDlgEditComponent,
-    FacturasDlgEditComponent,
     ProductosDlgEditComponent,
     PesocolDirective,
     PorcentajeundDirective,
     ProductosDlgImpExpComponent,
-    StgProveedoresComponent
+    StgProveedoresComponent,
+    ContabilidadDlgEditComponent,
+    ProveedoresDlgEditComponent
   ],
   entryComponents: [
     ProfileDlgEditComponent,
     ProductosDlgEditComponent,
     ClienteDlgEditComponent,
-    FacturasDlgEditComponent,
-    ProductosDlgImpExpComponent
+    ProductosDlgImpExpComponent,
+    ProveedoresDlgEditComponent
   ],
   providers: [CurrencyMaskService,
               PercentMaskService,

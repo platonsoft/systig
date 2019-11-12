@@ -2,6 +2,8 @@ import { DataSource } from '@angular/cdk/table';
 import { ProductosService } from '../stg-productos/productos.service';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ClientesService } from '../stg-clientes/clientes.service';
+import { ProveedoresService } from '../stg-proveedores/proveedores.service';
 
 export interface EvolucionProfileItem {
   id: number;
@@ -55,22 +57,6 @@ export interface Almacen {
   idPropietario?: number;
 }
 
-export interface Proveedor {
-  idProveedor: number;
-  tipoDocumento?: string;
-  numeroDocumento?: string;
-  razonSocial?: string;
-  telefonoLocal?: string;
-  telefonoMovil?: string;
-  email?: string;
-  web?: string;
-  direccionFiscal?: string;
-  codigoPostal?: number;
-  provincia?: string;
-  pais?: string;
-  idPropietario?: number;
-}
-
 export interface ItemsProductos {
   idItemProducto: number;
   idDocumento?: number;
@@ -100,16 +86,83 @@ export interface Productos {
     itemsProductos?: ItemsProductos[];
 }
 
+export interface Cliente {
+  idComprador: number;
+  tipoCliente?: number;
+  tipoIdentificacion?: string;
+  numeroIdentificacion?: string;
+  nombres?: string;
+  apellidos?: string;
+  razonSocial?: string;
 
-export class ClienteItem {
-  id = 0;
-  tipoIdentificacion = '';
-  numeroIdentificacion = '';
-  identificacion = '';
-  nombres = '';
-  apellidos = '';
-  razonSocial = '';
-  tipoCliente = '';
+  telefonoLocal?: string;
+  telefonoMovil?: string;
+  email?: string;
+  direccionFiscal?: string;
+  codigoPostal?: number;
+  ciudad?: string;
+  provincia?: string;
+  pais?: string;
+  moneda?: string;
+
+  etapa?: any;
+  campanaPublicidad?: any;
+  ranking?: number;
+}
+
+export interface Etapa {
+  idEtapa: number;
+  nombre?: string;
+  descripcion?: string;
+}
+
+export interface CampanaPublicidad {
+  idCampana: number;
+  titulo?: string;
+  descripcion?: string;
+  idPropietario?: number;
+  alcance?: string;
+  ciudad?: string;
+  provincia?: string;
+  pais?: string;
+  username?: string;
+  validaDesde?: number;
+  validaHasta?: number;
+}
+
+export interface Proveedor {
+  idProveedor: number;
+  tipoIdentificacion?: string;
+  numeroIdentificacion?: string;
+  nombres?: string;
+  apellidos?: string;
+  razonSocial?: string;
+  telefonoLocal?: string;
+  telefonoMovil?: string;
+  email?: string;
+  webSite?: string;
+  direccionFiscal?: string;
+  codigoPostal?: string;
+  ciudad?: string;
+  provincia?: string;
+  pais?: string;
+}
+
+export interface Pais {
+  name?: string;
+  alpha2Code?: string;
+  region?: string;
+  subregion?: string;
+  nativeName?: string;
+  numericCode?: string;
+  currencies?: Currencies[];
+  flag?: string;
+}
+
+export interface Currencies {
+  code?: string;
+  name?: string;
+  symbol?: string;
 }
 
 export class ExperienciAItem implements EvolucionProfileItem {
@@ -193,39 +246,6 @@ export const PRODUCTOS_DATA: Productos[] = [
   },
 ];
 
-export const CLIENTES_DATA: ClienteItem[] = [
-  {
-    id: 1,
-    tipoIdentificacion: 'NIT',
-    numeroIdentificacion: '0000000000',
-    identificacion: 'NIT - 0000000000',
-    nombres: '',
-    apellidos: '',
-    razonSocial: 'Empresa de prueba 1',
-    tipoCliente: 'EMPRESA',
-  },
-  {
-    id: 2,
-    tipoIdentificacion: 'CC',
-    numeroIdentificacion: '123123123',
-    identificacion: 'CC - 123123123',
-    nombres: 'Nombre 1',
-    apellidos: 'Apellidos 1',
-    razonSocial: 'Apellidos 1, Nombre 1',
-    tipoCliente: 'PERSONA',
-  },
-  {
-    id: 3,
-    tipoIdentificacion: 'CC',
-    numeroIdentificacion: '120120120',
-    identificacion: 'CC - 120120120',
-    nombres: 'Nombre 2',
-    apellidos: 'Apellidos 2',
-    razonSocial: 'Apellidos 2, Nombre 2',
-    tipoCliente: 'PERSONA',
-  },
-];
-
 export const PRODUCTOS_HISTORIAL_DATA: Historial[] = [
   {
     id: 0,
@@ -299,6 +319,41 @@ export class ProductosDataSource extends DataSource<any> {
         this.PRODUCTOS_DATA = resp.resultado;
         localStorage.setItem('tokenSystig', resp.token);
         return this.PRODUCTOS_DATA;
+      }));
+  }
+  disconnect() {}
+}
+
+export class ClientesDataSource extends DataSource<any> {
+  CLIENTES_DATA: Cliente[];
+
+  constructor(private clienteService: ClientesService) {
+    super();
+  }
+  connect(): Observable<Cliente[]> {
+    return this.clienteService.getListaClientes().pipe(
+      map((resp: Respuesta) => {
+        this.CLIENTES_DATA = resp.resultado;
+        localStorage.setItem('tokenSystig', resp.token);
+        return this.CLIENTES_DATA;
+      }));
+  }
+  disconnect() {}
+}
+
+
+export class ProveedoresDataSource extends DataSource<any> {
+  PROVEEDORES_DATA: Proveedor[];
+
+  constructor(private proveedoresService: ProveedoresService) {
+    super();
+  }
+  connect(): Observable<Proveedor[]> {
+    return this.proveedoresService.getListaProveedores().pipe(
+      map((resp: Respuesta) => {
+        this.PROVEEDORES_DATA = resp.resultado;
+        localStorage.setItem('tokenSystig', resp.token);
+        return this.PROVEEDORES_DATA;
       }));
   }
   disconnect() {}

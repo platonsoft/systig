@@ -19,7 +19,6 @@ public interface IProductosServ {
     ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, Long idProducto);
 
     ResponseEntity<?> getListadoAlmacenPropietario(HttpHeaders headers);
-    ResponseEntity<?> getListadoProveedoresPropietario(HttpHeaders headers);
     ResponseEntity<?> getListadoCategoriaPropietario(HttpHeaders headers);
 
 }

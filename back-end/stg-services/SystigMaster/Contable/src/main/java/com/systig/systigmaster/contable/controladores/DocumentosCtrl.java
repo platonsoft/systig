@@ -9,13 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.security.Principal;
 
 @Controller
 public class DocumentosCtrl {
@@ -24,11 +22,6 @@ public class DocumentosCtrl {
 
     public DocumentosCtrl(IDocumentosServ iDocumentosServ) {
         this.iDocumentosServ = iDocumentosServ;
-    }
-
-    @GetMapping("/api/login")
-    public ResponseEntity<?> login(Principal principal, HttpServletRequest requests, HttpSession session) {
-        return this.iDocumentosServ.getTokenSession(principal,requests,session);
     }
 
     @GetMapping("/api/cont/facturas")
@@ -73,16 +66,11 @@ public class DocumentosCtrl {
         return this.iDocumentosServ.addDocumento(headers,session,documento);
     }
 
-    @PutMapping("/api/cont/documento")
+    @PutMapping("/api/cont/documento/{id_documento}")
     public ResponseEntity<?> setDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                                @RequestBody Documento documento) {
-        return this.iDocumentosServ.setDocumento(headers,session,documento);
-    }
-
-    @DeleteMapping("/api/cont/documento")
-    public ResponseEntity<?> chgDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                            @RequestBody Documento documento) {
-        return this.iDocumentosServ.chgDocumento(headers,session,documento);
+                                                @RequestBody Documento documento,
+                                                @PathVariable Long id_documento) {
+        return this.iDocumentosServ.setDocumento(headers,session,documento,id_documento);
     }
 
     @GetMapping("/api/cont/documento/historia/{id_documento}")

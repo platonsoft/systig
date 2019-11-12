@@ -1,33 +1,29 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Cliente, Pais, Etapa, CampanaPublicidad, Respuesta, Currencies } from 'src/app/objetos/Objetos';
-import { ClientesService } from '../clientes.service';
+import { Pais, Currencies, Proveedor } from 'src/app/objetos/Objetos';
+import { ProveedoresService } from '../proveedores.service';
 
 @Component({
-  selector: 'stg-cliente-dlg-edit',
-  templateUrl: './cliente-dlg-edit.component.html',
-  styleUrls: ['./cliente-dlg-edit.component.scss']
+  selector: 'stg-proveedores-dlg-edit',
+  templateUrl: './proveedores-dlg-edit.component.html',
+  styleUrls: ['./proveedores-dlg-edit.component.scss']
 })
-export class ClienteDlgEditComponent implements OnInit {
+export class ProveedoresDlgEditComponent implements OnInit {
 
   myGroup: FormGroup;
   matcher = new MyErrorStateMatcher();
   listaPaises: Pais[];
-  listaEtapas: Etapa[];
-  listaCampanas: CampanaPublicidad[];
   listaMonedas: Currencies[];
 
-  selPais: Pais = { numericCode: '0', currencies: [{ code: '0', name: null }] };
-  selMoneda: Currencies = { code: '0', name: null };
-  selEtapa: Etapa;
-  selCampanaPublicidad: CampanaPublicidad;
+  selPais: Pais = {numericCode: '0', currencies: [{code: '0', name: null}]};
+  selMoneda: Currencies = {code: '0', name: null};
 
-  constructor(public dialogRef: MatDialogRef<ClienteDlgEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public clienteService: ClientesService) {
+  constructor(public dialogRef: MatDialogRef<ProveedoresDlgEditComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public proveedoresService: ProveedoresService) {
 
     this.myGroup = new FormGroup({
       tipoIdentificacion: new FormControl('', [
@@ -36,16 +32,9 @@ export class ClienteDlgEditComponent implements OnInit {
       numeroIdentificacion: new FormControl('', [
         Validators.required
       ]),
-      nombres: new FormControl('', [
-        Validators.required
-      ]),
-      apellidos: new FormControl('', [
-        Validators.required
-      ]),
+      nombres: new FormControl(),
+      apellidos: new FormControl(),
       razonSocial: new FormControl('', [
-        Validators.required
-      ]),
-      tipoCliente: new FormControl('', [
         Validators.required
       ]),
       telefonoLocal: new FormControl('', [
@@ -78,33 +67,32 @@ export class ClienteDlgEditComponent implements OnInit {
       etapa: new FormControl(),
       campanaPublicidad: new FormControl(),
       ranking: new FormControl(),
-      isCursoControl: new FormControl('', []),
+      isCursoControl: new FormControl(),
     });
 
-    this.clienteService.getListaPaises().subscribe(result => {
+    this.proveedoresService.getListaPaises().subscribe(result => {
       if (result) {
-        this.listaPaises = result;
-        if (this.data.item) {
-          this.listarMonedas(this.data.item.pais);
-        }
-      }
-    });
+          this.listaPaises = result;
+          if(this.data.item) {
+            this.listarMonedas(this.data.item.pais);
+          }
+    }});
   }
 
   listarMonedas(codePais: string) {
     let paisSel: Pais;
 
-    this.listaPaises.forEach(function (value) {
-      if (value.numericCode === codePais) {
-        paisSel = value;
-      }
+    this.listaPaises.forEach( function(value) {
+        if (value.numericCode === codePais) {
+          paisSel = value;
+        }
     });
     this.selPais = paisSel;
     this.listaMonedas = paisSel.currencies;
     if (this.data.item.moneda) {
       const monedaSel = this.data.item.moneda;
       let moneda1: Currencies = this.listaMonedas[0];
-      this.listaMonedas.forEach(function (param) {
+      this.listaMonedas.forEach( function(param) {
         if (param.code === monedaSel) {
           moneda1 = param;
         }
@@ -116,7 +104,7 @@ export class ClienteDlgEditComponent implements OnInit {
   }
 
   seleccionaPais(event) {
-    if (event.isUserInput) {
+    if(event.isUserInput) {
       this.listarMonedas(event.source.value);
     }
   }
@@ -139,27 +127,23 @@ export class ClienteDlgEditComponent implements OnInit {
       return;
     }
 
-    const clienteItem: Cliente = this.myGroup.value;
-    this.data.item = clienteItem;
+    const proveedorItem: Proveedor = this.myGroup.value;
+    this.data.item = proveedorItem;
 
     this.data.item.pais = this.selPais.numericCode;
     this.data.item.moneda = this.selMoneda.code;
-    this.data.item.etapa = this.selEtapa;
-    this.data.item.campanaPublicidad = this.selCampanaPublicidad;
-
-    console.log('Antes:  ' + JSON.stringify(clienteItem));
-
+    console.log('Antes:  ' + JSON.stringify(proveedorItem));
   }
 
   getFormValidationErrors() {
     Object.keys(this.myGroup.controls).forEach(key => {
 
-      const controlErrors: ValidationErrors = this.myGroup.get(key).errors;
-      if (controlErrors != null) {
-        Object.keys(controlErrors).forEach(keyError => {
-          console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
-        });
-      }
-    });
-  }
+    const controlErrors: ValidationErrors = this.myGroup.get(key).errors;
+    if (controlErrors != null) {
+          Object.keys(controlErrors).forEach(keyError => {
+            console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+          });
+        }
+      });
+    }
 }

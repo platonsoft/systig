@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
-import { ClienteItem, CLIENTES_DATA, ExperienciAItem, FORMACION_DATA, FormacionItem } from '../objetos/Objetos';
-import { ProfileDlgEditComponent } from '../user-profile/profile-dlg-edit/profile-dlg-edit.component';
+import { MatDialog } from '@angular/material';
+import {Cliente, ClientesDataSource, Respuesta
+} from '../objetos/Objetos';
+import { ClienteDlgEditComponent } from './cliente-dlg-edit/cliente-dlg-edit.component';
+import { ClientesService } from './clientes.service';
 
 @Component({
   selector: 'stg-stg-clientes',
@@ -10,45 +12,79 @@ import { ProfileDlgEditComponent } from '../user-profile/profile-dlg-edit/profil
 })
 export class StgClientesComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'identificacion', 'tipoCliente', 'razonSocial', 'edicion'];
-  dataSource = new MatTableDataSource<ClienteItem>(CLIENTES_DATA);
-  constructor(public dialog: MatDialog) { }
+  displayedColumns: string[] = ['identificacion', 'tipoCliente', 'razonSocial', 'edicion'];
+  dataSource = new ClientesDataSource(this.clienteService);
+  constructor(public dialog: MatDialog, public clienteService: ClientesService) { }
 
   ngOnInit() {
   }
 
-  openDialogEditCliente(itemSelect: FormacionItem, tipoSentencia: string): void {
-    const dialogRef = this.dialog.open(StgClientesComponent, {
-      width: '80wh',
-      data: {item: itemSelect != null ? itemSelect : new FormacionItem(), sentencia: tipoSentencia}
+  openDialogNuevoCliente(): void {
+    const clienteNuevo: Cliente = {
+      idComprador: 0,
+      etapa: { idEtapa: 0 },
+      campanaPublicidad: { idCampana: 0 },
+      pais: '170'
+    };
+
+    const dialogRef = this.dialog.open(ClienteDlgEditComponent, {
+      width: '80vw',
+      data: { item: clienteNuevo, sentencia: 'nuevo' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (result.sentencia === 'nuevo') {
-          FORMACION_DATA.push(result.item);
-          this.dataSource = new MatTableDataSource<ClienteItem>(CLIENTES_DATA);
-        } else if (result.sentencia === 'borrar') {
-          FORMACION_DATA.forEach(element => {
-            if (element.id === itemSelect.id) {
-              FORMACION_DATA.splice(element.id, 1);
-            }
-          });
-        }
+        this.clienteService.insertarCliente(result.item).subscribe(resultado => {
+          if (result) {
+            this.dataSource = new ClientesDataSource(this.clienteService);
+            console.log('Despues:  ' + JSON.stringify(resultado));
+          }
+        });
       }
       console.log('The dialog was closed');
       console.log('Resukt: ' + JSON.stringify(result));
     });
-}
+  }
 
-openDialogEditExperiencia(itemSelect: ExperienciAItem, tipoSentencia: string): void {
-  const dialogRef = this.dialog.open(StgClientesComponent, {
-    width: '80wh',
-    data: {item: itemSelect != null ? itemSelect : new ExperienciAItem(), sentencia: tipoSentencia}
-  });
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    console.log('Resukt: ' + JSON.stringify(result));
-  });
-}
+  openDialogEditCliente(itemSelect: Cliente, idCliente: number): void {
+    const dialogRef = this.dialog.open(ClienteDlgEditComponent, {
+      width: '80vw',
+      data: { item: itemSelect, sentencia: 'editar' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clienteService.actualizarCliente(result.item, idCliente)
+          .subscribe((resultado: Respuesta) => {
+            if (result) {
+              this.dataSource = new ClientesDataSource(this.clienteService);
+              console.log('Despues:  ' + JSON.stringify(resultado));
+            }
+          });
+      }
+      console.log('The dialog was closed');
+      console.log('Resukt: ' + JSON.stringify(result));
+    });
+  }
 
+  openDialogBorrarCliente(idCliente: number): void {
+    const dialogRef = this.dialog.open(ClienteDlgEditComponent, {
+      width: '80vw',
+      data: { item: null, sentencia: 'borrar' }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clienteService.eliminarCliente(idCliente).subscribe(resultado => {
+          if (resultado) {
+            this.dataSource = new ClientesDataSource(this.clienteService);
+            console.log('Despues:  ' + JSON.stringify(resultado));
+          }
+        });
+      }
+      console.log('The dialog was closed');
+      console.log('Resukt: ' + JSON.stringify(result));
+    });
+  }
+
+  dlgFuncionDesarrollo() {
+    alert('La opcion que ha seleccionado esta en desarrollo, en cualquier momento sera activado');
+  }
 }

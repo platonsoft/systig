@@ -5,6 +5,7 @@ import com.systig.systigmaster.contable.repositorios.interfaces.IDocumentoDao;
 import com.systig.systigmaster.contable.repositorios.interfaces.IHistoriaDao;
 import com.systig.systigmaster.contable.repositorios.interfaces.IUsuarioDao;
 import com.systig.systigmaster.contable.repositorios.modelos.Documento;
+import com.systig.systigmaster.contable.repositorios.modelos.ResultadoTransaccion;
 import com.systig.systigmaster.contable.repositorios.modelos.Usuario;
 import com.systig.systigmaster.contable.servicios.interfaces.IDocumentosServ;
 import org.springframework.http.HttpHeaders;
@@ -12,50 +13,31 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DocumentoServ implements IDocumentosServ {
 
-    private final IUsuarioDao iUsuarioDao;
+    private IUsuarioDao iUsuarioDao = new IUsuarioDao();
     private final IDocumentoDao iDocumentoDao;
     private final IHistoriaDao iHistoriaDao;
 
-    public DocumentoServ(IUsuarioDao iUsuarioDao, IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao) {
-        this.iUsuarioDao = iUsuarioDao;
+    public DocumentoServ(IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao) {
         this.iDocumentoDao = iDocumentoDao;
         this.iHistoriaDao = iHistoriaDao;
     }
 
     @Override
-    public ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session) {
-        if (principal!=null){
-            Usuario usuario = iUsuarioDao.getByUsernameEquals(principal.getName());
-            usuario.setSessionId(session.getId());
-            String tokenEnc = iUsuarioDao.retornoToken(usuario);
-            Usuario tokenDesc = iUsuarioDao.retornoUsuario(tokenEnc);
-
-            System.out.println("Token --> " + tokenEnc);
-            System.out.println("Usuario --> " + (new Gson()).toJson(tokenDesc));
-            return new ResponseEntity<String>(tokenEnc, HttpStatus.UNAUTHORIZED);
-        }
-        return new ResponseEntity<String>("Acceso denegado", HttpStatus.UNAUTHORIZED);
-    }
-
-    @Override
     public ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento) {
         try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
-                return new ResponseEntity<List>(this.iDocumentoDao
-                        .findAllByTipoDocumentoEqualsAndIdPropietarioEquals(
-                                tipoDocumento.getTipoDocumento(),
-                                usuario.getPropietario().getIdPropietario()),
-                        HttpStatus.OK);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByTipoDocumentoEqualsAndIdPropietarioEquals(tipoDocumento.getTipoDocumento(), usuario.getPropietario().getIdPropietario()));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
@@ -67,69 +49,70 @@ public class DocumentoServ implements IDocumentosServ {
     @Override
     public ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
         try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
-                return new ResponseEntity<Documento>(this.iDocumentoDao.findByIdDocumentoEquals(idDocumento), HttpStatus.OK);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.getOne(idDocumento));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<Documento>(new Documento(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<Documento>(new Documento(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
 
     @Override
     public ResponseEntity<?> addDocumento(HttpHeaders headers, HttpSession session, Documento documento) {
         try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+
+            System.out.println("Producto recibido --- > " + (new Gson()).toJson(documento));
+
             if(usuario!=null){
-                Documento productoResultado = this.iDocumentoDao.save(documento);
-                return new ResponseEntity<Documento>(productoResultado, HttpStatus.OK);
+                documento.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.save(documento));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
 
     @Override
-    public ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento) {
+    public ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento, Long idDocumento) {
         try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
-                Documento productoResultado = this.iDocumentoDao.save(documento);
-                return new ResponseEntity<Documento>(productoResultado, HttpStatus.OK);
+                System.out.println(idDocumento + " - Producto recibido --- > " + (new Gson()).toJson(documento));
+                documento.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                documento.setIdDocumento(idDocumento);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.save(documento));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> chgDocumento(HttpHeaders headers, HttpSession session, Documento documento) {
-        try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
-            if(usuario!=null){
-                // Validar antes de cambiar estado del focumento y segun el tipo
-                Documento productoResultado = this.iDocumentoDao.save(documento);
-                return new ResponseEntity<Documento>(productoResultado, HttpStatus.OK);
-            }
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
 
     @Override
     public ResponseEntity<?> getHistoriaDocumentos(HttpHeaders headers, HttpSession session, Long idDocumento) {
         try{
-            Usuario usuario = iUsuarioDao.statusSession(headers,session);
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
-                return new ResponseEntity<List>(this.iHistoriaDao.findAllByElementoEquals(String.valueOf(idDocumento)), HttpStatus.OK);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iHistoriaDao.findAllByElementoEquals(String.valueOf(idDocumento)));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){

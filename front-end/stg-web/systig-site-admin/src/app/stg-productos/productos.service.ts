@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-import { Productos, PRODUCTOS_DATA, Respuesta } from '../objetos/Objetos';
+import { Observable, throwError } from 'rxjs';
+import { Productos, Respuesta } from '../objetos/Objetos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -49,12 +48,6 @@ export class ProductosService {
     const token = localStorage.getItem('tokenSystig');
     httpOptions.headers = httpOptions.headers.set('tokensystig', token);
     return this.http.get<Respuesta>(this.listadoCategoriasUrl, httpOptions);
-  }
-
-  getListaProveedores(): Observable<Respuesta> {
-    const token = localStorage.getItem('tokenSystig');
-    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
-    return this.http.get<Respuesta>(this.listadoProveedoresUrl, httpOptions);
   }
 
   insertarProducto(producto: Productos): Observable<Respuesta> {

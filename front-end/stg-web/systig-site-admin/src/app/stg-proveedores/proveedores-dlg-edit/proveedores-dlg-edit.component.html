@@ -5,20 +5,11 @@
     <form class="row" [formGroup]="myGroup">
         <div class="col-md-3">
             <mat-form-field>
-                <mat-label>Tipo Cliente</mat-label>
-                <mat-select formControlName="tipoCliente" [(ngModel)]="data.item.tipoCliente">
-                  <mat-option value="N">Natural</mat-option>
-                  <mat-option value="J">Juridico</mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div class="col-md-3">
-            <mat-form-field>
                 <mat-label>Tipo Documento</mat-label>
                 <mat-select formControlName="tipoIdentificacion" [(ngModel)]="data.item.tipoIdentificacion">
-                  <mat-option value="CC">Cedula Ciudadania</mat-option>
-                  <mat-option value="PASS">Pasaporte</mat-option>
-                  <mat-option value="CE">Cedula Extrangeria</mat-option>
+                  <mat-option value="NIT">Numero de Identificacion Tributaria</mat-option>
+                  <mat-option value="RIF">Registro Informacion Fiscal</mat-option>
+                  <mat-option value="RUT">Registro Unidad Tributaria</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
@@ -27,7 +18,7 @@
                 <mat-error *ngIf="myGroup.get('numeroIdentificacion').hasError('required')">El numero del documento es requerido</mat-error>
               </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
             <mat-form-field>
               <input matInput placeholder="Nombres" name="nombres" formControlName="nombres" [(ngModel)]="data.item.nombres"
                 [errorStateMatcher]="matcher">

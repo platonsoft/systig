@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FacturasDlgEditComponent } from './facturas-dlg-edit.component';
+import { ProveedoresDlgEditComponent } from './proveedores-dlg-edit.component';
 
-describe('FacturasDlgEditComponent', () => {
-  let component: FacturasDlgEditComponent;
-  let fixture: ComponentFixture<FacturasDlgEditComponent>;
+describe('ProveedoresDlgEditComponent', () => {
+  let component: ProveedoresDlgEditComponent;
+  let fixture: ComponentFixture<ProveedoresDlgEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FacturasDlgEditComponent ]
+      declarations: [ ProveedoresDlgEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FacturasDlgEditComponent);
+    fixture = TestBed.createComponent(ProveedoresDlgEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

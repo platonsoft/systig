@@ -1,8 +1,21 @@
 {
-  "/api/*": {
+  "/api/inv/*": {
     "target": "http://localhost:8090",
     "secure": false,
     "changeOrigin": true,
-    "pathRewrite" : {"^/api" : "http://localhost:8090/api"}
+    "pathRewrite" : {"^/api/inv" : "http://localhost:8090/api/inv"}
+  },
+  "/api/crm/*": {
+    "target": "http://localhost:8091",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite" : {"^/api/crm" : "http://localhost:8090/api/crm"}
+  },
+  "/api/prv/*": {
+    "target": "http://localhost:8092",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite" : {"^/api/prv" : "http://localhost:8090/api/prv"}
   }
+
 }

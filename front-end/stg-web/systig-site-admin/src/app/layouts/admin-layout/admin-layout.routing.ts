@@ -4,7 +4,6 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 import { StgProductosComponent } from 'src/app/stg-productos/stg-productos.component';
 import { StgClientesComponent } from 'src/app/stg-clientes/stg-clientes.component';
-import { StgFacturasComponent } from 'src/app/stg-facturas/stg-facturas.component';
 import { StgContabilidadComponent } from 'src/app/stg-contabilidad/stg-contabilidad.component';
 import { AuthGuard } from 'src/app/objetos/auth-guard';
 import { AccesoGuard } from 'src/app/objetos/acceso-guard';
@@ -58,7 +57,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'principal',      component: DashboardComponent, canActivate: [AccesoGuard] },
     { path: 'productos',      component: StgProductosComponent, canActivate: [AccesoGuard] },
     { path: 'clientes',      component: StgClientesComponent, canActivate: [AccesoGuard] },
-    { path: 'facturas',      component: StgFacturasComponent, canActivate: [AccesoGuard] },
     { path: 'contable',      component: StgContabilidadComponent, canActivate: [AccesoGuard] },
     { path: 'proveedores',      component: StgProveedoresComponent, canActivate: [AccesoGuard] },
 ];

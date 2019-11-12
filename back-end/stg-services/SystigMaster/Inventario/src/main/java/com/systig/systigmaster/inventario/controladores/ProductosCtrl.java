@@ -37,11 +37,6 @@ public class ProductosCtrl {
         return this.productosServ.getListadoAlmacenPropietario(headers);
     }
 
-    @GetMapping("/api/inv/proveedores")
-    public ResponseEntity<?> getListaProveedores(@RequestHeader HttpHeaders headers) {
-        return this.productosServ.getListadoProveedoresPropietario(headers);
-    }
-
     @GetMapping("/api/inv/categorias")
     public ResponseEntity<?> getListaCategorias(@RequestHeader HttpHeaders headers) {
         return this.productosServ.getListadoCategoriaPropietario(headers);

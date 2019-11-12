@@ -10,12 +10,10 @@ import java.security.Principal;
 
 public interface IDocumentosServ {
 
-    ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
     ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento);
     ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
     ResponseEntity<?> addDocumento(HttpHeaders headers, HttpSession session, Documento documento);
-    ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento);
-    ResponseEntity<?> chgDocumento(HttpHeaders headers, HttpSession session, Documento documento);
+    ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento, Long idDocumento);
     ResponseEntity<?> getHistoriaDocumentos(HttpHeaders headers, HttpSession session, Long idDocumento);
 
     enum TIPO_DOCUMENTO{

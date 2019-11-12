@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/mate
 import { Historial, PRODUCTOS_HISTORIAL_DATA, Almacen, Categoria, Respuesta, Proveedor, Productos } from 'src/app/objetos/Objetos';
 import { ProductosService } from '../productos.service';
 import { map } from 'rxjs/operators';
+import { ProveedoresService } from 'src/app/stg-proveedores/proveedores.service';
 
 @Component({
   selector: 'stg-productos-dlg-edit',
@@ -28,7 +29,9 @@ export class ProductosDlgEditComponent implements OnInit {
   dataSourceHistorico = new MatTableDataSource<Historial>(PRODUCTOS_HISTORIAL_DATA);
 
   constructor(public dialogRef: MatDialogRef<ProductosDlgEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public servicioProducto: ProductosService) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public servicioProducto: ProductosService,
+              public servicioProveedores: ProveedoresService) {
     this.myGroup = new FormGroup({
       nombre: new FormControl('', [
         Validators.required,
@@ -74,7 +77,7 @@ export class ProductosDlgEditComponent implements OnInit {
           this.listaCategorias = result.resultado;
     }});
 
-    this.servicioProducto.getListaProveedores().subscribe((result: Respuesta) => {
+    this.servicioProveedores.getListaProveedores().subscribe((result: Respuesta) => {
       if (result) {
           this.listaProveedores = result.resultado;
     }});

@@ -13,7 +13,6 @@ public class Comprador {
     private Long idComprador;
     private String tipoIdentificacion;
     private String numeroIdentificacion;
-    private String identificacion;
     private String nombres;
     private String apellidos;
     private String razonSocial;
@@ -25,6 +24,7 @@ public class Comprador {
     private String codigoPostal;
     private String ciudad;
     private String provincia;
+    private String moneda;
     private String pais;
     private Long idPropietario;
     @JoinColumn(name = "id_etapa", referencedColumnName = "idEtapa")

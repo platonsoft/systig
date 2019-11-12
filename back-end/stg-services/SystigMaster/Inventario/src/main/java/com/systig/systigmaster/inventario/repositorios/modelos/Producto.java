@@ -31,9 +31,7 @@ public class Producto {
     @JoinColumn(name = "id_almacen", referencedColumnName = "idAlmacen", nullable = false)
     @ManyToOne()
     private Almacen almacen;
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "idProveedor", nullable = false)
-    @ManyToOne()
-    private Proveedor proveedor;
+    private Long idProveedor;
     private Long idPropietario;
 
     @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

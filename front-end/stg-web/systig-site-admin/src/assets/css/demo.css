@@ -12395,7 +12395,7 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-end,body.swal2-no-backdrop .swa
 
   }
   .main-panel .main-content{
-   margin-top:70px;padding:30px 15px;min-height:calc(100vh - 123px)
+   margin-top:0px;padding:30px 15px;min-height:calc(100vh - 123px)
   }
   .main-panel .footer{
    border-top:1px solid #e7e7e7

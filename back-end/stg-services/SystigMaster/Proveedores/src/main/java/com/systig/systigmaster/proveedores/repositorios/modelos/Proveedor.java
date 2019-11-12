@@ -20,6 +20,7 @@ public class Proveedor {
     private String telefonoLocal;
     private String telefonoMovil;
     private String email;
+    private String webSite;
     private String direccionFiscal;
     private String codigoPostal;
     private String ciudad;
