@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors } fro
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Pais, Currencies, Proveedor } from 'src/app/objetos/Objetos';
+import { Pais, Currencies, Proveedor, Envios } from 'src/app/objetos/Objetos';
 import { ProveedoresService } from '../proveedores.service';
 
 @Component({
@@ -14,12 +14,15 @@ import { ProveedoresService } from '../proveedores.service';
 export class ProveedoresDlgEditComponent implements OnInit {
 
   myGroup: FormGroup;
+  myGroupEnvios: FormGroup;
   matcher = new MyErrorStateMatcher();
   listaPaises: Pais[];
   listaMonedas: Currencies[];
+  esRetentor = false;
 
   selPais: Pais = {numericCode: '0', currencies: [{code: '0', name: null}]};
   selMoneda: Currencies = {code: '0', name: null};
+  selEnvios: Envios = {idEmpresaEnvios: 0 };
 
   constructor(public dialogRef: MatDialogRef<ProveedoresDlgEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
@@ -66,9 +69,27 @@ export class ProveedoresDlgEditComponent implements OnInit {
       ]),
       etapa: new FormControl(),
       campanaPublicidad: new FormControl(),
+      isRetentor: new FormControl(),
       ranking: new FormControl(),
       isCursoControl: new FormControl(),
     });
+
+    this.myGroupEnvios = new FormGroup({
+      observaciones: new FormControl('', [
+        Validators.required
+      ]),
+      precioEmpaque: new FormControl('', [
+        Validators.required
+      ]),
+      precioPeso: new FormControl('', [
+        Validators.required
+      ]),
+    });
+
+    console.log('' + JSON.stringify(this.data.item.envios));
+
+
+    this.selEnvios = this.data.item.envios;
 
     this.proveedoresService.getListaPaises().subscribe(result => {
       if (result) {
@@ -118,20 +139,24 @@ export class ProveedoresDlgEditComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.myGroup.controls; }
+  get g() { return this.myGroupEnvios.controls; }
 
   onSubmit() {
 
     // stop here if form is invalid
-    if (this.myGroup.invalid) {
+    if (this.myGroup.invalid || this.myGroupEnvios.invalid) {
       this.getFormValidationErrors();
       return;
     }
 
     const proveedorItem: Proveedor = this.myGroup.value;
+    const envios: Envios = this.selEnvios;
     this.data.item = proveedorItem;
 
     this.data.item.pais = this.selPais.numericCode;
     this.data.item.moneda = this.selMoneda.code;
+    this.data.item.envios = envios;
+
     console.log('Antes:  ' + JSON.stringify(proveedorItem));
   }
 

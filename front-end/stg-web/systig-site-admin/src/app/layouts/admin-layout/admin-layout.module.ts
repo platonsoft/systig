@@ -21,7 +21,8 @@ import {
   MatTableModule,
   MatDialogModule,
   MatIconModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 import { ProfileDlgEditComponent } from '../../user-profile/profile-dlg-edit/profile-dlg-edit.component';
@@ -37,8 +38,8 @@ import { PercentMaskService } from 'src/app/objetos/percent-mask.service';
 import { ProductosDlgImpExpComponent } from '../../stg-productos/productos-dlg-imp-exp/productos-dlg-imp-exp.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { StgProveedoresComponent } from '../../stg-proveedores/stg-proveedores.component';
-import { ContabilidadDlgEditComponent } from '../../stg-contabilidad/contabilidad-dlg-edit/contabilidad-dlg-edit.component';
 import { ProveedoresDlgEditComponent } from '../../stg-proveedores/proveedores-dlg-edit/proveedores-dlg-edit.component';
+import { DocumentoDlgEditComponent } from '../../stg-contabilidad/documento-dlg-edit/documento-dlg-edit.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -61,6 +62,7 @@ import { ProveedoresDlgEditComponent } from '../../stg-proveedores/proveedores-d
     MatTableModule,
     MatDialogModule,
     MatIconModule,
+    MatAutocompleteModule,
     ChartistModule,
   ],
   declarations: [
@@ -76,15 +78,16 @@ import { ProveedoresDlgEditComponent } from '../../stg-proveedores/proveedores-d
     PorcentajeundDirective,
     ProductosDlgImpExpComponent,
     StgProveedoresComponent,
-    ContabilidadDlgEditComponent,
-    ProveedoresDlgEditComponent
+    ProveedoresDlgEditComponent,
+    DocumentoDlgEditComponent,
   ],
   entryComponents: [
     ProfileDlgEditComponent,
     ProductosDlgEditComponent,
     ClienteDlgEditComponent,
     ProductosDlgImpExpComponent,
-    ProveedoresDlgEditComponent
+    ProveedoresDlgEditComponent,
+    DocumentoDlgEditComponent
   ],
   providers: [CurrencyMaskService,
               PercentMaskService,

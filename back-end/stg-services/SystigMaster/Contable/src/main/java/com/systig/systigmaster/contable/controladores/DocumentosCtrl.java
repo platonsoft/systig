@@ -24,6 +24,11 @@ public class DocumentosCtrl {
         this.iDocumentosServ = iDocumentosServ;
     }
 
+    @GetMapping("/api/cont/all")
+    public ResponseEntity<?> getListaDocumentos(@RequestHeader HttpHeaders headers, HttpSession session) {
+        return this.iDocumentosServ.getAllListaDocumentos(headers,session);
+    }
+
     @GetMapping("/api/cont/facturas")
     public ResponseEntity<?> getListaFacturas(@RequestHeader HttpHeaders headers, HttpSession session) {
         return this.iDocumentosServ.getListaDocumentos(headers,session, IDocumentosServ.TIPO_DOCUMENTO.FACTURA);

@@ -30,7 +30,9 @@ public class Propietario {
     private String codigoPostal;
     private String provincia;
     private String pais;
-
+    @JoinColumn(name = "id_configuracion", referencedColumnName = "idConfiguracion")
+    @ManyToOne(optional = false)
+    private Configuracion configuracion;
     @OneToMany( mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     //@JsonManagedReference(value = "usuarios")
     //@JsonBackReference(value = "usuarios")

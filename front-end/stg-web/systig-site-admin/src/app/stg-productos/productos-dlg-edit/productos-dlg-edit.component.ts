@@ -55,16 +55,29 @@ export class ProductosDlgEditComponent implements OnInit {
       almacen: new FormControl('', [
         Validators.required
       ]),
-      proveedor: new FormControl('', [
+      idProveedor: new FormControl('', [
         Validators.required
       ]),
       unidad: new FormControl('', [
         Validators.required
       ]),
-      monto: new FormControl('', [
+      montoCompra: new FormControl('', [
+        Validators.required
+      ]),
+      montoUnicoDetal: new FormControl('', [
+        Validators.required
+      ]),
+      montoUnicoMayor: new FormControl('', [
+        Validators.required
+      ]),
+      montoCuotasDetal: new FormControl('', [
+        Validators.required
+      ]),
+      montoCuotasMayor: new FormControl('', [
         Validators.required
       ]),
       disponible: new FormControl('', []),
+      isExcento: new FormControl('', []),
     });
 
     this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
@@ -85,7 +98,7 @@ export class ProductosDlgEditComponent implements OnInit {
     if (this.data.item) {
       this.selCategoria = this.data.item.categoria;
       this.selAlmacen = this.data.item.almacen;
-      this.selProveedor = this.data.item.proveedor;
+      this.selProveedor = {idProveedor: this.data.item.idProveedor};
     }
   }
 

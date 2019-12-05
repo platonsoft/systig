@@ -1,0 +1,117 @@
+<div class="py-2 text-center" *ngIf="data.sentencia=='NUEVO' && data.tipoDocumento == 'NOTAPEDIDO'">
+  <h2>Nota de Pedido</h2>
+</div>
+
+<div mat-dialog-content *ngIf="data.sentencia!='borrar'">
+  <div class="row">
+    <div class="col-md-9 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Productos seleccionados</span>
+        <span class="badge badge-secondary badge-pill">{{listaProductosProveedor.length}}</span>
+      </h4>
+      <ul class="list-group mb-3">
+        <li class="row" *ngFor="let producto of listaProductosProveedor">
+          <div class="col-md-3">
+            <h6 class="my-0">{{producto.nombre}}</h6>
+            <small class="text-muted">{{producto.descripcion}}</small>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="text-muted">
+              <input  matInput placeholder="Cantidad" aria-label="number" [(ngModel)]="producto.cantidadExistencia">
+              <span matSuffix>&nbsp; {{producto.unidad}}</span>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="text-muted">
+              <input  matInput placeholder="Precio Unitario Compra" aria-label="number" [(ngModel)]="producto.montoCompra">
+              <span matSuffix>&nbsp; $</span>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 text-right">
+              <h4 class="my-0">{{calcularMontoProducto(producto)}} &nbsp; $</h4>
+          </div>
+        </li>
+
+<h1 mat-dialog-title *ngIf="data.sentencia=='borrar'">Confirme borrar</h1>
+        <li class="list-group-item d-flex justify-content-between bg-light row" *ngIf="data.sentencia!='NUEVO' && data.tipoDocumento != 'NOTAPEDIDO'">
+            <form class="card p-2 col-md-12">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Codigo o descripcion del producto">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Agregar</button>
+          </div>
+        </div>
+      </form>
+        </li>
+        <li class="list-group-item d-flex justify-content-between lh-condensed" *ngIf="conGastosEnvio">
+          <div>
+            <h6 class="my-0">Gastos de envio (Empaque: {{calcularGastosEnvios().costoEmpaque}}, Peso: {{calcularGastosEnvios().costoPeso}})</h6>
+            <small class="text-muted">{{gastoEnvio.observaciones}}</small>
+          </div>
+          <span class="text-muted">{{calcularGastosEnvios().totalEnvio}}</span>
+        </li>
+        <li class="d-flex justify-content-between">
+          <div><h3><span>Sub-Total: </span><strong>{{calcularTotalPagar().subTotal}} &nbsp; $</strong></h3></div>
+          <div><h3><span>IVA: </span><strong>{{calcularTotalPagar().totalIVA}} &nbsp; $</strong></h3></div>
+          <div><h3><span>Total a Pagar: </span><strong>{{calcularTotalPagar().totalPagar}} &nbsp; $</strong></h3></div>
+        </li>
+      </ul>
+
+    </div>
+    <div class="col-md-3 order-md-1">
+      <h4 class="mb-3">Detalles del Proveedor</h4>
+      <form class="needs-validation" [formGroup]="myGroup">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Numero de Identificacion" aria-label="number" [matAutocomplete]="auto" #numeroIdentificacion name="numeroIdentificacion" formControlName="numeroIdentificacion">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let proveedor of listaProveedores" [value]="proveedor.numeroIdentificacion" (onSelectionChange)="cargaDetallesProveedor(proveedor)">
+                    <span>{{proveedor.razonSocial}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+          </div>
+          <div class="col-md-12 mb-3">
+              <mat-form-field class="example-full-width" disabled>
+                <input matInput placeholder="Nombre/Razon social" aria-label="number" [(ngModel)]="proveedorSelect.razonSocial" name="razonSocial" formControlName="razonSocial">
+              </mat-form-field>
+          </div>
+          <div style="display:none">
+            <div class="col-md-12 mb-3">
+            <label for="address">Direccion fiscal</label>
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="address">Numero telefonico</label>
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="address">Email</label>
+          <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+          </div>
+          </div>
+        </div>
+        <div class="custom-control custom-checkbox" [formGroup]="myGroup">
+          <mat-checkbox [(ngModel)]="conGastosEnvio" name="conGastoEnvio" formControlName="conGastoEnvio">Incluir gastos de Envio</mat-checkbox>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-content *ngIf="data.sentencia=='borrar'">
+    <p>Esta seguro de borrar el elemento?</p>
+</div>
+<div mat-dialog-actions>
+  <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()">Generar Pedido por {{calcularTotalPagar().totalPagar}} &nbsp; $</button>
+</div>

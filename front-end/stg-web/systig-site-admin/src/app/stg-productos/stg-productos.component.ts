@@ -28,7 +28,7 @@ export class StgProductosComponent implements OnInit {
       idProducto: 0,
       almacen: {idAlmacen: 0},
       categoria: {idCategoria: 0},
-      proveedor: {idProveedor: 0}
+      idProveedor: 0
     };
 
     const dialogRef = this.dialog.open(ProductosDlgEditComponent, {

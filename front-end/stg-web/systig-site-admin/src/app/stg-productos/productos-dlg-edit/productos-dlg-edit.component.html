@@ -33,9 +33,9 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Proveedor</mat-label>
-            <mat-select formControlName="proveedor" [(ngModel)]="selProveedor.idProveedor">
+            <mat-select formControlName="idProveedor" [(ngModel)]="selProveedor.idProveedor">
               <mat-option>Ninguno</mat-option>
-              <mat-option *ngFor="let proveedor of listaProveedores" [value]="proveedor.idProveedor">{{proveedor.razonSocial}}</mat-option>
+              <mat-option *ngFor="let proveedor of listaProveedores" [value]="proveedor.idProveedor">{{proveedor.idProveedor}} - {{proveedor.razonSocial}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -62,7 +62,8 @@
                 <span matSuffix>&nbsp; {{data.item.unidad}}</span>
               <mat-error *ngIf="myGroup.get('cantidadOptima').hasError('required')">Se requiere una catidad optima</mat-error>
             </mat-form-field>
-          <mat-slide-toggle name="disponible" formControlName="disponible" [(ngModel)]="data.item.disponible">Disponibilidad</mat-slide-toggle>
+            <mat-checkbox [(ngModel)]="data.item.isExcento" name="isExcento" formControlName="isExcento">Exento de impuesto &nbsp;</mat-checkbox>
+            <mat-checkbox [(ngModel)]="data.item.disponible" name="disponible" formControlName="disponible">Disponibilidad</mat-checkbox>
         </div>
         <div class="col-md-6">
             <mat-form-field>
@@ -76,9 +77,30 @@
               <mat-error *ngIf="myGroup.get('impuesto').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Precio Unitario" name="monto" stgPesocol formControlName="monto" [(ngModel)]="data.item.monto"
+              <input matInput placeholder="Precio Compra" name="montoCompra" stgPesocol formControlName="montoCompra" [(ngModel)]="data.item.montoCompra"
                 [errorStateMatcher]="matcher">
-              <mat-error *ngIf="myGroup.get('monto').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+              <mat-error *ngIf="myGroup.get('montoCompra').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Precio Pago Unico Detal" name="montoUnicoDetal" stgPesocol formControlName="montoUnicoDetal" [(ngModel)]="data.item.montoUnicoDetal"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('montoUnicoDetal').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Precio Pago Unico al mayor" name="montoUnicoMayor" stgPesocol formControlName="montoUnicoMayor" [(ngModel)]="data.item.montoUnicoMayor"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('montoUnicoMayor').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Precio Pago a Cuotas Detal" name="montoCuotasDetal" stgPesocol formControlName="montoCuotasDetal" [(ngModel)]="data.item.montoCuotasDetal"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('montoCuotasDetal').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Precio Pago a Cuotas al mayor" name="montoCuotasMayor" stgPesocol formControlName="montoCuotasMayor" [(ngModel)]="data.item.montoCuotasMayor"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myGroup.get('montoCuotasMayor').hasError('required')">El numero de telefono de la institucion es requerido</mat-error>
             </mat-form-field>
         </div>
       </form>

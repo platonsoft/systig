@@ -16,6 +16,7 @@ public class Propietario {
     private String email;
     private String direccionFiscal;
     private String codigoPostal;
+    private Configuracion configuracion;
     private String provincia;
     private String pais;
     private Object usuarios;

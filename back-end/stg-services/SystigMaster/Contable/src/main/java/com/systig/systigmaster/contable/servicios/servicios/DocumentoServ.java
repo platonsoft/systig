@@ -47,6 +47,23 @@ public class DocumentoServ implements IDocumentosServ {
     }
 
     @Override
+    public ResponseEntity<?> getAllListaDocumentos(HttpHeaders headers, HttpSession session) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
     public ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
         try{
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
@@ -120,4 +137,5 @@ public class DocumentoServ implements IDocumentosServ {
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
+
 }

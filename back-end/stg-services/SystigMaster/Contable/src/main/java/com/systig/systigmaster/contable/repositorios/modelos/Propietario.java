@@ -15,6 +15,7 @@ public class Propietario {
     private String telefonoMovil;
     private String email;
     private String direccionFiscal;
+    private Configuracion configuracion;
     private String codigoPostal;
     private String provincia;
     private String pais;

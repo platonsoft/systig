@@ -16,6 +16,11 @@
     "secure": false,
     "changeOrigin": true,
     "pathRewrite" : {"^/api/prv" : "http://localhost:8090/api/prv"}
+  },
+  "/api/cont/*": {
+    "target": "http://localhost:8093",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite" : {"^/api/cont" : "http://localhost:8090/api/cont"}
   }
-
 }

@@ -85,7 +85,32 @@
               [(ngModel)]="data.item.telefonoLocal" [errorStateMatcher]="matcher">
             <mat-error *ngIf="myGroup.get('telefonoLocal').hasError('required')">El Telefono Local es requerido</mat-error>
           </mat-form-field>
+          <mat-checkbox [(ngModel)]="data.item.isRetentor" name="isRetentor" formControlName="isRetentor">Es Retentor</mat-checkbox>
         </div>
+      </form>
+
+      <form class="row" [formGroup]="myGroupEnvios">
+          <div class="col-md-12">
+              <mat-form-field>
+                <input matInput placeholder="Observaciones de envios" name="observaciones" formControlName="observaciones"
+                  [(ngModel)]="selEnvios.observaciones" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="myGroupEnvios.get('observaciones').hasError('required')">Debe explicar el metodo de envio</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <mat-form-field>
+                <input matInput placeholder="Precio por Empaque" name="precioEmpaque" stgPesocol formControlName="precioEmpaque" [(ngModel)]="selEnvios.precioEmpaque"
+                  [errorStateMatcher]="matcher">
+                <mat-error *ngIf="myGroupEnvios.get('precioEmpaque').hasError('required')">Debe indicar el precio del empaque para envio</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="col-md-6">
+              <mat-form-field>
+                  <input matInput placeholder="Precio por peso" name="precioPeso" stgPesocol formControlName="precioPeso" [(ngModel)]="selEnvios.precioPeso"
+                    [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="myGroupEnvios.get('precioPeso').hasError('required')">Debe indicar el precio por peso del pedido</mat-error>
+                </mat-form-field>
+          </div>
       </form>
 </div>
 

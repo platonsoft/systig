@@ -1,5 +1,7 @@
 package com.systig.systigmaster.proveedores.repositorios.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,5 +28,10 @@ public class Proveedor {
     private String ciudad;
     private String provincia;
     private String pais;
+    private Boolean isRetentor;
     private Long idPropietario;
+
+    @JoinColumn(name = "id_empresaEnvios", referencedColumnName = "idEmpresaEnvios", nullable = false)
+    @ManyToOne()
+    private EmpresaEnvios envios;
 }

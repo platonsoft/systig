@@ -18,21 +18,35 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private String unidad;
-    private BigDecimal impuesto;
-    private BigDecimal descuento;
     private BigDecimal cantidadMinima;
     private BigDecimal cantidadOptima;
     private BigDecimal cantidadExistencia;
-    private BigDecimal monto;
+    private BigDecimal montoCompra;
+    private BigDecimal montoUnicoDetal;
+    private BigDecimal montoUnicoMayor;
+    private BigDecimal montoCuotasDetal;
+    private BigDecimal montoCuotasMayor;
+    private BigDecimal peso;
+    private BigDecimal altura;
+    private BigDecimal anchura;
+    private BigDecimal profundidad;
+    private BigDecimal factorGanancia;
     private String modelo;
+
     @JoinColumn(name = "id_categoria", referencedColumnName = "idCategoria", nullable = false)
     @ManyToOne()
     private Categoria categoria;
+
     @JoinColumn(name = "id_almacen", referencedColumnName = "idAlmacen", nullable = false)
     @ManyToOne()
     private Almacen almacen;
+
     private Long idProveedor;
     private Long idPropietario;
+    private Boolean isExcento;
+
+    @OneToMany( mappedBy = "idTributo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Tributo> tributos;
 
     @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference

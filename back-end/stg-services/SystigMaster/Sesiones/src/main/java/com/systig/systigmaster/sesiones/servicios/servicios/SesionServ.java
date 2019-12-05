@@ -73,6 +73,7 @@ public class SesionServ implements ISesionServ {
                 propietario.setProvincia("NP");
             }
 
+
             Usuario usuario = new Usuario();
             usuario.setUsername(propietario.getEmail());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -94,6 +95,12 @@ public class SesionServ implements ISesionServ {
             usuario.setRol(rol);
             propietario.getUsuarios().add(usuario);
             propietario = iPropietarioDao.save(propietario);
+
+            Configuracion configuracion = new Configuracion();
+            configuracion.setIdPropietario(propietario.getIdPropietario());
+            configuracion.setJsonConfiguracion((new Gson()).toJson(getConfiguracionDefault()));
+            propietario.setConfiguracion(configuracion);
+            iPropietarioDao.save(propietario);
             enviaCorreo("Nuevo Usuario",
                     IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
                             .replace("{usuario}",propietario.getEmail())

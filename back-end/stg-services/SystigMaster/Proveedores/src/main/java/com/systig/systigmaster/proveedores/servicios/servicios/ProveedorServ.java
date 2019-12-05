@@ -1,21 +1,19 @@
 package com.systig.systigmaster.proveedores.servicios.servicios;
 
 import com.google.gson.Gson;
+import com.systig.systigmaster.proveedores.repositorios.interfaces.IEmpresaEnvios;
 import com.systig.systigmaster.proveedores.repositorios.interfaces.IProveedorDao;
 import com.systig.systigmaster.proveedores.repositorios.interfaces.IUsuarioDao;
 import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
 import com.systig.systigmaster.proveedores.repositorios.modelos.ResultadoTransaccion;
 import com.systig.systigmaster.proveedores.repositorios.modelos.Usuario;
 import com.systig.systigmaster.proveedores.servicios.interfaces.IProveedorServ;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +22,13 @@ public class ProveedorServ implements IProveedorServ {
 
     IUsuarioDao iUsuarioDao = new IUsuarioDao();
 
-    @Autowired
-    IProveedorDao proveedorDao;
+    private final IProveedorDao proveedorDao;
+    private final IEmpresaEnvios iEmpresaEnvios;
+
+    public ProveedorServ(IProveedorDao proveedorDao, IEmpresaEnvios iEmpresaEnvios) {
+        this.proveedorDao = proveedorDao;
+        this.iEmpresaEnvios = iEmpresaEnvios;
+    }
 
     @Override
     public ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session) {
@@ -72,6 +75,7 @@ public class ProveedorServ implements IProveedorServ {
             if(usuario!=null){
                 proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                proveedor.setEnvios(iEmpresaEnvios.save(proveedor.getEnvios()));
                 resultadoTransaccion.setResultado(this.proveedorDao.save(proveedor));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
@@ -91,6 +95,7 @@ public class ProveedorServ implements IProveedorServ {
                 System.out.println(idProveedor + " - Proveedor recibido --- > " + (new Gson()).toJson(proveedor));
                 proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
                 proveedor.setIdProveedor(idProveedor);
+                proveedor.setEnvios(iEmpresaEnvios.save(proveedor.getEnvios()));
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.proveedorDao.save(proveedor));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);

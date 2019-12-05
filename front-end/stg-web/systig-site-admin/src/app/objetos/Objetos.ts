@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClientesService } from '../stg-clientes/clientes.service';
 import { ProveedoresService } from '../stg-proveedores/proveedores.service';
+import { ContabilidadService } from '../stg-contabilidad/contabilidad.service';
 
 export interface EvolucionProfileItem {
   id: number;
@@ -77,13 +78,29 @@ export interface Productos {
     cantidadMinima?: number;
     cantidadOptima?: number;
     cantidadExistencia?: number;
-    monto?: number;
+    montoCompra?: number;
+    montoUnicoDetal?: number;
+    montoUnicoMayor?: number;
+    montoCuotasMayor?: number;
+    montoCuotasDetal?: number;
+    isExcento?: boolean;
+    peso?: number;
+    altura?: number;
+    anchura?: number;
+    profundidad?: number;
     modelo?: number;
     categoria?: Categoria;
     almacen?: Almacen;
-    proveedor?: Proveedor;
+    idProveedor?: number;
     idPropietario?: number;
     itemsProductos?: ItemsProductos[];
+}
+
+export interface FormaPago {
+  idFormaPago: number;
+  tipoMonto: string;
+  forma: string;
+  nroCuotas: number;
 }
 
 export interface Cliente {
@@ -116,6 +133,23 @@ export interface Etapa {
   descripcion?: string;
 }
 
+export interface Impuesto {
+  idImpuesto: number;
+  nombre?: string;
+  descripcion?: string;
+  isLegal?: boolean;
+  porcentaje?: number;
+}
+
+export interface Descuento {
+  idDescuento: number;
+  nombre?: string;
+  descripcion?: string;
+  fechaDesde?: number;
+  fechaHasta?: number;
+  porcentaje?: number;
+}
+
 export interface CampanaPublicidad {
   idCampana: number;
   titulo?: string;
@@ -128,6 +162,13 @@ export interface CampanaPublicidad {
   username?: string;
   validaDesde?: number;
   validaHasta?: number;
+}
+
+export interface Envios {
+  idEmpresaEnvios: number;
+  observaciones?: string;
+  precioEmpaque?: number;
+  precioPeso?: number;
 }
 
 export interface Proveedor {
@@ -145,6 +186,8 @@ export interface Proveedor {
   codigoPostal?: string;
   ciudad?: string;
   provincia?: string;
+  isRetentor?: boolean;
+  envios?: Envios;
   pais?: string;
 }
 
@@ -163,6 +206,18 @@ export interface Currencies {
   code?: string;
   name?: string;
   symbol?: string;
+}
+
+export interface Documento{
+  idDocumento: number;
+  tipoDocumento?: number;
+  nroControl?: string;
+  Codigo?: string;
+  idCliente?: number;
+  fecha?: string;
+  validez?: number;
+  idPropietario?: number;
+  Estado?: number;
 }
 
 export class ExperienciAItem implements EvolucionProfileItem {
@@ -354,6 +409,24 @@ export class ProveedoresDataSource extends DataSource<any> {
         this.PROVEEDORES_DATA = resp.resultado;
         localStorage.setItem('tokenSystig', resp.token);
         return this.PROVEEDORES_DATA;
+      }));
+  }
+  disconnect() {}
+}
+
+
+export class DocumentosDataSource extends DataSource<any> {
+  DOCUMENTOS_DATA: Documento[];
+
+  constructor(private contabilidadService: ContabilidadService) {
+    super();
+  }
+  connect(): Observable<Documento[]> {
+    return this.contabilidadService.getListaDocumentos().pipe(
+      map((resp: Respuesta) => {
+        this.DOCUMENTOS_DATA = resp.resultado;
+        localStorage.setItem('tokenSystig', resp.token);
+        return this.DOCUMENTOS_DATA;
       }));
   }
   disconnect() {}

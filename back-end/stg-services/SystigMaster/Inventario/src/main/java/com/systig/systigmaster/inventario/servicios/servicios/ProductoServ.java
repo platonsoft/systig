@@ -2,6 +2,7 @@ package com.systig.systigmaster.inventario.servicios.servicios;
 
 import com.google.gson.Gson;
 import com.systig.systigmaster.inventario.repositorios.interfaces.*;
+import com.systig.systigmaster.inventario.repositorios.modelos.ItemProducto;
 import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
 import com.systig.systigmaster.inventario.repositorios.modelos.ResultadoTransaccion;
 import com.systig.systigmaster.inventario.repositorios.modelos.Usuario;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +48,24 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iProductoDao.findAllByIdPropietarioEqualsAndIdProveedorEquals(usuario.getPropietario().getIdPropietario(), idProveedor));
+                return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -63,7 +82,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -80,7 +99,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -99,10 +118,10 @@ public class ProductoServ implements IProductosServ {
                 resultadoTransaccion.setResultado(this.iProductoDao.save(producto));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<String>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            // e.printStackTrace();
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -121,7 +140,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
@@ -139,7 +158,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<String>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<String>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
@@ -156,7 +175,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -173,7 +192,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
@@ -190,7 +209,7 @@ public class ProductoServ implements IProductosServ {
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            e.printStackTrace();
+            // e.printStackTrace();
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
         }
     }
