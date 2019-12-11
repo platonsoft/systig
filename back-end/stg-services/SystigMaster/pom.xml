@@ -19,6 +19,7 @@
         <module>Inventario</module>
         <module>Contable</module>
         <module>Proveedores</module>
+        <module>Sesiones</module>
     </modules>
 
     <properties>

@@ -4,11 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.systig.systigmaster.contable.repositorios.interfaces.IDocumentoDao;
 import com.systig.systigmaster.contable.repositorios.interfaces.IHistoriaDao;
+import com.systig.systigmaster.contable.repositorios.interfaces.IPago;
 import com.systig.systigmaster.contable.repositorios.interfaces.IUsuarioDao;
-import com.systig.systigmaster.contable.repositorios.modelos.Documento;
-import com.systig.systigmaster.contable.repositorios.modelos.Pago;
-import com.systig.systigmaster.contable.repositorios.modelos.ResultadoTransaccion;
-import com.systig.systigmaster.contable.repositorios.modelos.Usuario;
+import com.systig.systigmaster.contable.repositorios.modelos.*;
 import com.systig.systigmaster.contable.servicios.interfaces.IDocumentosServ;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -25,10 +23,13 @@ public class DocumentoServ implements IDocumentosServ {
     private IUsuarioDao iUsuarioDao = new IUsuarioDao();
     private final IDocumentoDao iDocumentoDao;
     private final IHistoriaDao iHistoriaDao;
+    private final IPago iPago;
+    private Configuracion configuracion;
 
-    public DocumentoServ(IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao) {
+    public DocumentoServ(IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao, IPago iPago) {
         this.iDocumentoDao = iDocumentoDao;
         this.iHistoriaDao = iHistoriaDao;
+        this.iPago = iPago;
     }
 
     @Override
@@ -98,15 +99,25 @@ public class DocumentoServ implements IDocumentosServ {
                 Pago pago = mapper.convertValue(documento.get("pago"), Pago.class);
                 String productos = json.toJson(documento.get("productos"));
 
+                doc.setIdPropietario(usuario.getPropietario().getIdPropietario());
+
+                Documento docResultado = this.iDocumentoDao.save(doc);
+                pago.setIdDocumento(docResultado);
+
                 RestTemplate productosTemplate = new RestTemplate();
                 HttpEntity<String> entity = new HttpEntity<String>(productos, headers);
 
-                ResponseEntity<String> productosRessiltado = productosTemplate.exchange("", HttpMethod.POST,entity,String.class);
+                ResponseEntity<ResultadoTransaccion> productosRessiltado = productosTemplate.exchange(configuracion.getUrlInventario()
+                                                             .concat("/api/inv/producto/items/").concat(docResultado.getIdDocumento().toString()),
+                                                             HttpMethod.POST,entity,ResultadoTransaccion.class);
+                Pago pagoResultado = iPago.save(pago);
 
-                doc.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                documento.replace("documento", json.toJson(docResultado));
+                documento.replace("productos", json.toJson(productosRessiltado));
+                documento.replace("pago", json.toJson(pagoResultado));
 
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iDocumentoDao.save(doc));
+                resultadoTransaccion.setResultado(documento);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);

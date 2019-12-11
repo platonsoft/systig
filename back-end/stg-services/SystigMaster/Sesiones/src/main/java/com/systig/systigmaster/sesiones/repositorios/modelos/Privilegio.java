@@ -21,6 +21,7 @@ public class Privilegio {
     private ProductoSystig productoSystig;
     private Long nivel;
     private Boolean estatus;
+    private Long caducado;
 
     @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
     @ManyToOne(optional = false)
