@@ -34,16 +34,12 @@ export class StgContabilidadComponent implements OnInit {
       data: {item: documentoNuevo, sentencia: 'NUEVO', tipoDocumento: tipoDoc}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-          this.contabilidadService.insertarDocumento(result.documento).subscribe(( resultado: Respuesta) => {
-            if (result) {
-              // debes ejecutar el llamado al ws y cargar las cantidades
-              this.dataSource = new DocumentosDataSource(this.contabilidadService);
-              console.log('Despues:  ' + JSON.stringify(resultado));
-          }});
+      this.contabilidadService.crearPedido(result.documento, result.productos).subscribe(resultado=>{
+        if (result) {
+          console.log('Pedido:  ' + JSON.stringify(resultado));
         }
-      console.log('The dialog was closed');
-      console.log('Resukt: ' + JSON.stringify(result));
+      });
+      console.log('Agregando Documento: ' + JSON.stringify(result.documento));
     });
 }
 

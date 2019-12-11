@@ -145,10 +145,10 @@ export class DocumentoDlgEditComponent implements OnInit {
 
   onSubmit() {
     // stop here if form is invalid
-    if (this.myGroup.invalid) {
-      console.log('Invalidado');
-      return;
-    }
+    //if (this.myGroup.invalid) {
+      //console.log('Invalidado');
+      //return;
+   // }
 
     const documento: Documento = {
       idDocumento: null,

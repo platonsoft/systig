@@ -113,5 +113,5 @@
     <p>Esta seguro de borrar el elemento?</p>
 </div>
 <div mat-dialog-actions>
-  <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="onSubmit()">Generar Pedido por {{calcularTotalPagar().totalPagar}} &nbsp; $</button>
+  <button class="btn btn-primary btn-lg btn-block" [mat-dialog-close]="data" type="submit" (click)="onSubmit()">Generar Pedido por {{calcularTotalPagar().totalPagar}} &nbsp; $</button>
 </div>

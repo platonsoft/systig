@@ -5,9 +5,7 @@ import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
+import java.util.List;
 
 public interface IProductosServ {
 
@@ -16,6 +14,7 @@ public interface IProductosServ {
     ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento);
     ResponseEntity<?> getProducto(HttpHeaders headers, Long idProducto);
     ResponseEntity<?> addProducto(HttpHeaders headers, Producto producto);
+    ResponseEntity<?> addProductosItems(HttpHeaders headers, List<Producto> productos, Long idDocumento);
     ResponseEntity<?> setProducto(HttpHeaders headers, Producto producto, Long idProducto);
     ResponseEntity<?> delProducto(HttpHeaders headers, Long idProducto);
     ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, Long idProducto);

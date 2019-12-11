@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Respuesta, Documento } from '../objetos/Objetos';
-import { retry, catchError } from 'rxjs/operators';
+import { Respuesta, Documento, Productos } from '../objetos/Objetos';
+import { retry, catchError, tap } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,6 +18,7 @@ export class ContabilidadService {
   listadoUrl = '/api/cont/all';
   getDocumentoUrl = '/api/cont/documento/';
   insertarUrl = '/api/cont/documento';
+  insertarItemsUrl = '/api/inv/producto/items/';
   actualizarUrl = '/api/cont/documento/';
   borrarUrl = '/api/cont/documento/';
   paisesUrl = 'https://restcountries.eu/rest/v2/all';
@@ -38,6 +39,17 @@ export class ContabilidadService {
     httpOptions.headers = httpOptions.headers.set('tokensystig', token);
     return this.http.post<Respuesta>(this.insertarUrl, documento, httpOptions).pipe(
       retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  crearPedido(documento: Documento, productos: Productos[]): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.post<Respuesta>(this.insertarItemsUrl + documento.idDocumento, productos, httpOptions).pipe(
+      tap(
+        data => console.log('Completo -> ' + JSON.stringify(data))
+      ),
       catchError(this.handleError)
     );
   }

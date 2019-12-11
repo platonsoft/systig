@@ -12,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoServ implements IProductosServ {
@@ -116,6 +114,37 @@ public class ProductoServ implements IProductosServ {
                 producto.setIdPropietario(usuario.getPropietario().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iProductoDao.save(producto));
+                return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            // e.printStackTrace();
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> addProductosItems(HttpHeaders headers, List<Producto> productos, Long idDocumento) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+
+            //System.out.println("Producto recibido --- > " + (new Gson()).toJson(producto));
+
+            if(usuario!=null){
+                List<ItemProducto> itemProductos = new ArrayList<>();
+                for (Producto producto : productos) {
+                    ItemProducto item = new ItemProducto();
+                    item.setUnidad(producto.getUnidad());
+                    item.setIdDocumento(idDocumento);
+                    item.setMontoCompra(producto.getMontoCompra());
+                    item.setIdEmpresaEnvios(0L);
+                    item.setCantidad(producto.getCantidadExistencia());
+                    item.setIdProducto(producto);
+                    itemProductos.add(item);
+                }
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(this.iItemProductoDao.saveAll(itemProductos));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);

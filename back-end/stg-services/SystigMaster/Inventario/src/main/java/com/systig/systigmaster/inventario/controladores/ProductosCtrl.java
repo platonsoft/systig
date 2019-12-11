@@ -79,7 +79,7 @@ public class ProductosCtrl {
     public ResponseEntity<?> agregarItemsDocumento(@RequestHeader HttpHeaders headers,
                                                  @RequestBody List<Producto> productos,
                                                  @PathVariable Long id_documento) {
-        return this.itemProductosServ.addItemsDocumento(headers,productos,id_documento);
+        return this.productosServ.addProductosItems(headers,productos,id_documento);
     }
 
     @PutMapping("/api/inv/producto/{id_producto}")

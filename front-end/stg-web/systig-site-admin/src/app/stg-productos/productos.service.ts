@@ -23,6 +23,7 @@ export class ProductosService {
   listadoProveedoresUrl = '/api/inv/proveedores';
   getProductoUrl = '/api/inv/producto/';
   insertarUrl = '/api/inv/producto';
+  insertarListaUrl = '/api/inv/productos';
   actualizarUrl = '/api/inv/producto/';
   borrarUrl = '/api/inv/producto/';
 
@@ -77,6 +78,15 @@ export class ProductosService {
     const token = localStorage.getItem('tokenSystig');
     httpOptions.headers = httpOptions.headers.set('tokensystig', token);
     return this.http.post<Respuesta>(this.insertarUrl, producto, httpOptions).pipe(
+      retry(2),
+      catchError(this.handleError)
+    );
+  }
+
+  insertarProductos(producto: Productos[]): Observable<Respuesta> {
+    const token = localStorage.getItem('tokenSystig');
+    httpOptions.headers = httpOptions.headers.set('tokensystig', token);
+    return this.http.post<Respuesta>(this.insertarListaUrl, producto, httpOptions).pipe(
       retry(2),
       catchError(this.handleError)
     );

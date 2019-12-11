@@ -5,13 +5,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 public interface IDocumentosServ {
 
     ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento);
     ResponseEntity<?> getAllListaDocumentos(HttpHeaders headers, HttpSession session);
     ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
-    ResponseEntity<?> addDocumento(HttpHeaders headers, HttpSession session, Documento documento);
+    ResponseEntity<?> addDocumento(HttpHeaders headers, HttpSession session, Map<String, Object> documento);
     ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento, Long idDocumento);
     ResponseEntity<?> getHistoriaDocumentos(HttpHeaders headers, HttpSession session, Long idDocumento);
 

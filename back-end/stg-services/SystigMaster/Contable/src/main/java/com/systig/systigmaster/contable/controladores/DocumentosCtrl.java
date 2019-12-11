@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Map;
 
 @Controller
 public class DocumentosCtrl {
@@ -67,7 +68,7 @@ public class DocumentosCtrl {
 
     @PostMapping("/api/cont/documento")
     public ResponseEntity<?> addDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                             @RequestBody Documento documento) {
+                                             @RequestBody Map<String, Object> documento) {
         return this.iDocumentosServ.addDocumento(headers,session,documento);
     }
 
