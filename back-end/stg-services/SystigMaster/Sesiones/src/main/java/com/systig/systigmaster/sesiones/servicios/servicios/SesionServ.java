@@ -1,7 +1,5 @@
 package com.systig.systigmaster.sesiones.servicios.servicios;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
 import com.systig.systigmaster.sesiones.repositorios.interfaces.IPropietarioDao;
@@ -20,10 +18,9 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
 import java.security.Principal;
-import java.util.Base64;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class SesionServ implements ISesionServ {
@@ -61,7 +58,6 @@ public class SesionServ implements ISesionServ {
     public ResponseEntity<?> addUserSystig(HttpServletRequest request, HttpHeaders headers, HttpSession session, Propietario propietario) {
         try{
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Rol rol = null;
             String unClave =iUsuarioDao.getClaveAleatoria();
 
             try {
@@ -73,7 +69,6 @@ public class SesionServ implements ISesionServ {
                 propietario.setProvincia("NP");
             }
 
-
             Usuario usuario = new Usuario();
             usuario.setUsername(propietario.getEmail());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -83,23 +78,24 @@ public class SesionServ implements ISesionServ {
             usuario.setIpRemota(request.getRemoteAddr());
             usuario.setFecha((new Date()).getTime());
 
-            try{
-                rol = iRole.findAll().stream()
-                        .filter(rol1 -> rol1.getRole().equals("CLIENTE"))
-                        .findFirst()
-                        .get();
-            }catch (Exception e){
-                e.printStackTrace();
+            Optional<Rol> rol = iRole.findAll().stream()
+                    .filter(rol1 -> rol1.getRole().equals("CLIENTE"))
+                    .findFirst();
+            if (rol.isPresent()){
+                usuario.setRol(rol.get());
+            }else{
+                Rol nuevoRol = new Rol();
+                nuevoRol.setDescripcion("CLIENTE");
+                nuevoRol.setRole("CLIENTE");
+                usuario.setRol(this.iRole.save(nuevoRol));
             }
 
-            usuario.setRol(rol);
             propietario.getUsuarios().add(usuario);
             propietario = iPropietarioDao.save(propietario);
 
-            Configuracion configuracion = new Configuracion();
-            configuracion.setIdPropietario(propietario.getIdPropietario());
-            configuracion.setJsonConfiguracion((new Gson()).toJson(getConfiguracionDefault()));
-            propietario.setConfiguracion(configuracion);
+            ConfiguracionDefaultServ configuracion = new ConfiguracionDefaultServ();
+            propietario.setConfiguracion(configuracion.getConfiguracion(propietario.getIdPropietario()));
+
             iPropietarioDao.save(propietario);
             enviaCorreo("Nuevo Usuario",
                     IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
@@ -145,7 +141,6 @@ public class SesionServ implements ISesionServ {
         helper.setTo(destinatario);
         helper.setText(contenido,true);
         helper.setSubject(titulo);
-
 
         sender.send(message);
     }

@@ -1,9 +1,12 @@
 package com.systig.systigmaster.sesiones.servicios.servicios;
 
+import com.google.gson.Gson;
 import com.systig.systigmaster.sesiones.repositorios.interfaces.IConfiguracionDao;
 import com.systig.systigmaster.sesiones.repositorios.modelos.*;
 import com.systig.systigmaster.sesiones.repositorios.modelos.configuracion.FormatoDocumento;
 import com.systig.systigmaster.sesiones.repositorios.modelos.configuracion.ObjConfiguracion;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -11,23 +14,28 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class ConfiguracionDefaultServ {
 
-    private final IConfiguracionDao iConfiguracionDao;
-    Configuracion configuracionDefault = new Configuracion();
-    List<Rol> rolDefault = new ArrayList<>();
-    List<ProductoSystig> productosSystigDefault = new ArrayList<>();
+    @Autowired
+    private IConfiguracionDao iConfiguracionDao;
 
-    Propietario propietarioDefault = new Propietario();
-    Usuario usuarioDefault = new Usuario();
-    Privilegio privilegioDefault = new Privilegio();
+    public ConfiguracionDefaultServ() {
+    }
 
-    LocalDateTime fechaActual = LocalDateTime.now();
-    ZonedDateTime zdt = ZonedDateTime.of(fechaActual, ZoneId.systemDefault());
+    public Configuracion getConfiguracion(Long idPropietario){
+        Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
+                .filter(configuracion -> configuracion.getIdPropietario().equals(idPropietario))
+                .findFirst();
+        return config.orElseGet(() -> this.crearDefault(idPropietario));
+    }
 
-    public ConfiguracionDefaultServ(IConfiguracionDao iConfiguracionDao) {
-        this.iConfiguracionDao = iConfiguracionDao;
+    private Configuracion crearDefault(Long idPropietario){
+        Configuracion configuracionDefault = new Configuracion();
+        LocalDateTime fechaActual = LocalDateTime.now();
+        ZonedDateTime zdt = ZonedDateTime.of(fechaActual, ZoneId.systemDefault());
 
         ObjConfiguracion configuracion = new ObjConfiguracion();
         configuracion.setFechaRegistro(zdt.toInstant().toEpochMilli());
@@ -35,14 +43,15 @@ public class ConfiguracionDefaultServ {
         configuracion.setIsRetentor(false);
         configuracion.setNumeroTerminales(1L);
 
-        this.configuracionDefault.setIdConfiguracion(0L);
-        this.configuracionDefault.setIdPropietario(0L);
-        this.configuracionDefault.setUrlInventario("http://localhost:8090");
-        this.configuracionDefault.setUrlContable("http://localhost:8093");
-        this.configuracionDefault.setUrlClientes("http://localhost:8091");
-        this.configuracionDefault.setUrlProveedores("http://localhost:8092");
-        this.configuracionDefault.setUrlSesiones("http://localhost:8096");
-        this.configuracionDefault.setJsonConfiguracion("");
+        configuracionDefault.setIdPropietario(idPropietario);
+        configuracionDefault.setUrlInventario("http://localhost:8090");
+        configuracionDefault.setUrlContable("http://localhost:8093");
+        configuracionDefault.setUrlClientes("http://localhost:8091");
+        configuracionDefault.setUrlProveedores("http://localhost:8092");
+        configuracionDefault.setUrlSesiones("http://localhost:8096");
+        configuracionDefault.setJsonConfiguracion((new Gson()).toJson(configuracion));
+
+         return  this.iConfiguracionDao.save(configuracionDefault);
     }
 
     private List<FormatoDocumento> getListaFormatosPorDefecto(){
@@ -97,13 +106,5 @@ public class ConfiguracionDefaultServ {
         listado.add(notaDebito);
 
         return listado;
-    }
-
-    public Configuracion getConfiguracionDefault(){
-        return this.configuracionDefault;
-    }
-
-    private void setConfiguracionDefault(Configuracion configuracion){
-
     }
 }

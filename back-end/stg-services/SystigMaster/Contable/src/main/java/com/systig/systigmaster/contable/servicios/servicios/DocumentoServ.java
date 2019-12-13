@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class DocumentoServ implements IDocumentosServ {
@@ -103,27 +104,28 @@ public class DocumentoServ implements IDocumentosServ {
 
                 Documento docResultado = this.iDocumentoDao.save(doc);
                 pago.setIdDocumento(docResultado);
+                Pago pagoResultado = iPago.save(pago);
 
                 RestTemplate productosTemplate = new RestTemplate();
                 HttpEntity<String> entity = new HttpEntity<String>(productos, headers);
 
-                ResponseEntity<ResultadoTransaccion> productosRessiltado = productosTemplate.exchange(configuracion.getUrlInventario()
+                ResponseEntity<ResultadoTransaccion> productosRessiltado = productosTemplate.exchange(usuario.getPropietario().getConfiguracion().getUrlInventario()
                                                              .concat("/api/inv/producto/items/").concat(docResultado.getIdDocumento().toString()),
                                                              HttpMethod.POST,entity,ResultadoTransaccion.class);
-                Pago pagoResultado = iPago.save(pago);
+
 
                 documento.replace("documento", json.toJson(docResultado));
-                documento.replace("productos", json.toJson(productosRessiltado));
+                documento.replace("productos", json.toJson(Objects.requireNonNull(productosRessiltado.getBody()).getResultado()));
                 documento.replace("pago", json.toJson(pagoResultado));
 
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(documento);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Insersion Fallida", HttpStatus.BAD_REQUEST);
         }
     }
 
