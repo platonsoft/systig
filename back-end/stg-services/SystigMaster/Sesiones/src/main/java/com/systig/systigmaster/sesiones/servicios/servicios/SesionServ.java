@@ -2,12 +2,12 @@ package com.systig.systigmaster.sesiones.servicios.servicios;
 
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
+import com.systig.systigmaster.sesiones.repositorios.interfaces.IConfiguracionDao;
 import com.systig.systigmaster.sesiones.repositorios.interfaces.IPropietarioDao;
 import com.systig.systigmaster.sesiones.repositorios.interfaces.IRole;
 import com.systig.systigmaster.sesiones.repositorios.interfaces.IUsuarioDao;
 import com.systig.systigmaster.sesiones.repositorios.modelos.*;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionServ;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,14 +28,17 @@ public class SesionServ implements ISesionServ {
     private final GeoIPLocationServ locationService;
     private final IRole iRole;
     private final IPropietarioDao iPropietarioDao;
+    private final IConfiguracionDao iConfiguracionDao;
+
     private final JavaMailSender sender;
 
 
-    public SesionServ(IUsuarioDao iUsuarioDao, GeoIPLocationServ locationService, IRole iRole, IPropietarioDao iPropietarioDao, JavaMailSender sender) {
+    public SesionServ(IUsuarioDao iUsuarioDao, GeoIPLocationServ locationService, IRole iRole, IPropietarioDao iPropietarioDao, IConfiguracionDao iConfiguracionDao, JavaMailSender sender) {
         this.iUsuarioDao = iUsuarioDao;
         this.locationService = locationService;
         this.iRole = iRole;
         this.iPropietarioDao = iPropietarioDao;
+        this.iConfiguracionDao = iConfiguracionDao;
         this.sender = sender;
     }
 
@@ -55,8 +58,15 @@ public class SesionServ implements ISesionServ {
     }
 
     @Override
-    public ResponseEntity<?> addUserSystig(HttpServletRequest request, HttpHeaders headers, HttpSession session, Propietario propietario) {
+    public ResponseEntity<?> addUserSystig(HttpServletRequest request, Propietario propietario) {
         try{
+            Propietario finalPropietario = propietario;
+            Optional<Usuario> opUsuario = iUsuarioDao.findAll().stream().filter(usuario -> usuario.getUsername().equals(finalPropietario.getEmail())).findFirst();
+
+            if (opUsuario.isPresent()){
+                return new ResponseEntity<>("El Usuario ya se encuentra Registrado", HttpStatus.CONFLICT);
+            }
+
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             String unClave =iUsuarioDao.getClaveAleatoria();
 
@@ -92,18 +102,16 @@ public class SesionServ implements ISesionServ {
 
             propietario.getUsuarios().add(usuario);
             propietario = iPropietarioDao.save(propietario);
+            propietario.setConfiguracion((new ConfiguracionDefaultServ(iConfiguracionDao)).getConfiguracion(propietario.getIdPropietario()));
 
-            ConfiguracionDefaultServ configuracion = new ConfiguracionDefaultServ();
-            propietario.setConfiguracion(configuracion.getConfiguracion(propietario.getIdPropietario()));
-
-            iPropietarioDao.save(propietario);
+            propietario = iPropietarioDao.save(propietario);
             enviaCorreo("Nuevo Usuario",
                     IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
                             .replace("{usuario}",propietario.getEmail())
                             .replace("{clave}",unClave),
                     propietario.getEmail());
             resultadoTransaccion.setResultado(propietario);
-            return new ResponseEntity<>(propietario, HttpStatus.OK);
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<String>("Insersion Fallida", HttpStatus.BAD_REQUEST);

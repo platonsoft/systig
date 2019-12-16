@@ -29,22 +29,25 @@
     </mat-tab>
     <mat-tab label="Registrarme">
         <div>
-          <form class="form-login" [formGroup]="options" style="display: flex;flex-direction: column;">
+          <form class="form-login"
+          [formGroup]="registroGroup"
+          style="display: flex;flex-direction: column;"
+          (ngSubmit)="onSubmitRegistro()">
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Nombre completo" formControlName="nombreFormControl">
-              <mat-error *ngIf="options.get('nombreFormControl')?.invalid">El nombre es requerido</mat-error>
+              <input matInput placeholder="Nombre o Razon Social" formControlName="razonSocial">
+              <mat-error *ngIf="options.get('razonSocial')?.invalid">El nombre es requerido</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Email" formControlName="emailFormControl">
-              <mat-error *ngIf="options.get('emailFormControl')?.invalid">La direccion es invalida</mat-error>
+              <input matInput placeholder="Email" formControlName="email">
+              <mat-error *ngIf="options.get('email')?.invalid">La direccion es invalida</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <input matInput placeholder="Telefono" formControlName="movilFormControl">
-              <mat-error *ngIf="options.get('movilFormControl')?.invalid">El numero de telefono es requerido</mat-error>
+              <input matInput placeholder="Telefono" formControlName="telefonoMovil">
+              <mat-error *ngIf="options.get('telefonoMovil')?.invalid">El numero de telefono es requerido</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <input matInput placeholder="Codigo postal" formControlName="codPostalFormControl">
-                <mat-error *ngIf="options.get('codPostalFormControl')?.invalid">El Codigo postal es requerido</mat-error>
+                <input matInput placeholder="Codigo postal" formControlName="codigoPostal">
+                <mat-error *ngIf="options.get('codigoPostal')?.invalid">El Codigo postal es requerido</mat-error>
             </mat-form-field>
             <button class="stg-button-cabs" style="border-radius: 0px" >Registrarme</button>
           </form>

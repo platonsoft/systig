@@ -19,12 +19,13 @@ public class Privilegio {
     @ManyToOne(optional = false)
     @JsonBackReference(value = "producto-systig")
     private ProductoSystig productoSystig;
-    private Long nivel;
     private Boolean estatus;
-    private Long caducado;
+    private Long fechaInicial;
 
     @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
     @ManyToOne(optional = false)
     @JsonBackReference(value = "privilegios")
     private Usuario idUsuario;
+    @Column(length = 6200)
+    private String configuracion;
 }

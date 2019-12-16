@@ -12,10 +12,12 @@ public class Configuracion {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idConfiguracion;
     private Long idPropietario;
+    private String urlTablero;
     private String urlInventario;
     private String urlContable;
     private String urlClientes;
     private String urlProveedores;
     private String urlSesiones;
+    @Column(length = 6200)
     private String jsonConfiguracion;
 }

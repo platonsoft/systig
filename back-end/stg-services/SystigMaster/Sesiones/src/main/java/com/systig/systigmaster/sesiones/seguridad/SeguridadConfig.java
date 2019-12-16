@@ -1,12 +1,10 @@
 package com.systig.systigmaster.sesiones.seguridad;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,14 +38,15 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(corsFilter(), SessionManagementFilter.class)
                 .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .disable()
+                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                //.and()
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers( HttpMethod.POST,"/api/registro**").permitAll()
-                .antMatchers( HttpMethod.POST,"/api/recuperar**").permitAll()
-                .antMatchers( HttpMethod.GET,"/api/test**").permitAll()
+                .antMatchers( HttpMethod.POST,"/api/registro***").permitAll()
+                .antMatchers( HttpMethod.POST,"/api/recuperar***").permitAll()
+                .antMatchers( HttpMethod.GET, "/api/test***").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);

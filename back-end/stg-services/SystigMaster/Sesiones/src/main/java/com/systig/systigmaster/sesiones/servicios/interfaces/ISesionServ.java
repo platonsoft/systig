@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface ISesionServ {
     ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
-    ResponseEntity<?> addUserSystig(HttpServletRequest request, HttpHeaders headers, HttpSession session, Propietario propietario);
+    ResponseEntity<?> addUserSystig(HttpServletRequest request, Propietario propietario);
     ResponseEntity<?> restoreUserSystig(String email);
     void enviaCorreo(String titulo, String contenido, String destinatario) throws Exception;
 }

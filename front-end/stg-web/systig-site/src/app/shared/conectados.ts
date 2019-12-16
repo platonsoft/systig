@@ -42,8 +42,17 @@ export class ConectadosService {
         }));
 }
 
+registrar(propietario: any): Observable<any> {
+  return this.httpClient.post<any>('/api/registro', propietario)
+      .pipe(map((respuesta: RespuestaWS) => {
+          if (respuesta) {
+              alert('Usuario Creado Satisfactoriamente, Recibira un email con las credenciales');
+          }
+          return respuesta;
+      }));
+}
+
 logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
 }
 }

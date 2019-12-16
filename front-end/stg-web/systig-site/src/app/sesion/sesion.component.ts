@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { DesconectadosService } from '../shared/desconectados';
 import { ConectadosService } from '../shared/conectados';
 import { first } from 'rxjs/operators';
 
@@ -12,6 +11,7 @@ import { first } from 'rxjs/operators';
 export class SesionComponent implements OnInit {
 
   options: FormGroup;
+  registroGroup: FormGroup;
   selected = 'option2';
   listaPaises: PaisDisponible[];
   hidePass = true;
@@ -25,17 +25,21 @@ export class SesionComponent implements OnInit {
       ]),
       passwordFormControl: new FormControl('', [
         Validators.required
+      ])
+    });
+
+    this.registroGroup = new FormGroup({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
       ]),
-      nombreFormControl: new FormControl('', [
+      razonSocial: new FormControl('', [
         Validators.required
       ]),
-      movilFormControl: new FormControl('', [
+      telefonoMovil: new FormControl('', [
         Validators.required
       ]),
-      codPostalFormControl: new FormControl('', [
-        Validators.required
-      ]),
-      paisFormControl: new FormControl('', [
+      codigoPostal: new FormControl('', [
         Validators.required
       ])
     });
@@ -46,28 +50,41 @@ export class SesionComponent implements OnInit {
   }
 
   get f() { return this.options.controls; }
+  get r() { return this.registroGroup.controls; }
 
   onSubmit() {
-      this.submitted = true;
-      console.log("Enviando...");
-
-
       if (this.f.emailFormControl.invalid) {
-        console.log("Invalidado");
-          return;
+        console.log('Invalidado');
+        return;
       }
 
       this.servicios.login(this.f.emailFormControl.value, this.f.passwordFormControl.value)
           .pipe(first())
           .subscribe(
-              data => {
-                  // this.router.navigate([this.returnUrl]);
-                  console.log("Resultado ---> " + JSON.stringify(data));
-              },
-              error => {
-                  // this.error = error;
-                  // this.loading = false;
-              });
+            data => {
+              console.log('Inicio de sesion Satisfactorio');
+            },
+            error => {
+              console.log('Error Acceso denegado');
+            }
+          );
   }
 
+  onSubmitRegistro() {
+    if (this.r.invalid) {
+      console.log('Invalidado');
+      return;
+    }
+
+    this.servicios.registrar(this.registroGroup.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+            console.log('Resultado --->' + JSON.stringify(data));
+        },
+        error => {
+          console.log('Ocurrio un error --->' + JSON.stringify(error));
+        }
+      );
+  }
 }

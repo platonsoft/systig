@@ -29,10 +29,9 @@ public class SesionCtrl {
 
     @PostMapping(value = "/api/registro")
     public ResponseEntity<?> agregarUsuario(@Context HttpServletRequest request,
-                                            @RequestHeader HttpHeaders headers,
-                                            HttpSession session,
                                             @RequestBody Propietario propietario) {
-        return this.sesionServ.addUserSystig(request, headers,session,propietario);
+        System.out.println("Entramos a Agregar...");
+        return this.sesionServ.addUserSystig(request,propietario);
     }
 
     @PostMapping(value = "/api/recuperar")

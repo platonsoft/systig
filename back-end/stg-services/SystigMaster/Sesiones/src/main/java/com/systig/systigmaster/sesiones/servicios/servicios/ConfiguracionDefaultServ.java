@@ -5,7 +5,6 @@ import com.systig.systigmaster.sesiones.repositorios.interfaces.IConfiguracionDa
 import com.systig.systigmaster.sesiones.repositorios.modelos.*;
 import com.systig.systigmaster.sesiones.repositorios.modelos.configuracion.FormatoDocumento;
 import com.systig.systigmaster.sesiones.repositorios.modelos.configuracion.ObjConfiguracion;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -19,17 +18,17 @@ import java.util.Optional;
 @Service
 public class ConfiguracionDefaultServ {
 
-    @Autowired
-    private IConfiguracionDao iConfiguracionDao;
+    private final IConfiguracionDao iConfiguracionDao;
 
-    public ConfiguracionDefaultServ() {
+    public ConfiguracionDefaultServ(IConfiguracionDao iConfiguracionDao) {
+        this.iConfiguracionDao = iConfiguracionDao;
     }
 
     public Configuracion getConfiguracion(Long idPropietario){
-        Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
-                .filter(configuracion -> configuracion.getIdPropietario().equals(idPropietario))
-                .findFirst();
-        return config.orElseGet(() -> this.crearDefault(idPropietario));
+            Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
+                    .filter(configuracion -> idPropietario.equals(configuracion.getIdPropietario()))
+                    .findFirst();
+            return config.orElseGet(() -> this.crearDefault(idPropietario));
     }
 
     private Configuracion crearDefault(Long idPropietario){
@@ -49,6 +48,7 @@ public class ConfiguracionDefaultServ {
         configuracionDefault.setUrlClientes("http://localhost:8091");
         configuracionDefault.setUrlProveedores("http://localhost:8092");
         configuracionDefault.setUrlSesiones("http://localhost:8096");
+        configuracionDefault.setUrlTablero("http://localhost:4201/inicio/");
         configuracionDefault.setJsonConfiguracion((new Gson()).toJson(configuracion));
 
          return  this.iConfiguracionDao.save(configuracionDefault);
