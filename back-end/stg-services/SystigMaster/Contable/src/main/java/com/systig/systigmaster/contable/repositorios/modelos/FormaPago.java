@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "STG_CONT_FORMA_PAGO")
 public class FormaPago {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFormaPago;
     private String tipoMonto; // Al detal y al mayor
     private String forma;

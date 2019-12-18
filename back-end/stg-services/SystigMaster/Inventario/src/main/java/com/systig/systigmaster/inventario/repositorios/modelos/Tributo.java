@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "STG_CONT_TRIBUTOS")
 public class Tributo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTributo;
     private Long tipoTributo; // Impuesto, Descuento, Bono
     private String nombre;

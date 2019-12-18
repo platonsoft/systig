@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "STG_PRODUCTO_STG")
 public class ProductoSystig {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProductoSystig;
     private String nombre;
     private String descripcion;

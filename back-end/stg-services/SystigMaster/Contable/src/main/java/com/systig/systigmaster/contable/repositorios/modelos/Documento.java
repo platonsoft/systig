@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "STG_CONT_DOCUMENTOS")
 public class Documento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDocumento;
     private Integer tipoDocumento;
     private String nroControl;

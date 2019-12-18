@@ -105,13 +105,20 @@ public class SesionServ implements ISesionServ {
             propietario.setConfiguracion((new ConfiguracionDefaultServ(iConfiguracionDao)).getConfiguracion(propietario.getIdPropietario()));
 
             propietario = iPropietarioDao.save(propietario);
-            enviaCorreo("Nuevo Usuario",
-                    IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
-                            .replace("{usuario}",propietario.getEmail())
-                            .replace("{clave}",unClave),
-                    propietario.getEmail());
-            resultadoTransaccion.setResultado(propietario);
-            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            try {
+                enviaCorreo("Nuevo Usuario",
+                        IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
+                                .replace("{usuario}", propietario.getEmail())
+                                .replace("{clave}", unClave),
+                        propietario.getEmail());
+                resultadoTransaccion.setResultado(propietario);
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }catch (Exception emailEx){
+                System.out.println("No se pudo enviar el Email");
+                System.out.println("Usuario: " + propietario.getEmail() + "\nClave: " + unClave );
+                resultadoTransaccion.setResultado("No Se pudo crear el Usuario en el Sistema");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.BAD_REQUEST);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<String>("Insersion Fallida", HttpStatus.BAD_REQUEST);

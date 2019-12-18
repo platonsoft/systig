@@ -14,7 +14,7 @@ import java.util.List;
 public class Pago {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPago;
 
     @JoinColumn(name = "id_forma_pago", referencedColumnName = "idFormaPago", nullable = false)

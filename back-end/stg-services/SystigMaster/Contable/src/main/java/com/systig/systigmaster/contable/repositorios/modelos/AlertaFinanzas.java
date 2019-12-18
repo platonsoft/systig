@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "STG_ALERTAS")
 public class AlertaFinanzas {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAlerta;
     private Long riezgo;
     private Long nivel;

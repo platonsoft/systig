@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategoria;
     private String nombre;
     private String descripcion;

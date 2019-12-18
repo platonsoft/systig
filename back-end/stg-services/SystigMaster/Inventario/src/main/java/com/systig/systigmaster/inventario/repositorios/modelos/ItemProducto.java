@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "STG_INV_ITEM_PRODUCTOS")
 public class ItemProducto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idItemProducto;
     private Long idDocumento;
     private String serial;

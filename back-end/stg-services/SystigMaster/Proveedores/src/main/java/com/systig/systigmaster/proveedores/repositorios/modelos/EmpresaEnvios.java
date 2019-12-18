@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "STG_PRV_EMPRESAS_ENVIOS")
 public class EmpresaEnvios {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEmpresaEnvios;
     private String observaciones;
     private BigDecimal precioEmpaque; // la unidad sera ($/m2)

@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "STG_PRIVILEGIOS")
 public class Privilegio {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPrivilegio;
 
     @JoinColumn(name = "id_producto_systig", referencedColumnName = "idProductoSystig", nullable = false)

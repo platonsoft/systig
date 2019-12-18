@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "STG_PRV_PROVEEDORES")
 public class Proveedor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProveedor;
     private String tipoIdentificacion;
     private String numeroIdentificacion;

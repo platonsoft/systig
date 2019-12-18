@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "STG_INV_ALMACENES")
 public class Almacen {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAlmacen;
     private String nombre;
     private String descripcion;

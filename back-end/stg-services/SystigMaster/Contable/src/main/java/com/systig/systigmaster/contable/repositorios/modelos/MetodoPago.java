@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Table(name = "STG_CONT_METODO_PAGO")
 public class MetodoPago {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMetodoPago;
     private String descripcion;
     private Boolean isBanco;

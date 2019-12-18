@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "STG_PROPIETARIOS")
 public class Propietario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPropietario;
     private Integer tipo;
     private String tipoIdentificacion;

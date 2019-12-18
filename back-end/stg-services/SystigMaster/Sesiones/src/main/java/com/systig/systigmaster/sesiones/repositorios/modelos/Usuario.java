@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "STG_USUARIOS")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     @Column(unique = true, nullable = false)
     private String username;
