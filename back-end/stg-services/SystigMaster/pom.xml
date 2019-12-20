@@ -20,6 +20,7 @@
         <module>Contable</module>
         <module>Proveedores</module>
         <module>Sesiones</module>
+        <module>Base</module>
     </modules>
 
     <properties>

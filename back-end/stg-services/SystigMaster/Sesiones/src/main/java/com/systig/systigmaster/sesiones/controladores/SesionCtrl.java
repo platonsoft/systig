@@ -1,8 +1,7 @@
 package com.systig.systigmaster.sesiones.controladores;
 
-import com.systig.systigmaster.sesiones.repositorios.modelos.Propietario;
-import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionServ;
-import org.springframework.http.HttpHeaders;
+import com.systig.base.sesiones.repositorio.modelo.entidades.Propietario;
+import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +15,9 @@ import java.security.Principal;
 @CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
 public class SesionCtrl {
 
-    private final ISesionServ sesionServ;
+    private final ISesionService sesionServ;
 
-    public SesionCtrl(ISesionServ sesionServ) {
+    public SesionCtrl(ISesionService sesionServ) {
         this.sesionServ = sesionServ;
     }
 
