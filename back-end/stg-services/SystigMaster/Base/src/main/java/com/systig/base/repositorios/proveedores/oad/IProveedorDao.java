@@ -1,6 +1,6 @@
-package com.systig.systigmaster.proveedores.repositorios.interfaces;
+package com.systig.base.repositorios.proveedores.oad;
 
-import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
+import com.systig.base.repositorios.proveedores.entidades.Proveedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.systig.systigmaster.proveedores.controladores;
 
-import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
+import com.systig.base.repositorios.proveedores.entidades.Proveedor;
 import com.systig.systigmaster.proveedores.servicios.interfaces.IProveedorServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,13 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.security.Principal;
 
 @RestController
 @CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})

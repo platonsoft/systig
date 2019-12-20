@@ -1,12 +1,12 @@
 package com.systig.systigmaster.proveedores.servicios.servicios;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.proveedores.repositorios.interfaces.IEmpresaEnvios;
-import com.systig.systigmaster.proveedores.repositorios.interfaces.IProveedorDao;
-import com.systig.systigmaster.proveedores.repositorios.interfaces.IUsuarioDao;
-import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
-import com.systig.systigmaster.proveedores.repositorios.modelos.ResultadoTransaccion;
-import com.systig.systigmaster.proveedores.repositorios.modelos.Usuario;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.proveedores.entidades.Proveedor;
+import com.systig.base.repositorios.proveedores.oad.IEmpresaEnvios;
+import com.systig.base.repositorios.proveedores.oad.IProveedorDao;
+import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.proveedores.servicios.interfaces.IProveedorServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,12 +20,12 @@ import java.util.List;
 @Service
 public class ProveedorServ implements IProveedorServ {
 
-    IUsuarioDao iUsuarioDao = new IUsuarioDao();
-
+    private final IUsuarioDao iUsuarioDao;
     private final IProveedorDao proveedorDao;
     private final IEmpresaEnvios iEmpresaEnvios;
 
-    public ProveedorServ(IProveedorDao proveedorDao, IEmpresaEnvios iEmpresaEnvios) {
+    public ProveedorServ(IUsuarioDao iUsuarioDao, IProveedorDao proveedorDao, IEmpresaEnvios iEmpresaEnvios) {
+        this.iUsuarioDao = iUsuarioDao;
         this.proveedorDao = proveedorDao;
         this.iEmpresaEnvios = iEmpresaEnvios;
     }

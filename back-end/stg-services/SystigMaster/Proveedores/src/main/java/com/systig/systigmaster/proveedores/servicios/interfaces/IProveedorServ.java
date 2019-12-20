@@ -1,12 +1,10 @@
 package com.systig.systigmaster.proveedores.servicios.interfaces;
 
-import com.systig.systigmaster.proveedores.repositorios.modelos.Proveedor;
+import com.systig.base.repositorios.proveedores.entidades.Proveedor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 public interface IProveedorServ {
 
