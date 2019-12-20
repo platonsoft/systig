@@ -2,6 +2,7 @@ package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
+import com.systig.base.repositorios.sesiones.entidades.Configuracion;
 import com.systig.base.repositorios.sesiones.entidades.Propietario;
 import com.systig.base.repositorios.sesiones.entidades.Rol;
 import com.systig.base.repositorios.sesiones.entidades.Usuario;
@@ -106,7 +107,20 @@ public class SesionService implements ISesionService {
 
             propietario.getUsuarios().add(usuario);
             propietario = iPropietarioDao.save(propietario);
-            //propietario.setConfiguracion((new ConfiguracionDefaultServ(iConfiguracionDao)).getConfiguracion(propietario.getIdPropietario()));
+
+
+            Propietario finalPropietario1 = propietario;
+            Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
+                    .filter(configuracion -> finalPropietario1.getIdPropietario().equals(configuracion.getIdPropietario()))
+                    .findFirst();
+
+            if (config.isPresent()){
+                propietario.setConfiguracion(config.get());
+            }else{
+                Configuracion configDefault = ConfiguracionDefaultService.getConfiguracion(propietario.getIdPropietario());
+                configDefault = iConfiguracionDao.save(configDefault);
+                propietario.setConfiguracion(configDefault);
+            }
 
             propietario = iPropietarioDao.save(propietario);
             try {

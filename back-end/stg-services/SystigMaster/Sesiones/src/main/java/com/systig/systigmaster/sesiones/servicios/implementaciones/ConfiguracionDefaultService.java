@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import com.systig.base.repositorios.sesiones.entidades.Configuracion;
 import com.systig.base.objetos.FormatoDocumento;
 import com.systig.base.objetos.ObjConfiguracion;
-import com.systig.base.repositorios.sesiones.oad.IConfiguracionDao;
-import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -13,25 +11,14 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-@Service
 public class ConfiguracionDefaultService {
 
-    private final IConfiguracionDao iConfiguracionDao;
-
-    public ConfiguracionDefaultService(IConfiguracionDao iConfiguracionDao) {
-        this.iConfiguracionDao = iConfiguracionDao;
+    public static Configuracion getConfiguracion(Long idPropietario){
+            return crearDefault(idPropietario);
     }
 
-    public Configuracion getConfiguracion(Long idPropietario){
-            Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
-                    .filter(configuracion -> idPropietario.equals(configuracion.getIdPropietario()))
-                    .findFirst();
-            return config.orElseGet(() -> this.crearDefault(idPropietario));
-    }
-
-    private Configuracion crearDefault(Long idPropietario){
+    private static Configuracion crearDefault(Long idPropietario){
         Configuracion configuracionDefault = new Configuracion();
         LocalDateTime fechaActual = LocalDateTime.now();
         ZonedDateTime zdt = ZonedDateTime.of(fechaActual, ZoneId.systemDefault());
@@ -51,10 +38,10 @@ public class ConfiguracionDefaultService {
         configuracionDefault.setUrlTablero("http://localhost:4201/inicio/");
         configuracionDefault.setJsonConfiguracion((new Gson()).toJson(configuracion));
 
-         return  this.iConfiguracionDao.save(configuracionDefault);
+         return  configuracionDefault;
     }
 
-    private List<FormatoDocumento> getListaFormatosPorDefecto(){
+    private static List<FormatoDocumento> getListaFormatosPorDefecto(){
         List<FormatoDocumento> listado = new ArrayList<>();
 
         FormatoDocumento notaPedido = new FormatoDocumento();
