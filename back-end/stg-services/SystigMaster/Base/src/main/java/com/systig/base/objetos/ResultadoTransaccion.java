@@ -1,4 +1,4 @@
-package com.systig.systigmaster.clientes.repositorios.modelos;
+package com.systig.base.objetos;
 
 import lombok.Data;
 

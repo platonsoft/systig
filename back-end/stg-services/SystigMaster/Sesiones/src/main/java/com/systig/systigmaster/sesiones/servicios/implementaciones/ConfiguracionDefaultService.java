@@ -1,10 +1,10 @@
 package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
-import com.systig.base.sesiones.repositorio.modelo.entidades.Configuracion;
-import com.systig.base.sesiones.repositorio.modelo.objetos.FormatoDocumento;
-import com.systig.base.sesiones.repositorio.modelo.objetos.ObjConfiguracion;
-import com.systig.base.sesiones.repositorio.oad.IConfiguracionDao;
+import com.systig.base.repositorios.sesiones.entidades.Configuracion;
+import com.systig.base.objetos.FormatoDocumento;
+import com.systig.base.objetos.ObjConfiguracion;
+import com.systig.base.repositorios.sesiones.oad.IConfiguracionDao;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;

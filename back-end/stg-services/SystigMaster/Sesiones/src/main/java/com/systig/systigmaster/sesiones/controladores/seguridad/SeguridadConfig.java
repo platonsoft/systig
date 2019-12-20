@@ -13,8 +13,8 @@ import org.springframework.security.web.session.SessionManagementFilter;
 
 import javax.sql.DataSource;
 
-import static com.systig.base.sesiones.repositorio.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO;
-import static com.systig.base.sesiones.repositorio.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
+import static com.systig.base.repositorios.sesiones.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO;
+import static com.systig.base.repositorios.sesiones.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
 
 @Configuration
 @EnableWebSecurity

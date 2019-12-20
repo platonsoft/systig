@@ -1,6 +1,6 @@
 package com.systig.systigmaster.sesiones.controladores;
 
-import com.systig.base.sesiones.repositorio.modelo.entidades.Propietario;
+import com.systig.base.repositorios.sesiones.entidades.Propietario;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

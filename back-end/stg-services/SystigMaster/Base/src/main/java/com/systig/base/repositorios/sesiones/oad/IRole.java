@@ -1,7 +1,7 @@
-package com.systig.base.sesiones.repositorio.oad;
+package com.systig.base.repositorios.sesiones.oad;
 
 
-import com.systig.base.sesiones.repositorio.modelo.entidades.Rol;
+import com.systig.base.repositorios.sesiones.entidades.Rol;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IRole extends JpaRepository<Rol,Long> {

@@ -1,9 +1,9 @@
-package com.systig.base.sesiones.repositorio.oad;
+package com.systig.base.repositorios.sesiones.oad;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.systig.base.sesiones.repositorio.modelo.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -49,7 +49,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
         return (new Gson()).fromJson(userJson,Usuario.class);
     }
 
-    default Usuario statusSession(HttpHeaders headers, HttpSession session){
+    default Usuario statusSession(HttpHeaders headers){
         try{
             String token =  String.valueOf(headers.get("TokenSystig")).replace("[","").replace("]","");
             Usuario usuarioActivo = retornoUsuario(token);

@@ -1,4 +1,4 @@
-package com.systig.base.sesiones.repositorio.modelo.objetos;
+package com.systig.base.objetos;
 
 import lombok.Data;
 

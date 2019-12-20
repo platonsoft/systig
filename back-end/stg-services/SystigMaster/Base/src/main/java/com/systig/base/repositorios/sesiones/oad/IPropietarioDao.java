@@ -1,6 +1,6 @@
-package com.systig.base.sesiones.repositorio.oad;
+package com.systig.base.repositorios.sesiones.oad;
 
-import com.systig.base.sesiones.repositorio.modelo.entidades.Propietario;
+import com.systig.base.repositorios.sesiones.entidades.Propietario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

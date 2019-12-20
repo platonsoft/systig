@@ -1,29 +1,30 @@
 package com.systig.systigmaster.clientes.servicios.servicios;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.clientes.repositorios.modelos.Comprador;
-import com.systig.systigmaster.clientes.repositorios.modelos.ResultadoTransaccion;
-import com.systig.systigmaster.clientes.repositorios.modelos.Usuario;
-import com.systig.systigmaster.clientes.repositorios.interfaces.ICompradorDao;
-import com.systig.systigmaster.clientes.repositorios.interfaces.IUsuarioDao;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.clientes.entidades.Comprador;
+import com.systig.base.repositorios.clientes.oad.ICompradorDao;
+import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.clientes.servicios.interfaces.ICompradorServ;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CompradorServ implements ICompradorServ {
 
-    IUsuarioDao iUsuarioDao = new IUsuarioDao();
+    private final IUsuarioDao iUsuarioDao;
 
-    @Autowired
-    ICompradorDao compradorDao;
+    private final ICompradorDao compradorDao;
+
+    public CompradorServ(IUsuarioDao iUsuarioDao, ICompradorDao compradorDao) {
+        this.iUsuarioDao = iUsuarioDao;
+        this.compradorDao = compradorDao;
+    }
 
     @Override
     public ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session) {
@@ -35,10 +36,10 @@ public class CompradorServ implements ICompradorServ {
                 resultadoTransaccion.setResultado(this.compradorDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -52,10 +53,10 @@ public class CompradorServ implements ICompradorServ {
                 resultadoTransaccion.setResultado(this.compradorDao.getOne(idComprador));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -69,10 +70,10 @@ public class CompradorServ implements ICompradorServ {
                 resultadoTransaccion.setResultado(this.compradorDao.getByNumeroIdentificacionEquals(numeroIdentificacion));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -110,10 +111,10 @@ public class CompradorServ implements ICompradorServ {
                 resultadoTransaccion.setResultado(this.compradorDao.save(comprador));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
         }
     }
 

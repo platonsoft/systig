@@ -1,6 +1,6 @@
-package com.systig.systigmaster.clientes.repositorios.interfaces;
+package com.systig.base.repositorios.clientes.oad;
 
-import com.systig.systigmaster.clientes.repositorios.modelos.Comprador;
+import com.systig.base.repositorios.clientes.entidades.Comprador;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

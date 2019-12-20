@@ -1,6 +1,6 @@
-package com.systig.base.sesiones.repositorio.oad;
+package com.systig.base.repositorios.sesiones.oad;
 
-import com.systig.base.sesiones.repositorio.modelo.entidades.Configuracion;
+import com.systig.base.repositorios.sesiones.entidades.Configuracion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

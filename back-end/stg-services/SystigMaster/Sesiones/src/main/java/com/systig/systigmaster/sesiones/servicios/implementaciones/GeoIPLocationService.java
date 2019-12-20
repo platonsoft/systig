@@ -4,7 +4,7 @@ import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
 import com.maxmind.geoip2.model.CountryResponse;
-import com.systig.base.sesiones.repositorio.modelo.objetos.GeoIP;
+import com.systig.base.objetos.GeoIP;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

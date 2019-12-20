@@ -1,6 +1,6 @@
 package com.systig.systigmaster.sesiones.servicios.interfaces;
 
-import com.systig.base.sesiones.repositorio.modelo.entidades.Propietario;
+import com.systig.base.repositorios.sesiones.entidades.Propietario;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;

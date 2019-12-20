@@ -1,12 +1,10 @@
 package com.systig.systigmaster.clientes.servicios.interfaces;
 
-import com.systig.systigmaster.clientes.repositorios.modelos.Comprador;
+import com.systig.base.repositorios.clientes.entidades.Comprador;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 public interface ICompradorServ {
 
