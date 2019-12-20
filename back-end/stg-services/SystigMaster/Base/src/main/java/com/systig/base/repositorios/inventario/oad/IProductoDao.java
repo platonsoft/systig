@@ -1,6 +1,6 @@
-package com.systig.systigmaster.inventario.repositorios.interfaces;
+package com.systig.base.repositorios.inventario.oad;
 
-import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
+import com.systig.base.repositorios.inventario.entidades.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

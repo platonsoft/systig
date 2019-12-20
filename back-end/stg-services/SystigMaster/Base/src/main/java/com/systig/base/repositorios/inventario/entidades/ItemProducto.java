@@ -1,4 +1,4 @@
-package com.systig.systigmaster.inventario.repositorios.modelos;
+package com.systig.base.repositorios.inventario.entidades;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;

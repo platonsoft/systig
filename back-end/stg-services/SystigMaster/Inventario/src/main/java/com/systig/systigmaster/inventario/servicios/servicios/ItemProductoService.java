@@ -1,13 +1,13 @@
 package com.systig.systigmaster.inventario.servicios.servicios;
 
 import com.google.gson.Gson;
-import com.systig.systigmaster.inventario.repositorios.interfaces.IItemProductoDao;
-import com.systig.systigmaster.inventario.repositorios.interfaces.IProductoDao;
-import com.systig.systigmaster.inventario.repositorios.interfaces.IUsuarioDao;
-import com.systig.systigmaster.inventario.repositorios.modelos.ItemProducto;
-import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
-import com.systig.systigmaster.inventario.repositorios.modelos.ResultadoTransaccion;
-import com.systig.systigmaster.inventario.repositorios.modelos.Usuario;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.inventario.oad.IItemProductoDao;
+import com.systig.base.repositorios.inventario.oad.IProductoDao;
+import com.systig.base.repositorios.inventario.entidades.ItemProducto;
+import com.systig.base.repositorios.inventario.entidades.Producto;
+import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.inventario.servicios.interfaces.IItemProductosServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,12 @@ import java.util.List;
 @Service
 public class ItemProductoService implements IItemProductosServ {
 
-    private IUsuarioDao iUsuarioDao = new IUsuarioDao();
+    private final IUsuarioDao iUsuarioDao;
     private final IProductoDao iProductoDao;
     private final IItemProductoDao iItemProductoDao;
 
-    public ItemProductoService(IProductoDao iProductoDao, IItemProductoDao iItemProductoDao) {
+    public ItemProductoService(IUsuarioDao iUsuarioDao, IProductoDao iProductoDao, IItemProductoDao iItemProductoDao) {
+        this.iUsuarioDao = iUsuarioDao;
         this.iProductoDao = iProductoDao;
         this.iItemProductoDao = iItemProductoDao;
     }

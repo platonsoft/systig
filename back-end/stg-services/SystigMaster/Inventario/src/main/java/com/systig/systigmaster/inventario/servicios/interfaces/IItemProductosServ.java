@@ -1,7 +1,7 @@
 package com.systig.systigmaster.inventario.servicios.interfaces;
 
-import com.systig.systigmaster.inventario.repositorios.modelos.ItemProducto;
-import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
+import com.systig.base.repositorios.inventario.entidades.ItemProducto;
+import com.systig.base.repositorios.inventario.entidades.Producto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
