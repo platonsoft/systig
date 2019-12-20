@@ -1,6 +1,6 @@
 package com.systig.systigmaster.contable.servicios.interfaces;
 
-import com.systig.systigmaster.contable.repositorios.modelos.Documento;
+import com.systig.base.repositorios.contable.entidades.Documento;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 

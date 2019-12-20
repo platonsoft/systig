@@ -1,12 +1,10 @@
-package com.systig.systigmaster.contable.repositorios.modelos;
+package com.systig.base.repositorios.contable.entidades;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 @Entity

@@ -1,6 +1,6 @@
-package com.systig.systigmaster.contable.repositorios.interfaces;
+package com.systig.base.repositorios.contable.oad;
 
-import com.systig.systigmaster.contable.repositorios.modelos.AlertaFinanzas;
+import com.systig.base.repositorios.contable.entidades.AlertaFinanzas;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IAlertaFinanzasDao extends JpaRepository<AlertaFinanzas, Long> {

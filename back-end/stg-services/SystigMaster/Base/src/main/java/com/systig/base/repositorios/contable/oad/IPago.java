@@ -1,6 +1,6 @@
-package com.systig.systigmaster.contable.repositorios.interfaces;
+package com.systig.base.repositorios.contable.oad;
 
-import com.systig.systigmaster.contable.repositorios.modelos.Pago;
+import com.systig.base.repositorios.contable.entidades.Pago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

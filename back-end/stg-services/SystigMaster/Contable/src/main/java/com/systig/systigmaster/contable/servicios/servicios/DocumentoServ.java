@@ -2,11 +2,14 @@ package com.systig.systigmaster.contable.servicios.servicios;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.systig.systigmaster.contable.repositorios.interfaces.IDocumentoDao;
-import com.systig.systigmaster.contable.repositorios.interfaces.IHistoriaDao;
-import com.systig.systigmaster.contable.repositorios.interfaces.IPago;
-import com.systig.systigmaster.contable.repositorios.interfaces.IUsuarioDao;
-import com.systig.systigmaster.contable.repositorios.modelos.*;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.contable.entidades.Documento;
+import com.systig.base.repositorios.contable.entidades.Pago;
+import com.systig.base.repositorios.contable.oad.IDocumentoDao;
+import com.systig.base.repositorios.contable.oad.IHistoriaDao;
+import com.systig.base.repositorios.contable.oad.IPago;
+import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.contable.servicios.interfaces.IDocumentosServ;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -21,13 +24,13 @@ import java.util.Objects;
 @Service
 public class DocumentoServ implements IDocumentosServ {
 
-    private IUsuarioDao iUsuarioDao = new IUsuarioDao();
+    private final IUsuarioDao iUsuarioDao;
     private final IDocumentoDao iDocumentoDao;
     private final IHistoriaDao iHistoriaDao;
     private final IPago iPago;
-    private Configuracion configuracion;
 
-    public DocumentoServ(IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao, IPago iPago) {
+    public DocumentoServ(IUsuarioDao iUsuarioDao, IDocumentoDao iDocumentoDao, IHistoriaDao iHistoriaDao, IPago iPago) {
+        this.iUsuarioDao = iUsuarioDao;
         this.iDocumentoDao = iDocumentoDao;
         this.iHistoriaDao = iHistoriaDao;
         this.iPago = iPago;
