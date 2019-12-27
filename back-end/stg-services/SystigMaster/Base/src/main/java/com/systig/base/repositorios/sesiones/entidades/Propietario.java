@@ -14,15 +14,14 @@ public class Propietario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPropietario;
-    private Integer tipo;
+    private Integer tipo; // Persona o Empresa
     private String tipoIdentificacion;
     private String nroIdentificacion;
-    private String nombres;
-    private String apellidos;
     private String razonSocial;
     private String telefonoLocal;
     private String telefonoMovil;
     private String email;
+    private String sitioWeb;
     private String direccionFiscal;
     private String codigoPostal;
     private String provincia;

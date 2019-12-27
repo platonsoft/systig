@@ -11,40 +11,45 @@ import { ProfileDlgEditComponent } from './profile-dlg-edit/profile-dlg-edit.com
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  myGroup: FormGroup;
+  frmPropietario: FormGroup;
   matcher = new MyErrorStateMatcher();
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  displayedColumns: string[] = [ 'titulo', 'institucion', 'duracion', 'edicion'];
+  displayedColumns: string[] = [ 'email', 'tipo', 'edicion'];
   dataSource = new MatTableDataSource<FormacionItem>(FORMACION_DATA);
 
   constructor(public dialog: MatDialog) {
-    this.myGroup = new FormGroup({
-      emailFormControl: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      nombreFormControl: new FormControl('', [
+    this.frmPropietario = new FormGroup({
+      tipo: new FormControl('', [
         Validators.required
       ]),
-      apellidoFormControl: new FormControl('', [
+      tipoIdentificacion: new FormControl('', [
         Validators.required
       ]),
-      sexoFormControl: new FormControl('', [
+      nroIdentificacion: new FormControl('', [
         Validators.required
       ]),
-      tipoDocumentoFormControl: new FormControl('', [
+      razonSocial: new FormControl('', [
         Validators.required
       ]),
-      numeroDocumentoFormControl: new FormControl('', [
+      direccionFiscal: new FormControl('', [
         Validators.required
       ]),
-      movilFormControl: new FormControl('', [
+      telefonoLocal: new FormControl('', [
         Validators.required
       ]),
-      paisFormControl: new FormControl('', [
+      telefonoMovil: new FormControl('', [
+        Validators.required
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      sitioWeb: new FormControl('', [
+        Validators.required
+      ]),
+      codigoPostal: new FormControl('', [
         Validators.required
       ])
    });
