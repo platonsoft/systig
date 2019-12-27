@@ -2,8 +2,8 @@ package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
 import com.systig.base.repositorios.sesiones.entidades.Configuracion;
-import com.systig.base.objetos.FormatoDocumento;
-import com.systig.base.objetos.ObjConfiguracion;
+import com.systig.base.repositorios.sesiones.entidades.FormatoDocumento;
+import com.systig.base.repositorios.sesiones.entidades.ConfiguracionDetalle;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class ConfiguracionDefaultService {
         LocalDateTime fechaActual = LocalDateTime.now();
         ZonedDateTime zdt = ZonedDateTime.of(fechaActual, ZoneId.systemDefault());
 
-        ObjConfiguracion configuracion = new ObjConfiguracion();
+        ConfiguracionDetalle configuracion = new ConfiguracionDetalle();
         configuracion.setFechaRegistro(zdt.toInstant().toEpochMilli());
         configuracion.setFormatoDocumento(getListaFormatosPorDefecto());
         configuracion.setIsRetentor(false);
