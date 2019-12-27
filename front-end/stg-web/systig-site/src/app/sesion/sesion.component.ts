@@ -54,7 +54,6 @@ export class SesionComponent implements OnInit {
 
   onSubmit() {
       if (this.f.emailFormControl.invalid) {
-        console.log('Invalidado');
         return;
       }
 
@@ -65,7 +64,7 @@ export class SesionComponent implements OnInit {
               console.log('Inicio de sesion Satisfactorio');
             },
             error => {
-              console.log('Error Acceso denegado');
+              alert('Acceso Denegado');
             }
           );
   }

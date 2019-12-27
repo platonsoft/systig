@@ -21,13 +21,15 @@ export class StgProveedoresComponent implements OnInit {
   openDialogNuevoProveedores(): void {
     const proveedorNuevo: Proveedor = {
       idProveedor: 0,
-      pais: '170'
+      pais: '170',
+      envios: {idEmpresaEnvios: 0}
     };
 
     const dialogRef = this.dialog.open(ProveedoresDlgEditComponent, {
       width: '80vw',
       data: { item: proveedorNuevo, sentencia: 'nuevo' }
     });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.proveedoresService.insertarProveedor(result.item).subscribe(resultado => {

@@ -18,16 +18,11 @@ export class ConectadosService {
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   login(username: string, password: string): Observable<any> {
-    console.log('Usduario --> ' + username + 'clave --> ' + password);
-
     const usuarioActual = window.btoa(username + ':' + password);
-    console.log('Usduario Actual --> ' + usuarioActual);
-
     const headersX = new HttpHeaders({
       Authorization : 'Basic ' + btoa(username + ':' + password),
       'X-Requested-With': 'XMLHttpRequest'
-  });
-
+    });
 
     this.httpOptions.headers = this.httpOptions.headers.set('Authorization', `Basic ${usuarioActual}`);
     this.httpOptions.headers = this.httpOptions.headers.set('X-Requested-With', 'XMLHttpRequest');
