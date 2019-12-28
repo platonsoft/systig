@@ -18,6 +18,8 @@ public class Configuracion {
     private String urlClientes;
     private String urlProveedores;
     private String urlSesiones;
-    @Column(length = 6200)
-    private String jsonConfiguracion;
+
+    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "idConfiguracionDetalle", nullable = false)
+    @OneToOne()
+    private ConfiguracionDetalle jsonConfiguracion;
 }
