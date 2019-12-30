@@ -26,8 +26,8 @@ export class StgProductosComponent implements OnInit {
   openDialogNuevoProducto(): void {
     const productoNuevo: Productos = {
       idProducto: 0,
-      almacen: {idAlmacen: 0},
-      categoria: {idCategoria: 0},
+      categoria: { nombre: ''},
+      almacen: { nombre: '' },
       idProveedor: 0
     };
 

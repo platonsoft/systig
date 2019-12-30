@@ -3,6 +3,8 @@ package com.systig.systigmaster.inventario.servicios.servicios;
 import com.google.gson.Gson;
 import com.systig.base.objetos.ResultadoTransaccion;
 import com.systig.base.repositorios.contable.oad.IHistoriaDao;
+import com.systig.base.repositorios.inventario.entidades.Almacen;
+import com.systig.base.repositorios.inventario.entidades.Categoria;
 import com.systig.base.repositorios.inventario.oad.*;
 import com.systig.base.repositorios.inventario.entidades.ItemProducto;
 import com.systig.base.repositorios.inventario.entidades.Producto;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductoServ implements IProductosServ {
@@ -114,6 +117,20 @@ public class ProductoServ implements IProductosServ {
             System.out.println("Producto recibido --- > " + (new Gson()).toJson(producto));
 
             if(usuario!=null){
+
+                Almacen almacen = iAlmacenDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getAlmacen().getNombre().toUpperCase(),usuario.getPropietario().getIdPropietario());
+                Categoria categoria = iCategoriaDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getCategoria().getNombre().toUpperCase(),usuario.getPropietario().getIdPropietario());
+
+                if (almacen==null){
+                    producto.getAlmacen().setIdPropietario(usuario.getPropietario().getIdPropietario());
+                    producto.setAlmacen(iAlmacenDao.save(producto.getAlmacen()));
+                }
+
+                if (categoria ==null){
+                    producto.getCategoria().setIdPropietario(usuario.getPropietario().getIdPropietario());
+                    producto.setCategoria(iCategoriaDao.save(producto.getCategoria()));
+                }
+
                 producto.setIdPropietario(usuario.getPropietario().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iProductoDao.save(producto));

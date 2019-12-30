@@ -42,7 +42,7 @@ export class FormacionItem implements EvolucionProfileItem {
 /* Objetos para Modulo de Productos */
 
 export interface Categoria {
-  idCategoria: number;
+  idCategoria?: number;
   nombre?: string;
   descripcion?: string;
   idPadre?: number;
@@ -50,7 +50,7 @@ export interface Categoria {
 }
 
 export interface Almacen {
-  idAlmacen: number;
+  idAlmacen?: number;
   nombre?: string;
   descripcion?: string;
   tipo?: number;
@@ -104,7 +104,7 @@ export interface FormaPago {
 }
 
 export interface Cliente {
-  idComprador: number;
+  idComprador?: number;
   tipoCliente?: number;
   tipoIdentificacion?: string;
   numeroIdentificacion?: string;

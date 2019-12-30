@@ -3,7 +3,9 @@ package com.systig.systigmaster.clientes.servicios.servicios;
 import com.google.gson.Gson;
 import com.systig.base.objetos.ResultadoTransaccion;
 import com.systig.base.repositorios.clientes.entidades.Comprador;
+import com.systig.base.repositorios.clientes.entidades.Etapa;
 import com.systig.base.repositorios.clientes.oad.ICompradorDao;
+import com.systig.base.repositorios.clientes.oad.IEtapaDao;
 import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.clientes.servicios.interfaces.ICompradorServ;
@@ -20,10 +22,12 @@ public class CompradorServ implements ICompradorServ {
     private final IUsuarioDao iUsuarioDao;
 
     private final ICompradorDao compradorDao;
+    private final IEtapaDao iEtapaDao;
 
-    public CompradorServ(IUsuarioDao iUsuarioDao, ICompradorDao compradorDao) {
+    public CompradorServ(IUsuarioDao iUsuarioDao, ICompradorDao compradorDao, IEtapaDao iEtapaDao) {
         this.iUsuarioDao = iUsuarioDao;
         this.compradorDao = compradorDao;
+        this.iEtapaDao = iEtapaDao;
     }
 
     @Override
@@ -86,6 +90,16 @@ public class CompradorServ implements ICompradorServ {
             System.out.println("Cliente recibido --- > " + (new Gson()).toJson(comprador));
 
             if(usuario!=null){
+                Etapa etapa = iEtapaDao.getFirstByNombreEquals("CANDIDATO");
+                if (etapa == null){
+                    etapa = new Etapa();
+                    etapa.setNombre("CANDIDATO");
+                    etapa.setDescripcion("ETAPA EN LA CUAL UN CLIENTE SOLO SE LE ESTA ADMITIENDO AUN NO ES CLIENTE HASTA QUE COMPRA UN PRODUCTO");
+                    comprador.setEtapa(iEtapaDao.save(etapa));
+                }else {
+                    comprador.setEtapa(etapa);
+                }
+                comprador.setRanking(0L);
                 comprador.setIdPropietario(usuario.getPropietario().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.compradorDao.save(comprador));

@@ -2,16 +2,10 @@ package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
-import com.systig.base.repositorios.sesiones.entidades.Configuracion;
-import com.systig.base.repositorios.sesiones.entidades.Propietario;
-import com.systig.base.repositorios.sesiones.entidades.Rol;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.sesiones.entidades.*;
 import com.systig.base.objetos.GeoIP;
 import com.systig.base.objetos.ResultadoTransaccion;
-import com.systig.base.repositorios.sesiones.oad.IConfiguracionDao;
-import com.systig.base.repositorios.sesiones.oad.IPropietarioDao;
-import com.systig.base.repositorios.sesiones.oad.IRole;
-import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
+import com.systig.base.repositorios.sesiones.oad.*;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +17,14 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,16 +34,19 @@ public class SesionService implements ISesionService {
     private final IRole iRole;
     private final IPropietarioDao iPropietarioDao;
     private final IConfiguracionDao iConfiguracionDao;
+    private final IConfiguracionDetalleDao iConfiguracionDetalleDao;
+    private final IFormatoDocumentoDao iFormatoDocumentoDao;
 
     private final JavaMailSender sender;
 
-
-    public SesionService(IUsuarioDao iUsuarioDao, GeoIPLocationService locationService, IRole iRole, IPropietarioDao iPropietarioDao, IConfiguracionDao iConfiguracionDao, JavaMailSender sender) {
+    public SesionService(IUsuarioDao iUsuarioDao, GeoIPLocationService locationService, IRole iRole, IPropietarioDao iPropietarioDao, IConfiguracionDao iConfiguracionDao, IConfiguracionDetalleDao iConfiguracionDetalleDao, IFormatoDocumentoDao iFormatoDocumentoDao, JavaMailSender sender) {
         this.iUsuarioDao = iUsuarioDao;
         this.locationService = locationService;
         this.iRole = iRole;
         this.iPropietarioDao = iPropietarioDao;
         this.iConfiguracionDao = iConfiguracionDao;
+        this.iConfiguracionDetalleDao = iConfiguracionDetalleDao;
+        this.iFormatoDocumentoDao = iFormatoDocumentoDao;
         this.sender = sender;
     }
 
@@ -117,9 +120,7 @@ public class SesionService implements ISesionService {
             if (config.isPresent()){
                 propietario.setConfiguracion(config.get());
             }else{
-                Configuracion configDefault = ConfiguracionDefaultService.getConfiguracion(propietario.getIdPropietario());
-                configDefault = iConfiguracionDao.save(configDefault);
-                propietario.setConfiguracion(configDefault);
+                propietario.setConfiguracion(crearConfiguracionPorDefecto(propietario.getIdPropietario()));
             }
 
             propietario = iPropietarioDao.save(propietario);
@@ -179,4 +180,48 @@ public class SesionService implements ISesionService {
     }
 
 
+    private Configuracion crearConfiguracionPorDefecto(Long idPropietario){
+        LocalDateTime fechaActual = LocalDateTime.now();
+        ZonedDateTime zdt = ZonedDateTime.of(fechaActual, ZoneId.systemDefault());
+
+        ConfiguracionDetalle configuracion = new ConfiguracionDetalle();
+        configuracion.setFechaRegistro(zdt.toInstant().toEpochMilli());
+        configuracion.setIsRetentor(false);
+        configuracion.setNumeroTerminales(1L);
+
+        ConfiguracionDetalle configuracionFinal = iConfiguracionDetalleDao.save(configuracion);
+
+        String[] documentosNombres = new String[]{
+                "NOTA DE PEDIDO",
+                "NOTA DE RECIBIDO",
+                "FACTURA DE VENTA",
+                "FACTURA DE COMPRA",
+                "NOTA DE CREDITO",
+                "NOTA DE DEBITO"
+        };
+
+        List<FormatoDocumento> listado = new ArrayList<>();
+        for (Long i = 0L; i < documentosNombres.length; i++) {
+            FormatoDocumento documento = new FormatoDocumento();
+            documento.setDenominacionDocumento(documentosNombres[i.intValue()]);
+            documento.setNroControlBase(BigInteger.ZERO);
+            documento.setNroControlFin(BigInteger.valueOf(999999));
+            documento.setNroFormato(i);
+            documento.setTipoDocumento(i);
+            documento.setConfiguracionDetalle(configuracionFinal);
+            listado.add(documento);
+        }
+        iFormatoDocumentoDao.saveAll(listado);
+
+        Configuracion configuracionDefault = new Configuracion();
+        configuracionDefault.setIdPropietario(idPropietario);
+        configuracionDefault.setUrlInventario("http://localhost:8090");
+        configuracionDefault.setUrlContable("http://localhost:8093");
+        configuracionDefault.setUrlClientes("http://localhost:8091");
+        configuracionDefault.setUrlProveedores("http://localhost:8092");
+        configuracionDefault.setUrlSesiones("http://localhost:8096");
+        configuracionDefault.setUrlTablero("http://localhost:4201/inicio/");
+        configuracionDefault.setJsonConfiguracion(configuracionFinal);
+        return iConfiguracionDao.save(configuracionDefault);
+    }
 }

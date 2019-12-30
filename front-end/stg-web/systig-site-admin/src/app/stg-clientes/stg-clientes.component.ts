@@ -22,8 +22,6 @@ export class StgClientesComponent implements OnInit {
   openDialogNuevoCliente(): void {
     const clienteNuevo: Cliente = {
       idComprador: 0,
-      etapa: { idEtapa: 0 },
-      campanaPublicidad: { idCampana: 0 },
       pais: '170'
     };
 

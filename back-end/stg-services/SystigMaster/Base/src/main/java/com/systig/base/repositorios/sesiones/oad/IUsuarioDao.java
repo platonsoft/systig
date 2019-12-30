@@ -35,7 +35,7 @@ public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
         }
         return Jwts.builder()
                 .setSubject(result)
-                .setExpiration(new Date(System.currentTimeMillis()+90000))
+                .setExpiration(new Date(System.currentTimeMillis()+180000))
                 .signWith(SignatureAlgorithm.HS512, "Pl@tonSoft")
                 .compact();
     }

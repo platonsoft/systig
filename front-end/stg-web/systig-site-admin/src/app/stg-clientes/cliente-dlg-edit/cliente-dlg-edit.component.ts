@@ -144,8 +144,8 @@ export class ClienteDlgEditComponent implements OnInit {
 
     this.data.item.pais = this.selPais.numericCode;
     this.data.item.moneda = this.selMoneda.code;
-    this.data.item.etapa = this.selEtapa;
-    this.data.item.campanaPublicidad = this.selCampanaPublicidad;
+    // this.data.item.etapa = this.selEtapa;
+    // this.data.item.campanaPublicidad = this.selCampanaPublicidad;
 
     console.log('Antes:  ' + JSON.stringify(clienteItem));
 

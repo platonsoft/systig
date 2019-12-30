@@ -17,20 +17,37 @@
           </mat-form-field>
         </div>
         <div class="col-md-4">
-          <mat-form-field>
-            <mat-label>Categoria</mat-label>
-            <mat-select formControlName="categoria" [(ngModel)]="selCategoria.idCategoria">
-              <mat-option>Ninguno</mat-option>
-              <mat-option *ngFor="let categoria of listaCategorias" [value]="categoria.idCategoria">{{categoria.nombre}}</mat-option>
-            </mat-select>
+
+          <mat-form-field class="example-full-width">
+            <input matInput #categoria
+            placeholder="Categoria"
+            aria-label="number"
+            [matAutocomplete]="auto1"
+            name="categoria"
+            formControlName="categoria"
+            [(ngModel)]="selCategoria.nombre">
+            <mat-autocomplete #auto1="matAutocomplete">
+              <mat-option *ngFor="let categoria of listaCategorias" [value]="categoria.nombre" (onSelectionChange)="cargaDetallesCategoria(categoria)">
+                <span>{{categoria.idCategoria}} - {{categoria.nombre}}</span>
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
-          <mat-form-field>
-            <mat-label >Almacen</mat-label>
-            <mat-select formControlName="almacen" [(ngModel)]="selAlmacen.idAlmacen">
-                <mat-option>Ninguno</mat-option>
-              <mat-option *ngFor="let almacen of listaAlmacenes" [value]="almacen.idAlmacen">{{almacen.nombre}}</mat-option>
-            </mat-select>
+
+          <mat-form-field class="example-full-width">
+            <input matInput #almacen
+            placeholder="Almacen"
+            aria-label="number"
+            [matAutocomplete]="auto2"
+            name="almacen"
+            formControlName="almacen"
+            [(ngModel)]="selAlmacen.nombre">
+            <mat-autocomplete #auto2="matAutocomplete">
+              <mat-option *ngFor="let almacen of listaAlmacenes" [value]="almacen.nombre" (onSelectionChange)="cargaDetallesAlmacen(almacen)">
+                <span>{{almacen.idAlmacen}} - {{almacen.nombre}}</span>
+              </mat-option>
+            </mat-autocomplete>
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Proveedor</mat-label>
             <mat-select formControlName="idProveedor" [(ngModel)]="selProveedor.idProveedor">

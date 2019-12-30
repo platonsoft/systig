@@ -19,7 +19,7 @@ public class Configuracion {
     private String urlProveedores;
     private String urlSesiones;
 
-    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "idConfiguracionDetalle", nullable = false)
+    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "idConfiguracionDetalle")
     @OneToOne()
     private ConfiguracionDetalle jsonConfiguracion;
 }

@@ -21,8 +21,8 @@ export class ProductosDlgEditComponent implements OnInit {
   listaProveedores: Proveedor[];
 
 
-  selCategoria: Categoria = {idCategoria: 0};
-  selAlmacen: Almacen = {idAlmacen: 0};
+  selCategoria: Categoria = {nombre: ''};
+  selAlmacen: Almacen = {nombre: ''};
   selProveedor: Proveedor = {idProveedor: 0};
 
   displayedColumns: string[] = ['descripcion', 'accion', 'fecha'];
@@ -83,11 +83,13 @@ export class ProductosDlgEditComponent implements OnInit {
     this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
       if (result) {
           this.listaAlmacenes = result.resultado;
+          console.log('Lista de Almacenes: ' + JSON.stringify(this.listaAlmacenes));
     }});
 
     this.servicioProducto.getListaCategorias().subscribe((result: Respuesta) => {
       if (result) {
           this.listaCategorias = result.resultado;
+          console.log('Lista de Categorias: ' + JSON.stringify(this.listaCategorias));
     }});
 
     this.servicioProveedores.getListaProveedores().subscribe((result: Respuesta) => {
@@ -130,5 +132,23 @@ export class ProductosDlgEditComponent implements OnInit {
 
     console.log('Antes:  ' + JSON.stringify(productoItem));
 
+  }
+
+  cargaDetallesAlmacen(almacen: Almacen){
+    this.selAlmacen = almacen;
+    this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaAlmacenes = result.resultado;
+          console.log('Lista de Almacenes: ' + JSON.stringify(this.listaAlmacenes));
+    }});
+  }
+
+  cargaDetallesCategoria(categoria: Categoria){
+    this.selCategoria = categoria;
+    this.servicioProducto.getListaCategorias().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaCategorias = result.resultado;
+          console.log('Lista de Categorias: ' + JSON.stringify(this.listaCategorias));
+    }});
   }
 }

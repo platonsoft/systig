@@ -16,8 +16,4 @@ public class ConfiguracionDetalle {
     private Long fechaRegistro;
     private Long numeroTerminales;
     private Boolean isRetentor;
-
-    @OneToMany( mappedBy = "idFormatoDocumento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FormatoDocumento> formatoDocumento = new ArrayList<>();
-
 }

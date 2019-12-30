@@ -1,6 +1,5 @@
 package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
-import com.google.gson.Gson;
 import com.systig.base.repositorios.sesiones.entidades.Configuracion;
 import com.systig.base.repositorios.sesiones.entidades.FormatoDocumento;
 import com.systig.base.repositorios.sesiones.entidades.ConfiguracionDetalle;
@@ -25,7 +24,6 @@ public class ConfiguracionDefaultService {
 
         ConfiguracionDetalle configuracion = new ConfiguracionDetalle();
         configuracion.setFechaRegistro(zdt.toInstant().toEpochMilli());
-        configuracion.setFormatoDocumento(getListaFormatosPorDefecto());
         configuracion.setIsRetentor(false);
         configuracion.setNumeroTerminales(1L);
 
@@ -36,7 +34,7 @@ public class ConfiguracionDefaultService {
         configuracionDefault.setUrlProveedores("http://localhost:8092");
         configuracionDefault.setUrlSesiones("http://localhost:8096");
         configuracionDefault.setUrlTablero("http://localhost:4201/inicio/");
-        configuracionDefault.setJsonConfiguracion((new Gson()).toJson(configuracion));
+        configuracionDefault.setJsonConfiguracion(configuracion);
 
          return  configuracionDefault;
     }

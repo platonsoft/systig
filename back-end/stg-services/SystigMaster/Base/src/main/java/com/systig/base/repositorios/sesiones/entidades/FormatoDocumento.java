@@ -18,4 +18,8 @@ public class FormatoDocumento {
     private BigInteger nroControlFin;
     private Long nroFormato;
     private String resolucionDian;
+
+    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "idConfiguracionDetalle", nullable = false)
+    @ManyToOne()
+    private ConfiguracionDetalle configuracionDetalle;
 }
