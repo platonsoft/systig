@@ -12,6 +12,7 @@ import java.util.List;
 public class ConfiguracionDetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_configuracion_detalle")
     private Long idConfiguracionDetalle;
     private Long fechaRegistro;
     private Long numeroTerminales;

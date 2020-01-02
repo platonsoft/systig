@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class ProductoSystig {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto_systig")
     private Long idProductoSystig;
     private String nombre;
     private String descripcion;

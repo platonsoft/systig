@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_rol")
     private Long idRol;
     private String username;
     private String role;

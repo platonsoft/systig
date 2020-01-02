@@ -7,6 +7,7 @@ import com.systig.base.objetos.GeoIP;
 import com.systig.base.objetos.ResultadoTransaccion;
 import com.systig.base.repositorios.sesiones.oad.*;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -63,6 +64,78 @@ public class SesionService implements ISesionService {
         resultadoTransaccion.setToken(tokenEnc);
         resultadoTransaccion.setResultado("TOKEN DE ACCESO VALIDO");
         return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getUsuario(HttpHeaders headers) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setResultado(usuario);
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> addUsuarioPropietario(HttpHeaders headers, Usuario usuario) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuarioToken = iUsuarioDao.statusSession(headers);
+            if(usuarioToken!=null){
+                usuario.setPropietario(usuarioToken.getPropietario());
+
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+                usuario.setEnabled(true);
+
+                Optional<Rol> rol = iRole.findAll().stream()
+                        .filter(rol1 -> rol1.getRole().equals("USUARIO"))
+                        .findFirst();
+                if (rol.isPresent()){
+                    usuario.setRol(rol.get());
+                }else{
+                    Rol nuevoRol = new Rol();
+                    nuevoRol.setDescripcion("USUARIO");
+                    nuevoRol.setRole("USUARIO");
+                    usuario.setRol(this.iRole.save(nuevoRol));
+                }
+                Usuario usuariofinal = iUsuarioDao.save(usuario);
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuarioToken));
+                resultadoTransaccion.setResultado(usuariofinal);
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> setPropietario(HttpHeaders headers, Propietario propietario) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                if (usuario.getRol().getRole().equals("CLIENTE")){
+                    propietario.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                    resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                    resultadoTransaccion.setResultado(iPropietarioDao.save(propietario));
+                    return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+                }
+            }
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }
     }
 
     @Override

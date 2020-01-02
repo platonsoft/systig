@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../objetos/MyErrorStateMatcher';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { FORMACION_DATA, FormacionItem, ExperienciAItem } from '../objetos/Objetos';
+import { FORMACION_DATA, FormacionItem, ExperienciAItem, Cliente, Propietario, Usuario } from '../objetos/Objetos';
 import { ProfileDlgEditComponent } from './profile-dlg-edit/profile-dlg-edit.component';
 
 @Component({
@@ -12,6 +12,7 @@ import { ProfileDlgEditComponent } from './profile-dlg-edit/profile-dlg-edit.com
 })
 export class UserProfileComponent implements OnInit {
   frmPropietario: FormGroup;
+  frmUsuario: FormGroup;
   matcher = new MyErrorStateMatcher();
   emailFormControl = new FormControl('', [
     Validators.required,
@@ -19,6 +20,9 @@ export class UserProfileComponent implements OnInit {
   ]);
   displayedColumns: string[] = [ 'email', 'tipo', 'edicion'];
   dataSource = new MatTableDataSource<FormacionItem>(FORMACION_DATA);
+
+  propietario: Propietario = {tipoIdentificacion: 'NIT', tipo: 1};
+  usuario: Usuario = {empleado: {}};
 
   constructor(public dialog: MatDialog) {
     this.frmPropietario = new FormGroup({
@@ -53,6 +57,40 @@ export class UserProfileComponent implements OnInit {
         Validators.required
       ])
    });
+
+
+    this.frmUsuario = new FormGroup({
+      tipoIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      nroIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      nombres: new FormControl('', [
+        Validators.required
+      ]),
+      apellidos: new FormControl('', [
+        Validators.required
+      ]),
+      direccion: new FormControl('', [
+        Validators.required
+      ]),
+      telefonoMovil: new FormControl('', [
+        Validators.required
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      username: new FormControl('', [
+        Validators.required
+      ]),
+      password: new FormControl('', [
+        Validators.required
+      ]),
+      confirmaPassword: new FormControl('', [
+        Validators.required
+      ])
+    });
 
   }
   ngOnInit() {}

@@ -126,6 +126,70 @@ export interface Cliente {
   campanaPublicidad?: any;
   ranking?: number;
 }
+/* Objetos de configuracion de Propietario y Usuarios */
+export interface Propietario {
+  idPropietario?: number;
+  tipo?: number;
+  tipoIdentificacion?: string;
+  nroIdentificacion?: string;
+  razonSocial?: string;
+  telefonoLocal?: string;
+  telefonoMovil?: string;
+  email?: string;
+  sitioWeb?: string;
+  direccionFiscal?: string;
+  codigoPostal?: string;
+  provincia?: string;
+  pais?: string;
+  configuracion?: Configuracion;
+  usuarios?: Usuario;
+}
+
+export interface Configuracion {
+  idConfiguracion?: number;
+  idPropietario?: number;
+  urlTablero?: string;
+  urlInventario?: string;
+  urlContable?: string;
+  urlClientes?: string;
+  urlProveedores?: string;
+  urlSesiones?: string;
+  jsonConfiguracion?: ConfiguracionDetalle;
+}
+
+export interface ConfiguracionDetalle {
+  idConfiguracionDetalle?: number;
+  fechaRegistro?: number;
+  numeroTerminales?: number;
+  isRetentor?: boolean;
+}
+
+export interface Usuario {
+  idUsuario?: number;
+  empleado?: Empleado;
+  username?: string;
+  password?: string;
+  rol?: Rol;
+  enabled?: string;
+}
+
+export interface Rol {
+  idRol?: string;
+  username?: string;
+  role?: string;
+  descripcion?: string;
+}
+
+export interface Empleado {
+  idEmpleado?: number;
+  tipoIdentificacion?: string;
+  nroIdentificacion?: string;
+  nombres?: string;
+  apellidos?: string;
+  telefonoMovil?: string;
+  email?: string;
+  direccion?: string;
+}
 
 export interface Etapa {
   idEtapa: number;
@@ -208,7 +272,7 @@ export interface Currencies {
   symbol?: string;
 }
 
-export interface Documento{
+export interface Documento {
   idDocumento: number;
   tipoDocumento?: number;
   nroControl?: string;

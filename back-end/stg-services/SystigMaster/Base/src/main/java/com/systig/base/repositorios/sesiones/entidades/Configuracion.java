@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Configuracion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_configuracion")
     private Long idConfiguracion;
     private Long idPropietario;
     private String urlTablero;
@@ -19,7 +20,7 @@ public class Configuracion {
     private String urlProveedores;
     private String urlSesiones;
 
-    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "idConfiguracionDetalle")
+    @JoinColumn(name = "id_configuracion_detalle", referencedColumnName = "id_configuracion_detalle")
     @OneToOne()
     private ConfiguracionDetalle jsonConfiguracion;
 }

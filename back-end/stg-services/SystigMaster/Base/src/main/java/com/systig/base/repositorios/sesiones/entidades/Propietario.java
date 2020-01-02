@@ -13,6 +13,7 @@ import java.util.List;
 public class Propietario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_propietario")
     private Long idPropietario;
     private Integer tipo; // Persona o Empresa
     private String tipoIdentificacion;
@@ -26,12 +27,15 @@ public class Propietario {
     private String codigoPostal;
     private String provincia;
     private String pais;
-    @JoinColumn(name = "id_configuracion", referencedColumnName = "idConfiguracion")
+
+    @JoinColumn(name = "id_configuracion", referencedColumnName = "id_configuracion")
     @ManyToOne()
     private Configuracion configuracion;
+
     @OneToMany( mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    //@JsonManagedReference(value = "usuarios")
-    //@JsonBackReference(value = "usuarios")
     @JsonIgnore
     private List<Usuario> usuarios = new ArrayList<>();
+
+    @OneToMany( mappedBy = "idPropietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductoSystigXPropietario> productosSystig = new ArrayList<>();
 }
