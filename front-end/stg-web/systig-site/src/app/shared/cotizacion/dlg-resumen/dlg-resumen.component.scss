@@ -1,0 +1,42 @@
+.mat-form-field{
+  width: 100%;
+}
+.mat-list-icon {
+  color:#00CFB4;
+}
+.button-closed{
+  background: transparent;
+  border: none;
+  COLOR: orangered;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+}
+.button-closed:focus{
+  outline: none;
+}
+
+.stg-button-cabs>button{
+  background-color: red;
+}
+
+.stg-button-cabs:hover{
+  background-color: transparent;
+  border-radius: none;
+  color: #808080;
+  cursor: pointer;
+}
+
+
+.upload-drop-zone{
+  height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  border: dashed 1px #ccc;
+  padding-top: 30px;
+}
+
+input[type='file']#singleFile {
+  display: none;
+  }
+

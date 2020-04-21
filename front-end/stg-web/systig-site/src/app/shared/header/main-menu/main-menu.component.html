@@ -1,0 +1,35 @@
+<div [ngClass]="{'stg-menu-main': isHeader, 'stg-menu-main2': !isHeader}">
+  <div id="stg-menu-container" class="main-menu-container">
+    <div><a href="home#sec-home"><img src="../assets/images/logo-systig.png" alt="Logotipo"></a></div>
+    <div class="stg-menu-large">
+      <div>
+        <ul>
+          <li><a href="home#sec-servicios">Servicios</a></li>
+          <li><a href="home#sec-productos">Productos</a></li>
+          <li><a href="home#sec-publicidad">¿Quienes Somos?</a></li>
+          <li><a href="home#sec-contacto">Contacto</a></li>
+          <i *ngIf="!isHeader" class="stg-separador" style="width: 100%;margin: 20px; background-color: #FFF;height: .2em;"></i>
+          <h1 *ngIf="!isHeader"
+            style="font-style: normal;font-weight: 500;font-size: 9.5px;line-height: 14px;text-align: center;color: #00CFB4;">
+            Todos los derechos y derechos de autor de Systig Alcala F.P. / Diseño del sitio por Lunatics Creative
+            Studio y Systig Alcala F.P.</h1>
+        </ul>
+      </div>
+    </div>
+    <div class="stg-menu-short">
+      <span class="icon-reorder" style="font-size: 48px;margin-right: 20px;margin-top: 40px;flex: 1;"
+        (click)="ToggleMenuLat()"></span>
+    </div>
+    <div class="stg-menu-content-back" *ngIf="menuLat" (click)="ToggleMenuLat()"></div>
+    <ul class="stg-menu-content" *ngIf="menuLat">
+      <span>
+        <span class="icon-reorder" style="font-size: 48px;margin-left: 160px;color: #FFFFFF;cursor: pointer;"
+          (click)="ToggleMenuLat()"></span>
+      </span>
+      <li>Productos</li>
+      <li>Servicios</li>
+      <li>¿Quienes Somos?</li>
+      <li>Contacto</li>
+    </ul>
+  </div>
+</div>

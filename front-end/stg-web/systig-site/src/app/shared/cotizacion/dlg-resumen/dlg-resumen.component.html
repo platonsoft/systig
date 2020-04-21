@@ -1,0 +1,84 @@
+<button mat-button class="button-closed" [mat-dialog-close]="data.codigo" style="float: right;margin: 0px"
+  cdkFocusInitial>
+  <mat-icon>backspace</mat-icon>
+</button>
+
+<h1 mat-dialog-title style="text-align: left; color: #808080">Resumen de productos</h1>
+<i class="stg-separador" style="width: 217px;margin: 0px;"></i>
+
+<mat-dialog-content>
+<mat-accordion style="padding: 20px 0px;display: inline-block; width: 100%;">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Componentes seleccionados
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <mat-list>
+        <mat-list-item *ngFor="let item of this.itemsResumen">
+          <mat-icon mat-list-icon>label</mat-icon>
+          <h4 mat-line>{{item.etapaTitulo}}</h4>
+          <p mat-line>{{item.etapaSeleccion}}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Subir anexos
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div style="text-align: center">
+          <input class="ng-hide" id="input-file-id" multiple type="file" />
+          <label for="input-file-id" class="md-button md-raised md-primary">Subir Archivos</label>
+      </div>
+      <mat-action-row>
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Datos de contacto
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <form class="example-container" [formGroup]="myGroup">
+        <mat-form-field>
+          <input matInput placeholder="Nombre completo" formControlName="nombreFormControl"
+            [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email" formControlName="emailFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailFormControl.invalid">La direccion es invalida</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Telefono" formControlName="movilFormControl" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailFormControl.invalid">El numero de telefono es requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Seleccione un pais</mat-label>
+          <mat-select [(value)]="selected" formControlName="paisFormControl">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let pais of listaPaises" value="{{pais.code}}">{{pais.nombre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Enviar Cotizacion</button>
+      </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+</mat-dialog-content>
+
