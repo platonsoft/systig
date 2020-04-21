@@ -1,14 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_start_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/menu_header_star_app"
+            android:theme="?attr/actionBarTheme" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_start_app"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/systig_pay"
+                    android:layout_width="187dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/app_name"
+                    android:textAppearance="@style/appName"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="108dp"
+                    android:layout_height="112dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo_light" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/claveAccesoLayout"
+                    style="@style/InputBasic"
+                    android:layout_width="300dp"
+                    android:layout_marginTop="82dp"
+                    android:layout_marginBottom="32dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorButtonText"
+                    android:hint="@string/hint_text_claveAcceso"
+                    android:textColorHint="@color/colorSecondaryText"
+                    app:boxCornerRadiusTopStart="10dp"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/claveAccesoTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="number"
+                        android:textColor="@color/colorSecondaryText"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_iniciar"
+                style="@style/ButtonBasic"
+                android:layout_height="wrap_content"
+                android:text="@string/text_button_iniciar" />
+
+            <Button
+                android:id="@+id/button_crear_persona"
+                style="@style/ButtonBasic"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="124dp"
+                android:text="@string/text_button_crear_persona" />
+
+            <Button
+                android:id="@+id/button_crear_empresa"
+                style="@style/ButtonBasic"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="124dp"
+                android:text="@string/text_button_crear_empresa" />
+
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

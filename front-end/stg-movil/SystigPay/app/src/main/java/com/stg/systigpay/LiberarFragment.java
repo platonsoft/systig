@@ -1,6 +1,8 @@
 package com.stg.systigpay;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 
 /**
@@ -66,7 +71,34 @@ public class LiberarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_liberar, container, false);
+        View vista = inflater.inflate(R.layout.fragment_liberar, container, false);
+
+        Resources res = getResources();
+        Spinner spEntidad = vista.findViewById(R.id.spEntidad);
+        Spinner spTipoCuentas = vista.findViewById(R.id.spTipoCuenta);
+
+        String[] ENTIDADES = res.getStringArray(R.array.entidades_recarga_colombia_transferencia);
+        String[] TIPOS_CUENTA_BANCARIA = res.getStringArray(R.array.tipos_cuenta_bancaria);
+        @SuppressLint("ResourceType") ArrayAdapter<String> arrayEntidades = new ArrayAdapter<String>(vista.getContext(), android.R.layout.simple_spinner_dropdown_item, ENTIDADES);
+        @SuppressLint("ResourceType") ArrayAdapter<String> arrayTiposCuenta = new ArrayAdapter<String>(vista.getContext(), android.R.layout.simple_spinner_dropdown_item, TIPOS_CUENTA_BANCARIA);
+
+        spEntidad.setAdapter(arrayEntidades);
+        spTipoCuentas.setAdapter(arrayTiposCuenta);
+
+        Button btnConfirma = vista.findViewById(R.id.button_confirmar);
+
+        btnConfirma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LiberarResumenFragment nextFrag= new LiberarResumenFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedor_liberar, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

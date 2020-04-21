@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".RegisterPersonActivity">
 
+    <fragment
+        android:id="@+id/contenedor_sesion_crear_persona"
+        android:name="com.stg.systigpay.RegisterPersonFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

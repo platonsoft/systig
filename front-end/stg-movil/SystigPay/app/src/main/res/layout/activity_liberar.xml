@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".LiberarActivity">
 
+    <fragment
+        android:id="@+id/contenedor_liberar"
+        android:name="com.stg.systigpay.LiberarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

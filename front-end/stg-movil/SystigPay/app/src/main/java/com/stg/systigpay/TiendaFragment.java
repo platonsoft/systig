@@ -5,10 +5,19 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+
+import com.stg.systigpay.objetos.ItemTienda;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -19,7 +28,7 @@ import android.view.ViewGroup;
  * Use the {@link TiendaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TiendaFragment extends Fragment {
+public class TiendaFragment extends Fragment implements TiendaAdapter.OnTiendaListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +37,9 @@ public class TiendaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView mRecyclerView;
+    public TiendaAdapter tiendaAdapter;
+    ScrollView scrollView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +78,39 @@ public class TiendaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tienda, container, false);
+        View vista = inflater.inflate(R.layout.fragment_tienda, container, false);
+
+        mRecyclerView = vista.findViewById(R.id.recic_v_lista_tienda);
+        scrollView = vista.findViewById(R.id.scroll_tienda);
+        mRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+
+        ItemTienda itemTienda = new ItemTienda();
+        itemTienda.setIdItemTienda(0L);
+        itemTienda.setNombreItem("Nombre del producto");
+        itemTienda.setNombreTienda("Nombre de la tienda");
+        itemTienda.setIVA(new BigDecimal(19));
+        itemTienda.setDescuento(new BigDecimal(5));
+        itemTienda.setPrecioUnitario(new BigDecimal(10000));
+
+        ItemTienda itemTienda1 = new ItemTienda();
+        itemTienda1.setIdItemTienda(1L);
+        itemTienda1.setNombreItem("Prueba 3");
+        itemTienda1.setNombreTienda("Nombre de la tienda");
+        itemTienda1.setIVA(new BigDecimal(19));
+        itemTienda1.setDescuento(new BigDecimal(5));
+        itemTienda1.setPrecioUnitario(new BigDecimal(10000));
+
+        List<ItemTienda> itemsTienda = new ArrayList<>();
+        itemsTienda.add(itemTienda);
+        itemsTienda.add(itemTienda1);
+
+        tiendaAdapter = new TiendaAdapter(itemsTienda,this);
+        mRecyclerView.setAdapter(tiendaAdapter);
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +135,11 @@ public class TiendaFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onTiendaClick(int posicion) {
+
     }
 
     /**

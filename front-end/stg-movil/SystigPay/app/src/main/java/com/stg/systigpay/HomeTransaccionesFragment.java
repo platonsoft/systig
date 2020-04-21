@@ -1,14 +1,29 @@
 package com.stg.systigpay;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -19,7 +34,7 @@ import android.view.ViewGroup;
  * Use the {@link HomeTransaccionesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeTransaccionesFragment extends Fragment {
+public class HomeTransaccionesFragment extends Fragment implements TransaccionesAdapter.OnTranaccionListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +43,9 @@ public class HomeTransaccionesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView mRecyclerView;
+    private TransaccionesAdapter transaccionesAdapter;
+    ScrollView scrollView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +84,68 @@ public class HomeTransaccionesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_transacciones, container, false);
+        View vista = inflater.inflate(R.layout.fragment_home_transacciones, container, false);
+
+        mRecyclerView = vista.findViewById(R.id.recic_v_lista_transacciones);
+        scrollView = vista.findViewById(R.id.scroll_home);
+        mRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+
+        Transaccion transaccion = new Transaccion();
+        transaccion.setReferencia("00000");
+        transaccion.setDescripcion("Transaccion de prueba ");
+        transaccion.setFecha("01/01/2020-00:00:00");
+        transaccion.setValor("100,000.00");
+        transaccion.setMoneda("$COL");
+
+        Transaccion transaccion1 = new Transaccion();
+        transaccion1.setReferencia("00001");
+        transaccion1.setDescripcion("Transaccion de prueba 1");
+        transaccion1.setFecha("01/01/2020-00:00:00");
+        transaccion1.setValor("100,000.00 $COL");
+        transaccion1.setMoneda("$COL");
+
+        Transaccion transaccion2 = new Transaccion();
+        transaccion2.setReferencia("00002");
+        transaccion2.setDescripcion("Transaccion de prueba 2");
+        transaccion2.setFecha("01/01/2020-00:00:00");
+        transaccion2.setValor("100,000.00 $COL");
+        transaccion2.setMoneda("$COL");
+
+        Transaccion transaccion3 = new Transaccion();
+        transaccion3.setReferencia("00000");
+        transaccion3.setDescripcion("Transaccion de prueba ");
+        transaccion3.setFecha("01/01/2020-00:00:00");
+        transaccion3.setValor("100,000.00 $COL");
+        transaccion3.setMoneda("$COL");
+
+        Transaccion transaccion4 = new Transaccion();
+        transaccion4.setReferencia("00000");
+        transaccion4.setDescripcion("Transaccion de prueba ");
+        transaccion4.setFecha("01/01/2020-00:00:00");
+        transaccion4.setValor("100,000.00 $COL");
+        transaccion4.setMoneda("$COL");
+
+
+        Transaccion transaccion5 = new Transaccion();
+        transaccion5.setReferencia("00000");
+        transaccion5.setDescripcion("Transaccion de prueba ");
+        transaccion5.setFecha("01/01/2020-00:00:00");
+        transaccion5.setValor("100,000.00 $COL");
+        transaccion5.setMoneda("$COL");
+
+        Transaccion transaccion6 = new Transaccion();
+        transaccion6.setReferencia("00000");
+        transaccion6.setDescripcion("Transaccion de prueba ");
+        transaccion6.setFecha("01/01/2020-00:00:00");
+        transaccion6.setValor("100,000.00 $COL");
+        transaccion6.setMoneda("$COL");
+
+        transaccionesAdapter = new TransaccionesAdapter(new Transaccion[]{transaccion, transaccion1, transaccion2,transaccion3, transaccion4, transaccion5, transaccion6},this);
+        mRecyclerView.setAdapter(transaccionesAdapter);
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +170,11 @@ public class HomeTransaccionesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onTransaccionClick(int posicion) {
+
     }
 
     /**

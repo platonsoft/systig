@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/mn_item_guarda_persona"
+        android:icon="@drawable/checkmark_26px"
+        android:title="@string/text_button_crear_persona"
+        app:showAsAction="ifRoom" />
 </menu>

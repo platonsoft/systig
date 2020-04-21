@@ -1,5 +1,6 @@
 package com.systig.base.repositorios.sesiones.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.systig.base.repositorios.nominas.entidades.Empleado;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Usuario {
 
     @JoinColumn(name = "id_propietario", referencedColumnName = "id_propietario", nullable = false)
     @ManyToOne(optional = false)
+    @JsonManagedReference()
     private Propietario propietario;
 
     @OneToMany( mappedBy = "idUsuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

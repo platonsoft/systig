@@ -12,6 +12,7 @@ import java.security.Principal;
 public interface ISesionService {
     ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
     ResponseEntity<?> getUsuario(HttpHeaders headers);
+    ResponseEntity<?> getListaUsuarios(HttpHeaders headers);
     ResponseEntity<?> addUsuarioPropietario(HttpHeaders headers, Usuario usuario);
     ResponseEntity<?> setPropietario(HttpHeaders headers, Propietario propietario);
     ResponseEntity<?> addUserSystig(HttpServletRequest request, Propietario propietario);

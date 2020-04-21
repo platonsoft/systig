@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:padding="4dp"
+    android:background="@color/colorButtonText"
+    android:elevation="1dp"
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_descripcion"
+                style="@style/etiquetaMini.dark"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:text="descripcion" />
+
+            <TextView
+                android:id="@+id/tv_fecha"
+                style="@style/etiquetaMini.dark"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+                android:text="fecha" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_referencia"
+                style="@style/etiquetaMini.dark"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="right|center_vertical"
+                android:text="referencia" />
+
+            <TextView
+                android:id="@+id/tv_valor"
+                style="@style/valorMini.dark"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="right|center_vertical"
+                android:text="valor" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

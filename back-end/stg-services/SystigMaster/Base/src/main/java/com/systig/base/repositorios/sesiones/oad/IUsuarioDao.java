@@ -12,10 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface IUsuarioDao extends JpaRepository<Usuario, Long> {
     Usuario getByUsernameEquals(String username);
+    List<Usuario> findAllByPropietario_IdPropietario(Long idPropietario);
 
 
     default  String getClaveAleatoria(){

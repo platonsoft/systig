@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SesionService implements ISesionService {
@@ -74,6 +75,28 @@ public class SesionService implements ISesionService {
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(usuario);
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
+            }
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> getListaUsuarios(HttpHeaders headers) {
+        try{
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
+            Usuario usuario = iUsuarioDao.statusSession(headers);
+            if(usuario!=null){
+                /*List<Usuario> usuarios = iUsuarioDao.findAllByPropietario_IdPropietario(usuario.getPropietario().getIdPropietario())
+                        .stream().filter(usuario1 -> usuario1.getRol().getRole().equals("USUARIO"))
+                        .collect(Collectors.toList());*/
+
+                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                //resultadoTransaccion.setResultado(usuarios);
+                resultadoTransaccion.setResultado(iUsuarioDao.findAll());
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);

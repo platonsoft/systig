@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -66,7 +67,22 @@ public class TransfiereConfirmaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transfiere_confirma, container, false);
+        View vista = inflater.inflate(R.layout.fragment_transfiere_confirma, container, false);
+
+        androidx.appcompat.widget.Toolbar toolbar = vista.findViewById(R.id.tool_menu_tranfiere_resumen);
+        Button btnOk = vista.findViewById(R.id.button_ok);
+
+        toolbar.setTitle(R.string.text_accion_transferir);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorButtonText));
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

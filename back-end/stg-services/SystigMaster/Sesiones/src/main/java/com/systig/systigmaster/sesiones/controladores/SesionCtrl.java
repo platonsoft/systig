@@ -34,16 +34,21 @@ public class SesionCtrl {
         return this.sesionServ.addUserSystig(request,propietario);
     }
 
-    @PostMapping(value = "/api/propietario")
+    @PostMapping(value = "/api/sesion/propietario")
     public ResponseEntity<?> setPropietario(@RequestHeader HttpHeaders headers,
                                             @RequestBody Propietario propietario) {
         return this.sesionServ.setPropietario(headers,propietario);
     }
 
-    @PutMapping(value = "/api/usuario")
+    @PutMapping(value = "/api/sesion/usuario")
     public ResponseEntity<?> addUsuarioPropietario(@RequestHeader HttpHeaders headers,
                                             @RequestBody Usuario usuario) {
         return this.sesionServ.addUsuarioPropietario(headers,usuario);
+    }
+
+    @GetMapping(value = "/api/sesion/usuarios")
+    public ResponseEntity<?> getListaUsuarios(@RequestHeader HttpHeaders headers) {
+        return this.sesionServ.getListaUsuarios(headers);
     }
 
     @PostMapping(value = "/api/recuperar")
@@ -51,7 +56,7 @@ public class SesionCtrl {
         return this.sesionServ.restoreUserSystig(email);
     }
 
-    @GetMapping("/api/configuracion")
+    @GetMapping("/api/sesion/configuracion")
     public ResponseEntity<?> getConfiguracion(@RequestHeader HttpHeaders headers) {
         return this.sesionServ.getUsuario(headers);
     }

@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".RegisterEmpresaActivity">
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.stg.systigpay.RegisterEmpresaFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

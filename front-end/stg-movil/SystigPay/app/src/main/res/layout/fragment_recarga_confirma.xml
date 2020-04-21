@@ -3,12 +3,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorIcons"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RecargaConfirmaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tool_header_recarga_resumen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_menu_recarga_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            tools:ignore="MissingConstraints" />
+
+        <ScrollView
+            android:id="@+id/scroll_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/tool_home"
+            app:layout_constraintTop_toBottomOf="@+id/tool_menu_recarga"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="-3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="55dp" >
+
+                <TextView
+                    android:id="@+id/lbl_numero_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="185dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/txt_numero_transaccion"
+                    android:textAppearance="@style/etiquetaMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/val_numero_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/txt_numero_transaccion"
+                    android:textAppearance="@style/valorMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/lbl_fecha_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/txt_fecha_transaccion"
+                    android:textAppearance="@style/etiquetaMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/val_fecha_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/text_label_defecto_fecha"
+                    android:textAppearance="@style/valorMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/pago_regist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/pago_regist_result"
+                    android:textAppearance="@style/pago_regist_result"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+
+                <TextView
+                    android:id="@+id/lbl_monto_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/hint_text_monto_transferencia"
+                    android:textAppearance="@style/etiquetaMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/val_monto_transaccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/text_label_defecto_0"
+                    android:textAppearance="@style/valorMini.dark"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+
+                <Button
+                    android:id="@+id/button_ok"
+                    style="@style/ButtonBasic"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24dp"
+                    android:text="@string/text_button_ok" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

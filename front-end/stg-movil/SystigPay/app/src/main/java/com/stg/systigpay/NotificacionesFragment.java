@@ -5,10 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+
+import com.stg.systigpay.objetos.Notificacion;
+
+import java.util.Date;
 
 
 /**
@@ -19,7 +26,7 @@ import android.view.ViewGroup;
  * Use the {@link NotificacionesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificacionesFragment extends Fragment {
+public class NotificacionesFragment extends Fragment implements NotificacionesAdapter.OnNotificacionListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +35,9 @@ public class NotificacionesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView mRecyclerView;
+    private NotificacionesAdapter notificacionesAdapter;
+    ScrollView scrollView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,7 +76,25 @@ public class NotificacionesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notificaciones, container, false);
+        View vista = inflater.inflate(R.layout.fragment_notificaciones, container, false);
+
+        mRecyclerView = vista.findViewById(R.id.recic_v_lista_notificaciones);
+        scrollView = vista.findViewById(R.id.scroll_home);
+        mRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+
+        Notificacion notif1 = new Notificacion();
+        notif1.setIdNotificacion(0L);
+        notif1.setTitulo("Bienvenido a Systig");
+        notif1.setDescripcion("Es un gusto darte la bienvenida al equipo, tenemos muchas novedades para ti y veras los beneficios que podras obtener usando esta app");
+        notif1.setEstado(true);
+        notif1.setFechaRegistro(new Date());
+
+        notificacionesAdapter = new NotificacionesAdapter(new Notificacion[]{notif1},this);
+        mRecyclerView.setAdapter(notificacionesAdapter);
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +119,11 @@ public class NotificacionesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onNotificacionClick(int posicion) {
+
     }
 
     /**

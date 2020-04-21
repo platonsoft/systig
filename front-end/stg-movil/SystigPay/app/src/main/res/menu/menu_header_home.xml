@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/search"
+        android:title="@string/buscar_titulo"
+        android:icon="@drawable/search_24px"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:visible="false"/>
+
+    <item
+        android:id="@+id/button_menu_sidebar"
+        android:icon="@drawable/menu_30px"
+        android:title="Menu"
+        app:showAsAction="ifRoom" />
 </menu>

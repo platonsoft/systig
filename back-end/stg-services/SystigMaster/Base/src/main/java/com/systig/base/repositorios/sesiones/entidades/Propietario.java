@@ -1,6 +1,8 @@
 package com.systig.base.repositorios.sesiones.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -32,8 +34,8 @@ public class Propietario {
     @ManyToOne()
     private Configuracion configuracion;
 
-    @OneToMany( mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany( mappedBy = "propietario", fetch = FetchType.LAZY)
+    @JsonBackReference()
     private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany( mappedBy = "idPropietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

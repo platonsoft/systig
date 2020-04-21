@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 
 
 /**
@@ -66,7 +68,21 @@ public class TransferirFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transferir, container, false);
+
+        View vista = inflater.inflate(R.layout.fragment_transferir, container, false);
+        Button btnConfirma = vista.findViewById(R.id.button_confirmar);
+
+        btnConfirma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TransfiereResumenFragment nextFrag= new TransfiereResumenFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedor_transferir, nextFrag)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,6 +1,7 @@
 package com.stg.systigpay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -66,7 +68,43 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+
+        View vista = inflater.inflate(R.layout.fragment_login, container, false);
+        Button crearButton = vista.findViewById(R.id.button_crear_persona);
+        Button crearButtonEmp = vista.findViewById(R.id.button_crear_empresa);
+        Button loginButton = vista.findViewById(R.id.button_iniciar);
+
+        crearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detail = new Intent(getContext(), RegisterPersonActivity.class);
+                //detail.putExtra("id", imagen.getId());
+                getContext().startActivity(detail);
+                //RegisterPersonFragment nextFrag= new RegisterPersonFragment();
+                /*getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenedor_sesion, nextFrag, "registerPersonFragment")
+                        .addToBackStack(null)
+                        .commit();*/
+
+            }
+        });
+
+        crearButtonEmp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detail = new Intent(getContext(), RegisterEmpresaActivity.class);
+                getContext().startActivity(detail);
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detail = new Intent(getContext(), TransaccionesActivity.class);
+                getContext().startActivity(detail);
+            }
+        });
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,4 +145,6 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { ProductosComponent } from './productos/productos.component';
-import { ServiciosComponent } from './servicios/servicios.component';
-import { SomosSystigComponent } from './somos-systig/somos-systig.component';
-import { ContactoSystigComponent } from './contacto-systig/contacto-systig.component';
+import { HomeComponent } from './public/home/home.component';
+import { ProductosComponent } from './public/productos/productos/productos.component';
+import { ServiciosComponent } from './public/productos/servicios/servicios.component';
+import { SomosComponent } from './public/somos/somos.component';
+import { ContactoComponent } from './public/contacto/contacto.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
-const routes: Routes = [
-  { path: '', redirectTo: '/casa', pathMatch: 'full' },
-  { path: 'casa', component: HomeComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'servicios', component: HomeComponent },
-  { path: 'somos', component: SomosSystigComponent },
-  { path: 'contacto', component: ContactoSystigComponent }
+
+const routes: Routes =  [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'productos/productos', component: ProductosComponent },
+  { path: 'productos/servicios', component: ServiciosComponent },
+  { path: 'somos', component: SomosComponent },
+  { path: 'contacto', component: ContactoComponent },
+  { path: '**', component: HomeComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

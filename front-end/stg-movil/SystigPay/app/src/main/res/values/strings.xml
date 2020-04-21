@@ -1,3 +1,125 @@
 <resources>
     <string name="app_name">SystigPay</string>
+    <string name="text_button_iniciar">Iniciar sesion</string>
+    <string name="text_button_crear_persona">Crear cuenta personal</string>
+    <string name="text_button_crear_empresa">Crear cuenta empresa</string>
+    <string name="action_volver">Volver</string>
+    <string name="action_informacion">Informacion</string>
+    <string name="hint_text_claveAcceso">Clave de acceso</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_text_nombre_persona">Nombres</string>
+    <string name="hint_text_apellidos_personas">Apellidos</string>
+    <string name="hint_text_tipo_documento_personas">Tipo de documento</string>
+    <string name="hint_text_numero_documento_personas">Numero de documento</string>
+    <string name="hint_text_fecha_nac_personas">Fecha de nac.</string>
+    <string name="hint_text_telefono_personas">Telefono movil</string>
+    <string name="hint_text_email_personas">Email</string>
+    <string name="hint_text_pais_personas">Pais</string>
+    <string name="hint_text_clave_personas">Clave</string>
+    <string name="hint_text_pin_personas">Pin de transaccion</string>
+    <string name="text_button_registrar_personas">Crear cuenta</string>
+    <string name="hint_text_direccion_personas">Direccion</string>
+    <string name="hint_text_razon_empresa">Razon social</string>
+    <string name="hint_text_tipo_documento_empresas">Tipo de documento</string>
+    <string name="hint_text_numero_documento_empresas">Numero de documento</string>
+    <string name="hint_text_telefono_empresas">Telefono</string>
+    <string name="hint_text_direccion_empresas">Direccion fiscal</string>
+    <string name="hint_text_email_empresas">Email</string>
+    <string name="hint_text_pais_empresas">Pais</string>
+    <string name="hint_text_clave_empresas">Clave de acceso</string>
+    <string name="hint_text_pin_empresas">Pin de transacciones</string>
+    <string name="text_label_saldo">Saldo actual</string>
+    <string name="text_label_defecto_0">0.00</string>
+    <string name="text_label_defecto_fecha">27/02/2020-13:00:00</string>
+    <string name="text_label_defecto_nombre">Nombre del usuario</string>
+    <string name="text_label_defecto_0_int">0</string>
+    <string name="text_accion_recargar">Recargas</string>
+    <string name="text_accion_transferir">Transferir</string>
+    <string name="text_accion_liberar">Liberar</string>
+    <string name="hint_text_numero_referencia">Nro. Referencia</string>
+    <string name="hint_text_fecha_transaccion">Fecha del pago</string>
+    <string name="hint_text_tarjetahabiente">Nombre tarjetahabiente</string>
+    <string name="hint_text_fecha_expiracion">Fecha de expiracion MM/AAAA</string>
+    <string name="hint_text_numero_CCV">CCV</string>
+    <string name="hint_text_monto">Monto Recarga</string>
+    <string name="hint_text_nombre_titular">Titular de la cuenta</string>
+    <string name="hint_text_tipo_cliente">Tipo de cliente</string>
+    <string name="hint_text_monto_transferencia">Monto</string>
+    <string name="text_button_confirmar">Confirmar</string>
+    <string name="txt_numero_transaccion">Nro. Transaccion</string>
+    <string name="pago_regist_result">***PAGO REGISTRADO***</string>
+    <string name="txt_fecha_transaccion">Fecha de realización</string>
+    <string name="text_button_ok">OK</string>
+    <string name="hint_text_numero_cuenta">Nro. Cuenta Systig</string>
+    <string name="text_button_transferir">Transferir</string>
+    <string name="txt_beneficiario">Beneficiario</string>
+    <string name="txt_beneficiario_valor">Nombre del beneficiario</string>
+    <string name="txt_cuenta_systig">Cuenta SYSTIG</string>
+    <string name="txt_cuenta_valor">000000000</string>
+    <string name="txt_tasa_cambio">Tasa de cambio</string>
+    <string name="txt_tasa_cambio_valor">0.00 COL/COL</string>
+    <string name="txt_monto_debitar">Monto a debitar</string>
+    <string name="txt_monto_debitar_valor">0.00 COL</string>
+    <string name="hint_text_cuenta">Numero de cuenta</string>
+    <string name="hint_text_tipo_cuenta">Tipo de cuenta</string>
+    <string name="txt_tipo_doc">PASS</string>
+    <string name="txt_numero_doc">00000000</string>
+    <string name="txt_entidad_bancaria">Bancolombia</string>
+    <string name="txt_entidad_bancaria_lab">Entidad Bancaria</string>
+    <string name="txt_numero_cuenta">Numero de cuenta</string>
+    <string name="txt_numero_cuenta_val">000000000000</string>
+    <string name="txt_tipo_cuenta">Tipo de cuenta</string>
+    <string name="txt_tipo_cuenta_val">AHORROS</string>
+    <string name="txt_subtotal">SubTotal</string>
+    <string name="txt_Comision">Comision</string>
+    <string name="txt_total">Total</string>
+    <string name="buscar_titulo">Buscador</string>
+
+    <string-array name="paises">
+        <item>COLOMBIA (COL)</item>
+        <item>VENEZUELA (VES)</item>
+        <item>PERU (SOL)</item>
+        <item>ECUADOR (USA)</item>
+    </string-array>
+
+    <string-array name="documentos">
+        <item>CEDULA CIUDADANIA (CC)</item>
+        <item>PASAPORTE (PP)</item>
+        <item>CEDULA DE EXTRANGERIA (CE)</item>
+        <item>CEDULA DE IDENTIDAD (CI)</item>
+    </string-array>
+
+    <string-array name="documentos_empresa">
+        <item>RIF (RIF)</item>
+        <item>RUT (RUT)</item>
+        <item>NIT (NIT)</item>
+    </string-array>
+
+    <string-array name="metodo_recarga_colombia">
+        <item>PAGO EN EFECTIVO</item>
+        <item>PAGO CON TARJETA DE CREDITO</item>
+        <item>POR TRANSFERENCIA BANCARIA</item>
+    </string-array>
+
+    <string-array name="entidades_recarga_colombia_efectivo">
+        <item>BANCOLOMBIA</item>
+        <item>BANCO DE BOGOTA</item>
+    </string-array>
+
+    <string-array name="entidades_recarga_colombia_transferencia">
+        <item>BANCOLOMBIA</item>
+        <item>BANCO DE BOGOTA</item>
+    </string-array>
+
+    <string-array name="tipo_cliente_recarga_colombia_transferencia">
+        <item>PERSONA NATURAL</item>
+        <item>PERSONA JURIDICA</item>
+    </string-array>
+
+    <string-array name="tipos_cuenta_bancaria">
+        <item>AHORRO</item>
+        <item>CORRIENTE</item>
+    </string-array>
 </resources>

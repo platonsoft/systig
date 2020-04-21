@@ -1,6 +1,8 @@
 package com.stg.systigpay;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +11,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toolbar;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 
 /**
@@ -28,6 +36,18 @@ public class RegisterPersonFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextInputEditText nombre;
+    TextInputEditText apellido;
+    Spinner documentos;
+    TextInputEditText numeroDocumento;
+    TextInputEditText fechaNac;
+    TextInputEditText email;
+    TextInputEditText telefono;
+    Spinner paises;
+    TextInputEditText clave;
+    TextInputEditText pin;
+    Button crearButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,8 +86,43 @@ public class RegisterPersonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_person, container, false);
+        View vista = inflater.inflate(R.layout.fragment_register_person, container, false);
+        Resources res = getResources();
+
+        String[] TIPODOCUMENTO = res.getStringArray(R.array.documentos);
+        String[] PAISES = res.getStringArray(R.array.paises);
+        @SuppressLint("ResourceType") ArrayAdapter<String> arrayDocumentos = new ArrayAdapter<String>(vista.getContext(), android.R.layout.simple_spinner_dropdown_item, TIPODOCUMENTO);
+        @SuppressLint("ResourceType") ArrayAdapter<String> arrayPaises = new ArrayAdapter<String>(vista.getContext(), android.R.layout.simple_spinner_dropdown_item, PAISES);
+
+        androidx.appcompat.widget.Toolbar toolbar = vista.findViewById(R.id.tool_registrar_persona);
+        toolbar.setTitle(R.string.text_button_crear_persona);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorButtonText));
+        toolbar.setNavigationIcon(R.drawable.left_arrow_32px);
+
+        nombre = (TextInputEditText)vista.findViewById(R.id.nombresTxt);
+        apellido = (TextInputEditText)vista.findViewById(R.id.apellidosTxt);
+        documentos = vista.findViewById(R.id.spTipoDocumento);
+        numeroDocumento = (TextInputEditText)vista.findViewById(R.id.numeroDocumentoTxt);
+        fechaNac = (TextInputEditText)vista.findViewById(R.id.fechaNacTxt);
+        email = (TextInputEditText)vista.findViewById(R.id.emailTxt);
+        telefono = (TextInputEditText)vista.findViewById(R.id.telefonoTxt);
+        paises = vista.findViewById(R.id.spPais);
+        clave = (TextInputEditText)vista.findViewById(R.id.claveTxt);
+        pin = (TextInputEditText)vista.findViewById(R.id.pinTxt);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
+        documentos.setAdapter(arrayDocumentos);
+        paises.setAdapter(arrayPaises);
+
+        return vista;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
