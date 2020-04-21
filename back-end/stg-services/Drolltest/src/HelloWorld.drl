@@ -1,0 +1,7 @@
+
+dialect  "mvel"
+
+rule "HelloWorld"
+    when
+    then
+end
