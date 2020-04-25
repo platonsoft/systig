@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductoDestacado, TrabajosRealizados, ProductoGeneral } from 'src/app/shared/objetos';
+import { ProductoGeneral } from 'src/app/shared/objetos';
 import { ProductosService } from './productos.service';
 
 @Component({
@@ -9,29 +9,34 @@ import { ProductosService } from './productos.service';
 })
 export class ProductosComponent implements OnInit {
 
-  productoDestacado: ProductoDestacado;
-  trabajos: TrabajosRealizados[];
+  productoDestacado: ProductoGeneral;
   productos: ProductoGeneral[];
   onExpandProduct: boolean;
+  private favs: any = [];
 
   constructor(private prdServ: ProductosService) { }
 
   ngOnInit(): void {
-    this.ProductoDestacado();
-    this.TrabajoRealizado();
+    this.ProductoDestacadoSe();
     this.ListaProductosGenerales();
     this.onExpandProduct = false;
   }
 
-  ProductoDestacado() {
-    this.prdServ.getProductoDestacado().subscribe(result => {
-      this.productoDestacado = result;
-    });
-  }
-
-  TrabajoRealizado() {
-    this.prdServ.getTrabajosRealizados().subscribe(result => {
-      this.trabajos = result;
+  ProductoDestacadoSe() {
+    this.prdServ.getProductosGenerales().subscribe(prods => {
+      this.prdServ.getVotaciones().subscribe(voac => {
+        prods.forEach((prod, ix) => {
+          this.favs.push({rank: 0, producto: prod});
+          voac.forEach(voto => {
+            if (voto.idProducto === this.favs[ix].producto.id) {
+              this.favs[ix].rank += voto.voto;
+            }
+          });
+        });
+        this.productoDestacado = this.favs.sort((a, b) => {
+          return b.rank - a.rank;
+        })[0].producto;
+      });
     });
   }
 

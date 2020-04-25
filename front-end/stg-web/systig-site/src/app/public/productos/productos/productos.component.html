@@ -1,4 +1,4 @@
-<div id="prev-producto">
+<div id="prev-producto" *ngIf="productoDestacado">
   <div class="prev-detalle">
     <h1 [innerHTML]="this.productoDestacado.titulo"></h1>
     <i class="stg-separador" style="width: 217px;margin-bottom: 20px"></i>

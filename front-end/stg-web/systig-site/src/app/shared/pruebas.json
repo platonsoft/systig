@@ -1,0 +1,41 @@
+XXXXX[
+  {
+    "rank": 0,
+    "producto": {
+      "precio": 10,
+      "id": 1,
+      "descripcionLarga": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas.",
+      "moneda": "USD",
+      "titulo": "Módulo Facturación",
+      "imagen": "assets/images/home3.png",
+      "subTitulo": "Módulo Facturación",
+      "descripcionCorta": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas."
+    }
+  },
+  {
+    "rank": 4,
+    "producto": {
+      "moneda": "USD",
+      "titulo": "REMódulo Manejo de Nómina",
+      "subTitulo": "Módulo Manejo de Nómina",
+      "imagen": "assets/images/home3.png",
+      "descripcionCorta": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas.",
+      "precio": 10,
+      "descripcionLarga": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas.",
+      "id": 3
+    }
+  },
+  {
+    "rank": 0,
+    "producto": {
+      "descripcionCorta": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas.",
+      "precio": 10,
+      "id": 2,
+      "descripcionLarga": "Nuestras aplicaciones son desarrolladas bajo los estandares de experiancia de usuario, para lograr un mejor flujo intuitivo, con diseño de interfaz adaptadas a las diferentes plataformas.",
+      "moneda": "USD",
+      "titulo": "Módulo Inventario",
+      "imagen": "assets/images/home3.png",
+      "subTitulo": "Módulo Inventario"
+    }
+  }
+]

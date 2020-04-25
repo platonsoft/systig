@@ -1,0 +1,21 @@
+.frmContacto{
+  max-width: 900px;
+  background: #FFFFFF;
+  border-radius: 19px;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.frmContacto > mat-form-field{
+  display: block;
+}
+
+.pie-contacto>*{
+  margin: 10px;
+  display: inline-block;
+}
+
+.mat-icon {
+  vertical-align: middle;
+  margin: 5px;
+}

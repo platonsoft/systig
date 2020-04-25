@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "systig-site": {
+      "hosting": {
+        "systig-site": [
+          "systig-site"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "systig-site"
+  }
+}

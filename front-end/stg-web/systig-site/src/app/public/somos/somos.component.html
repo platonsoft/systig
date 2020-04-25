@@ -31,7 +31,7 @@
       <div class="icono-directores-cont3">
         <div class="icono-directores-cont2">
           <div class="icono-directores-cont1">
-            <img class="icono-directores-img" src="../assets/images/avatar_def.svg" alt="Foto" (click)="OpenCurriculum(empl)">
+            <img class="icono-directores-img" src="../assets/images/{{empl.foto}}" alt="Foto" (click)="OpenCurriculum(empl)">
           </div>
         </div>
       </div>
@@ -55,11 +55,12 @@
         crecimiento y conseguir el éxito para su empresa.</p>
     </div>
   </div>
-  <div class="dexper">
+  <div class="dexper" *ngIf="itemExperienciaActivo">
     <div class="carrousel-exper">
       <div class="car-detalle">
         <div class="car-detalle-header">
-          <div><img src="../../../assets/images/{{itemExperienciaActivo.icono}}" alt="Imagen Icono"></div>
+          <div>
+            <img src="../../../assets/images/{{itemExperienciaActivo.icono}}" alt="Imagen Icono"></div>
           <div>
             <h2 style="color: #7069FD;line-height: 45px; font-size: 30px;" [innerHTML]="itemExperienciaActivo.titulo"></h2>
           </div>

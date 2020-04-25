@@ -4,6 +4,7 @@ import { PaisDisponible, CotizacionGeneral } from '../../objetos';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CotizacionService } from '../cotizacion.service';
 import { MyErrorStateMatcher } from '../../MyErrorStateMatcher';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'stg-dlg-resumen',
@@ -14,25 +15,24 @@ export class DlgResumenComponent implements OnInit {
 
   selected = 'option2';
   itemsResumen = [];
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
   myGroup: FormGroup;
   listaPaises: PaisDisponible[];
-
   matcher = new MyErrorStateMatcher();
   step = 0;
+
   constructor(
     public dialogRef: MatDialogRef<DlgResumenComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CotizacionGeneral,
-    private ctzServ: CotizacionService
+    private ctzServ: CotizacionService,
+    private afs: AngularFirestore
   ) {
     this.myGroup = new FormGroup({
       emailFormControl: new FormControl('', [
         Validators.required,
         Validators.email,
+      ]),
+      nombreProyFormControl: new FormControl('', [
+        Validators.required
       ]),
       nombreFormControl: new FormControl('', [
         Validators.required
@@ -49,6 +49,23 @@ export class DlgResumenComponent implements OnInit {
   ngOnInit(): void {
     this.getPaises();
     this.getResumen();
+  }
+
+  onSubmit(){
+    if (!this.myGroup.invalid) {
+      const shirtsCollection = this.afs.collection<any>('cotizaciones');
+      shirtsCollection.add({
+        nombreProyecto: this.myGroup.get('nombreProyFormControl').value,
+        nombre: this.myGroup.get('nombreFormControl').value,
+        email: this.myGroup.get('emailFormControl').value,
+        movil: this.myGroup.get('movilFormControl').value,
+        pais: this.myGroup.get('paisFormControl').value,
+        cotizacion: this.data,
+      });
+      alert('Muchas gracias, nos estaremos comunicando con usted a la brevedad...');
+    } else {
+      alert('Hubo un error');
+    }
   }
 
   getPaises() {

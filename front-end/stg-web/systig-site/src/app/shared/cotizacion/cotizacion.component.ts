@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CotizacionService } from './cotizacion.service';
 import { DlgCaracteristicasComponent } from './dlg-caracteristicas/dlg-caracteristicas.component';
 import { DlgResumenComponent } from './dlg-resumen/dlg-resumen.component';
+import { FormControl, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from '../MyErrorStateMatcher';
 
 @Component({
   selector: 'stg-cotizacion',
@@ -13,6 +15,10 @@ import { DlgResumenComponent } from './dlg-resumen/dlg-resumen.component';
 export class CotizacionComponent implements OnInit {
 
   cotizacionCompleta: CotizacionGeneral;
+  emailFormControl = new FormControl('', [
+    Validators.required,
+  ]);
+  matcher = new MyErrorStateMatcher();
   constructor(private ref: ChangeDetectorRef, public dialog: MatDialog, private cotServ: CotizacionService) { }
 
   ngOnInit(): void {
@@ -24,6 +30,7 @@ export class CotizacionComponent implements OnInit {
   SeleccionUnica($event) {
     this.ref.markForCheck();
     this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].items.forEach(function (element) {
+
       if (element.id === $event.source.value) {
         element.seleccionado = true;
       } else {
@@ -56,7 +63,7 @@ export class CotizacionComponent implements OnInit {
       }
     });
     if (seleccion > 0) {
-      this.cotServ.SiguienteEtapaCotizacion(this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual])
+      this.cotServ.SiguienteEtapaCotizacion(this.cotizacionCompleta.etapaActual)
         .subscribe((res: EtapaCotizacion) => {
           if ((this.cotizacionCompleta.etapaActual + 1) < this.cotizacionCompleta.etapas.length) {
             this.cotizacionCompleta.etapaActual += 1;

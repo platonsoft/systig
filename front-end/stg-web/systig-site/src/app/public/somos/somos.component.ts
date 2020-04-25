@@ -24,7 +24,6 @@ export class SomosComponent implements OnInit {
   ngOnInit(): void {
     this.EmpleadosSystigSplash();
     this.ItemsExperiencia();
-    this.itemExperienciaActivo = this.itemExperiencia[this.idItemActivo];
     this.IntervalChangeExperiencia();
   }
 
@@ -78,8 +77,9 @@ export class SomosComponent implements OnInit {
   }
 
   ItemsExperiencia() {
-    this.smsServ.getItemsSplash('experiencia').subscribe(result => {
+    this.smsServ.getItemsSplash().subscribe(result => {
       this.itemExperiencia = result;
+      this.itemExperienciaActivo = this.itemExperiencia[this.idItemActivo];
     });
   }
 

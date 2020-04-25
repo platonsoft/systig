@@ -48,6 +48,8 @@ export interface CotizacionGeneral {
   id: number;
   codigo: string;
   usuario?: UsuarioCotizacion;
+  nombreProyecto?: string;
+  descripcion?: string;
   etapas: EtapaCotizacion[];
   etapaActual: number;
   totalDescuentos: number;

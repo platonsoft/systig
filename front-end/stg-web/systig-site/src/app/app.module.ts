@@ -36,7 +36,11 @@ import { DlgCurriculumComponent } from './public/somos/dlg-curriculum/dlg-curric
 import { ProductosService } from './public/productos/productos/productos.service';
 import { SesionComponent } from './shared/sesion/sesion.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SesionService } from './shared/sesion/sesion.service';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -73,6 +77,9 @@ import { SesionService } from './shared/sesion/sesion.service';
     MatListModule,
     MatIconModule,
     MatTabsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
     HttpClientModule
   ],
   providers: [HeaderService, CotizacionService, HomeService, SomosService, ProductosService, SesionService],
