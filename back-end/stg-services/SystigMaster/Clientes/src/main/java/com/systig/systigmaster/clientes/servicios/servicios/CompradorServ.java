@@ -6,7 +6,6 @@ import com.systig.base.repositorios.clientes.entidades.Comprador;
 import com.systig.base.repositorios.clientes.entidades.Etapa;
 import com.systig.base.repositorios.clientes.oad.ICompradorDao;
 import com.systig.base.repositorios.clientes.oad.IEtapaDao;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.clientes.servicios.interfaces.ICompradorServ;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +36,7 @@ public class CompradorServ implements ICompradorServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.compradorDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.compradorDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
@@ -100,7 +99,7 @@ public class CompradorServ implements ICompradorServ {
                     comprador.setEtapa(etapa);
                 }
                 comprador.setRanking(0L);
-                comprador.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                comprador.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.compradorDao.save(comprador));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
@@ -119,7 +118,7 @@ public class CompradorServ implements ICompradorServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 System.out.println(idComprador + " - Comprador recibido --- > " + (new Gson()).toJson(comprador));
-                comprador.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                comprador.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 comprador.setIdComprador(idComprador);
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.compradorDao.save(comprador));

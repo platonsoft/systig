@@ -8,7 +8,6 @@ import com.systig.base.repositorios.inventario.entidades.Categoria;
 import com.systig.base.repositorios.inventario.oad.*;
 import com.systig.base.repositorios.inventario.entidades.ItemProducto;
 import com.systig.base.repositorios.inventario.entidades.Producto;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.inventario.servicios.interfaces.IProductosServ;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoServ implements IProductosServ {
@@ -47,7 +45,7 @@ public class ProductoServ implements IProductosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iProductoDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.iProductoDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
@@ -64,7 +62,7 @@ public class ProductoServ implements IProductosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iProductoDao.findAllByIdPropietarioEqualsAndIdProveedorEquals(usuario.getPropietario().getIdPropietario(), idProveedor));
+                resultadoTransaccion.setResultado(this.iProductoDao.findAllByIdPropietarioEqualsAndIdProveedorEquals(usuario.getEmpresa().getIdPropietario(), idProveedor));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
@@ -118,20 +116,20 @@ public class ProductoServ implements IProductosServ {
 
             if(usuario!=null){
 
-                Almacen almacen = iAlmacenDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getAlmacen().getNombre().toUpperCase(),usuario.getPropietario().getIdPropietario());
-                Categoria categoria = iCategoriaDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getCategoria().getNombre().toUpperCase(),usuario.getPropietario().getIdPropietario());
+                Almacen almacen = iAlmacenDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getAlmacen().getNombre().toUpperCase(),usuario.getEmpresa().getIdPropietario());
+                Categoria categoria = iCategoriaDao.getFirstByNombreEqualsAndIdPropietarioEquals(producto.getCategoria().getNombre().toUpperCase(),usuario.getEmpresa().getIdPropietario());
 
                 if (almacen==null){
-                    producto.getAlmacen().setIdPropietario(usuario.getPropietario().getIdPropietario());
+                    producto.getAlmacen().setIdPropietario(usuario.getEmpresa().getIdPropietario());
                     producto.setAlmacen(iAlmacenDao.save(producto.getAlmacen()));
                 }
 
                 if (categoria ==null){
-                    producto.getCategoria().setIdPropietario(usuario.getPropietario().getIdPropietario());
+                    producto.getCategoria().setIdPropietario(usuario.getEmpresa().getIdPropietario());
                     producto.setCategoria(iCategoriaDao.save(producto.getCategoria()));
                 }
 
-                producto.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                producto.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iProductoDao.save(producto));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
@@ -181,7 +179,7 @@ public class ProductoServ implements IProductosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 System.out.println(idProducto + " - Producto recibido --- > " + (new Gson()).toJson(producto));
-                producto.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                producto.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 producto.setIdProducto(idProducto);
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iProductoDao.save(producto));
@@ -236,7 +234,7 @@ public class ProductoServ implements IProductosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iAlmacenDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.iAlmacenDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
@@ -253,7 +251,7 @@ public class ProductoServ implements IProductosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iCategoriaDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.iCategoriaDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<ResultadoTransaccion>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ICompradorDao extends JpaRepository<Comprador, Long> {
-    List<Comprador> findAllByIdPropietarioEquals(Long idPropietario);
-    Comprador getByNumeroIdentificacionEquals(String numeroIdentificacion);
+    List<Comprador> findAllByIdEmpresaEquals(Long idEmpresa);
+    Comprador getByNroIdentificacionEquals(String numeroIdentificacion);
 }

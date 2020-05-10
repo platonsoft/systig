@@ -44,7 +44,6 @@ public class RegisterPersonFragment extends Fragment {
     TextInputEditText fechaNac;
     TextInputEditText email;
     TextInputEditText telefono;
-    Spinner paises;
     TextInputEditText clave;
     TextInputEditText pin;
     Button crearButton;
@@ -106,7 +105,6 @@ public class RegisterPersonFragment extends Fragment {
         fechaNac = (TextInputEditText)vista.findViewById(R.id.fechaNacTxt);
         email = (TextInputEditText)vista.findViewById(R.id.emailTxt);
         telefono = (TextInputEditText)vista.findViewById(R.id.telefonoTxt);
-        paises = vista.findViewById(R.id.spPais);
         clave = (TextInputEditText)vista.findViewById(R.id.claveTxt);
         pin = (TextInputEditText)vista.findViewById(R.id.pinTxt);
 
@@ -118,7 +116,6 @@ public class RegisterPersonFragment extends Fragment {
         });
 
         documentos.setAdapter(arrayDocumentos);
-        paises.setAdapter(arrayPaises);
 
         return vista;
     }

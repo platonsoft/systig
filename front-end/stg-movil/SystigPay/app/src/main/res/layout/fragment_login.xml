@@ -93,15 +93,6 @@
                 android:layout_marginTop="124dp"
                 android:text="@string/text_button_crear_persona" />
 
-            <Button
-                android:id="@+id/button_crear_empresa"
-                style="@style/ButtonBasic"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="124dp"
-                android:text="@string/text_button_crear_empresa" />
-
-
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,12 @@ package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
+import com.systig.base.repositorios.nominas.entidades.Cargo;
+import com.systig.base.repositorios.nominas.entidades.Empresa;
+import com.systig.base.repositorios.nominas.entidades.EmpresaXPersona;
+import com.systig.base.repositorios.nominas.entidades.Persona;
+import com.systig.base.repositorios.nominas.oad.IEmpresaXPersonaDao;
+import com.systig.base.repositorios.nominas.oad.IEmpresaDao;
 import com.systig.base.repositorios.sesiones.entidades.*;
 import com.systig.base.objetos.GeoIP;
 import com.systig.base.objetos.ResultadoTransaccion;
@@ -27,25 +33,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SesionService implements ISesionService {
-    private final IUsuarioDao iUsuarioDao;
+    private final IPersonaDao iPersonaDao;
     private final GeoIPLocationService locationService;
-    private final IRole iRole;
-    private final IPropietarioDao iPropietarioDao;
+    private final IEmpresaDao iEmpresaDao;
+    private final IEmpresaXPersonaDao iEmpresaXPersonaDao;
     private final IConfiguracionDao iConfiguracionDao;
     private final IConfiguracionDetalleDao iConfiguracionDetalleDao;
     private final IFormatoDocumentoDao iFormatoDocumentoDao;
 
     private final JavaMailSender sender;
 
-    public SesionService(IUsuarioDao iUsuarioDao, GeoIPLocationService locationService, IRole iRole, IPropietarioDao iPropietarioDao, IConfiguracionDao iConfiguracionDao, IConfiguracionDetalleDao iConfiguracionDetalleDao, IFormatoDocumentoDao iFormatoDocumentoDao, JavaMailSender sender) {
-        this.iUsuarioDao = iUsuarioDao;
+    public SesionService(IPersonaDao iPersonaDao, GeoIPLocationService locationService, IEmpresaDao iEmpresaDao, IEmpresaXPersonaDao iEmpresaXPersonaDao, IConfiguracionDao iConfiguracionDao, IConfiguracionDetalleDao iConfiguracionDetalleDao, IFormatoDocumentoDao iFormatoDocumentoDao, JavaMailSender sender) {
+        this.iPersonaDao = iPersonaDao;
         this.locationService = locationService;
-        this.iRole = iRole;
-        this.iPropietarioDao = iPropietarioDao;
+        this.iEmpresaDao = iEmpresaDao;
+        this.iEmpresaXPersonaDao = iEmpresaXPersonaDao;
         this.iConfiguracionDao = iConfiguracionDao;
         this.iConfiguracionDetalleDao = iConfiguracionDetalleDao;
         this.iFormatoDocumentoDao = iFormatoDocumentoDao;
@@ -55,10 +60,10 @@ public class SesionService implements ISesionService {
     @Override
     public ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session) {
         ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-        Usuario usuario = iUsuarioDao.getByUsernameEquals(principal.getName());
+        Persona usuario = iPersonaDao.getByUsernameEquals(principal.getName());
 
-        String tokenEnc = iUsuarioDao.retornoToken(usuario);
-        Usuario tokenDesc = iUsuarioDao.retornoUsuario(tokenEnc);
+        String tokenEnc = iPersonaDao.retornoToken(usuario);
+        Persona tokenDesc = iPersonaDao.retornoPersona(tokenEnc);
         System.out.println("Token --> " + tokenEnc);
         System.out.println("Usuario --> " + (new Gson()).toJson(tokenDesc));
 
@@ -68,12 +73,12 @@ public class SesionService implements ISesionService {
     }
 
     @Override
-    public ResponseEntity<?> getUsuario(HttpHeaders headers) {
+    public ResponseEntity<?> getPersona(HttpHeaders headers) {
         try{
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Usuario usuario = iUsuarioDao.statusSession(headers);
+            Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
-                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
+                resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(usuario);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
@@ -85,72 +90,21 @@ public class SesionService implements ISesionService {
     }
 
     @Override
-    public ResponseEntity<?> getListaUsuarios(HttpHeaders headers) {
+    public ResponseEntity<?> addEmpresa(HttpHeaders headers, Empresa empresa, Cargo cargo) {
         try{
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Usuario usuario = iUsuarioDao.statusSession(headers);
+            Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
-                /*List<Usuario> usuarios = iUsuarioDao.findAllByPropietario_IdPropietario(usuario.getPropietario().getIdPropietario())
-                        .stream().filter(usuario1 -> usuario1.getRol().getRole().equals("USUARIO"))
-                        .collect(Collectors.toList());*/
+                if (usuario.getRol()==0){
+                    empresa = iEmpresaDao.save(empresa);
 
-                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                //resultadoTransaccion.setResultado(usuarios);
-                resultadoTransaccion.setResultado(iUsuarioDao.findAll());
-                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
-            }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
-        }
-    }
+                    EmpresaXPersona empresaXPersona = new EmpresaXPersona();
+                    empresaXPersona.setIdPersona(usuario);
+                    empresaXPersona.setIdEmpresa(empresa);
+                    empresaXPersona.setIdCargo(cargo);
 
-    @Override
-    public ResponseEntity<?> addUsuarioPropietario(HttpHeaders headers, Usuario usuario) {
-        try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Usuario usuarioToken = iUsuarioDao.statusSession(headers);
-            if(usuarioToken!=null){
-                usuario.setPropietario(usuarioToken.getPropietario());
-
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-                usuario.setEnabled(true);
-
-                Optional<Rol> rol = iRole.findAll().stream()
-                        .filter(rol1 -> rol1.getRole().equals("USUARIO"))
-                        .findFirst();
-                if (rol.isPresent()){
-                    usuario.setRol(rol.get());
-                }else{
-                    Rol nuevoRol = new Rol();
-                    nuevoRol.setDescripcion("USUARIO");
-                    nuevoRol.setRole("USUARIO");
-                    usuario.setRol(this.iRole.save(nuevoRol));
-                }
-                Usuario usuariofinal = iUsuarioDao.save(usuario);
-                resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuarioToken));
-                resultadoTransaccion.setResultado(usuariofinal);
-                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
-            }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> setPropietario(HttpHeaders headers, Propietario propietario) {
-        try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            Usuario usuario = iUsuarioDao.statusSession(headers);
-            if(usuario!=null){
-                if (usuario.getRol().getRole().equals("CLIENTE")){
-                    propietario.setIdPropietario(usuario.getPropietario().getIdPropietario());
-                    resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                    resultadoTransaccion.setResultado(iPropietarioDao.save(propietario));
+                    resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
+                    resultadoTransaccion.setResultado(iEmpresaXPersonaDao.save(empresaXPersona));
                     return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
                 }
             }
@@ -162,76 +116,55 @@ public class SesionService implements ISesionService {
     }
 
     @Override
-    public ResponseEntity<?> addUserSystig(HttpServletRequest request, Propietario propietario) {
+    public ResponseEntity<?> addPersona(HttpServletRequest request, Persona persona) {
         try{
-            Propietario finalPropietario = propietario;
-            Optional<Usuario> opUsuario = iUsuarioDao.findAll().stream().filter(usuario -> usuario.getUsername().equals(finalPropietario.getEmail())).findFirst();
+            Persona finalPersona = persona;
 
+            Optional<Empresa> opEmpresa = iEmpresaDao.findAll().stream().filter(empresa1 -> empresa1.getEmail().equals(finalPersona.getEmail())).findFirst();
+            if (opEmpresa.isPresent()){
+                return new ResponseEntity<>("El Usuario ya se encuentra Registrado", HttpStatus.CONFLICT);
+            }
+
+            Optional<Persona> opUsuario = iPersonaDao.findAll().stream().filter(usuario -> usuario.getEmail().equals(finalPersona.getEmail())).findFirst();
             if (opUsuario.isPresent()){
                 return new ResponseEntity<>("El Usuario ya se encuentra Registrado", HttpStatus.CONFLICT);
             }
 
             ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            String unClave =iUsuarioDao.getClaveAleatoria();
+            String unClave = iPersonaDao.getClaveAleatoria();
 
             try {
                 GeoIP geoIP = this.locationService.getLocation(request.getRemoteAddr());
-                propietario.setPais(geoIP.getCountry());
-                propietario.setProvincia(geoIP.getCity());
+                persona.setPais(geoIP.getCountry());
+                persona.setProvincia(geoIP.getCity());
             }catch (AddressNotFoundException e){
-                propietario.setPais("NP");
-                propietario.setProvincia("NP");
+                persona.setPais("NP");
+                persona.setProvincia("NP");
             }
 
-            Usuario usuario = new Usuario();
-            usuario.setUsername(propietario.getEmail());
+            persona.setUsername(persona.getEmail());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            usuario.setPassword(passwordEncoder.encode(unClave));
-            usuario.setEnabled(true);
-            usuario.setPropietario(propietario);
-            usuario.setIpRemota(request.getRemoteAddr());
-            usuario.setFecha((new Date()).getTime());
+            persona.setPassword(passwordEncoder.encode(unClave));
+            persona.setEnabled(true);
+            persona.setIpRemota(request.getRemoteAddr());
+            persona.setFecha((new Date()).getTime());
+            persona.setRol(0L);
 
-            Optional<Rol> rol = iRole.findAll().stream()
-                    .filter(rol1 -> rol1.getRole().equals("CLIENTE"))
-                    .findFirst();
-            if (rol.isPresent()){
-                usuario.setRol(rol.get());
-            }else{
-                Rol nuevoRol = new Rol();
-                nuevoRol.setDescripcion("CLIENTE");
-                nuevoRol.setRole("CLIENTE");
-                usuario.setRol(this.iRole.save(nuevoRol));
-            }
-
-            propietario.getUsuarios().add(usuario);
-            propietario = iPropietarioDao.save(propietario);
-
-
-            Propietario finalPropietario1 = propietario;
-            Optional<Configuracion> config = iConfiguracionDao.findAll().stream()
-                    .filter(configuracion -> finalPropietario1.getIdPropietario().equals(configuracion.getIdPropietario()))
-                    .findFirst();
-
-            if (config.isPresent()){
-                propietario.setConfiguracion(config.get());
-            }else{
-                propietario.setConfiguracion(crearConfiguracionPorDefecto(propietario.getIdPropietario()));
-            }
-
-            propietario = iPropietarioDao.save(propietario);
+            persona = iPersonaDao.save(persona);
+            // persona.setConfiguracion(crearConfiguracionPorDefecto(persona.getIdPersona()));
             try {
                 enviaCorreo("Nuevo Usuario",
-                        IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
-                                .replace("{usuario}", propietario.getEmail())
+                        IPersonaDao.FORMATOS_CORREO.EMAIL_USARIO_CREADO.getStrFormato()
+                                .replace("{usuario}", persona.getEmail())
                                 .replace("{clave}", unClave),
-                        propietario.getEmail());
-                resultadoTransaccion.setResultado(propietario);
+                        persona.getEmail());
+                resultadoTransaccion.setResultado(persona);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }catch (Exception emailEx){
                 System.out.println("No se pudo enviar el Email");
-                System.out.println("Usuario: " + propietario.getEmail() + "\nClave: " + unClave );
+                System.out.println("Usuario: " + persona.getEmail() + "\nClave: " + unClave );
                 resultadoTransaccion.setResultado("No Se pudo crear el Usuario en el Sistema");
+                emailEx.printStackTrace();
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.BAD_REQUEST);
             }
         }catch (Exception e){
@@ -242,13 +175,13 @@ public class SesionService implements ISesionService {
 
     @Override
     public ResponseEntity<?> restoreUserSystig(String email) {
-        Usuario usuario = iUsuarioDao.getByUsernameEquals(email);
-        String unClave =iUsuarioDao.getClaveAleatoria();
+        Persona usuario = iPersonaDao.getByUsernameEquals(email);
+        String unClave = iPersonaDao.getClaveAleatoria();
 
         if(usuario!=null){
             try {
                 enviaCorreo("Reemplazo de clave",
-                        IUsuarioDao.FORMATOS_CORREO.EMAIL_USARIO_RESTAURADO.getStrFormato()
+                        IPersonaDao.FORMATOS_CORREO.EMAIL_USARIO_RESTAURADO.getStrFormato()
                                 .replace("{usuario}",usuario.getUsername())
                                 .replace("{clave}",unClave),
                         usuario.getUsername());
@@ -257,7 +190,7 @@ public class SesionService implements ISesionService {
             }
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             usuario.setPassword(passwordEncoder.encode(unClave));
-            iUsuarioDao.save(usuario);
+            iPersonaDao.save(usuario);
             return new ResponseEntity<String>("Existe", HttpStatus.OK);
         }
         return new ResponseEntity<String>("Fallido", HttpStatus.UNAUTHORIZED);

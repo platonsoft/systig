@@ -8,7 +8,6 @@ import com.systig.base.repositorios.contable.entidades.Pago;
 import com.systig.base.repositorios.contable.oad.IDocumentoDao;
 import com.systig.base.repositorios.contable.oad.IHistoriaDao;
 import com.systig.base.repositorios.contable.oad.IPago;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.contable.servicios.interfaces.IDocumentosServ;
 import org.springframework.http.*;
@@ -43,7 +42,7 @@ public class DocumentoServ implements IDocumentosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByTipoDocumentoEqualsAndIdPropietarioEquals(tipoDocumento.getTipoDocumento(), usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByTipoDocumentoEqualsAndIdPropietarioEquals(tipoDocumento.getTipoDocumento(), usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
@@ -60,7 +59,7 @@ public class DocumentoServ implements IDocumentosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.iDocumentoDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
@@ -103,7 +102,7 @@ public class DocumentoServ implements IDocumentosServ {
                 Pago pago = mapper.convertValue(documento.get("pago"), Pago.class);
                 String productos = json.toJson(documento.get("productos"));
 
-                doc.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                doc.setIdPropietario(usuario.getEmpresa().getIdPropietario());
 
                 Documento docResultado = this.iDocumentoDao.save(doc);
                 pago.setIdDocumento(docResultado);
@@ -112,7 +111,7 @@ public class DocumentoServ implements IDocumentosServ {
                 RestTemplate productosTemplate = new RestTemplate();
                 HttpEntity<String> entity = new HttpEntity<String>(productos, headers);
 
-                ResponseEntity<ResultadoTransaccion> productosRessiltado = productosTemplate.exchange(usuario.getPropietario().getConfiguracion().getUrlInventario()
+                ResponseEntity<ResultadoTransaccion> productosRessiltado = productosTemplate.exchange(usuario.getEmpresa().getConfiguracion().getUrlInventario()
                                                              .concat("/api/inv/producto/items/").concat(docResultado.getIdDocumento().toString()),
                                                              HttpMethod.POST,entity,ResultadoTransaccion.class);
 
@@ -139,7 +138,7 @@ public class DocumentoServ implements IDocumentosServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 System.out.println(idDocumento + " - Producto recibido --- > " + (new Gson()).toJson(documento));
-                documento.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                documento.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 documento.setIdDocumento(idDocumento);
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iDocumentoDao.save(documento));

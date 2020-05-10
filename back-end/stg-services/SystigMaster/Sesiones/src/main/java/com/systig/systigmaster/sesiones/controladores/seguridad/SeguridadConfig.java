@@ -13,8 +13,8 @@ import org.springframework.security.web.session.SessionManagementFilter;
 
 import javax.sql.DataSource;
 
-import static com.systig.base.repositorios.sesiones.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO;
-import static com.systig.base.repositorios.sesiones.oad.IUsuarioDao.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
+import static com.systig.base.repositorios.sesiones.oad.IPersonaDao.QUERIES_ORACLE.QUERY.SQL_USUARIO;
+import static com.systig.base.repositorios.sesiones.oad.IPersonaDao.QUERIES_ORACLE.QUERY.SQL_USUARIO_ROLE;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +42,7 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers( HttpMethod.POST,"/api/registro***").permitAll()
+                .antMatchers( HttpMethod.POST,"/api/registro/persona***").permitAll()
                 .antMatchers( HttpMethod.POST,"/api/recuperar***").permitAll()
                 .antMatchers( HttpMethod.GET, "/api/sesion/configuracion***").permitAll()
                 .antMatchers( HttpMethod.POST, "/api/sesion/propietario***").permitAll()

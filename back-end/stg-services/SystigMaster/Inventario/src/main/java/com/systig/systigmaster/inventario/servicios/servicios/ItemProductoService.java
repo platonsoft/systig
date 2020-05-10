@@ -6,7 +6,6 @@ import com.systig.base.repositorios.inventario.oad.IItemProductoDao;
 import com.systig.base.repositorios.inventario.oad.IProductoDao;
 import com.systig.base.repositorios.inventario.entidades.ItemProducto;
 import com.systig.base.repositorios.inventario.entidades.Producto;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.inventario.servicios.interfaces.IItemProductosServ;
 import org.springframework.http.HttpHeaders;

@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 @Data
 @Entity
-@Table(name = "STG_FORMATO_DOCUMENTO")
+@Table(name = "STG_CONT_FORMATO_DOCUMENTO")
 public class FormatoDocumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

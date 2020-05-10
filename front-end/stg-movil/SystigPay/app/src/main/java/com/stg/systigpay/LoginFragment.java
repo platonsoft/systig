@@ -71,7 +71,6 @@ public class LoginFragment extends Fragment {
 
         View vista = inflater.inflate(R.layout.fragment_login, container, false);
         Button crearButton = vista.findViewById(R.id.button_crear_persona);
-        Button crearButtonEmp = vista.findViewById(R.id.button_crear_empresa);
         Button loginButton = vista.findViewById(R.id.button_iniciar);
 
         crearButton.setOnClickListener(new View.OnClickListener() {
@@ -86,14 +85,6 @@ public class LoginFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();*/
 
-            }
-        });
-
-        crearButtonEmp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent detail = new Intent(getContext(), RegisterEmpresaActivity.class);
-                getContext().startActivity(detail);
             }
         });
 

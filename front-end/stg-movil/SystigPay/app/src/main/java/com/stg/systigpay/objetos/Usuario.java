@@ -1,74 +1,84 @@
 package com.stg.systigpay.objetos;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Usuario {
-    private Long idUsuario;
-    private String codigoDispositivo;
-    private String cuentaSystig;
-    private TipoCliente tipoCliente;
-    private TipoIdentificacion tipoIdenficacion;
-    private Integer nroIdentificacion;
+    @SerializedName("idPersona")
+    @Expose
+    private Long idPersona;
+
+    @SerializedName("tipoIdentificacion")
+    @Expose
+    private String tipoIdentificacion;
+
+    @SerializedName("nroIdentificacion")
+    @Expose
+    private String nroIdentificacion;
+
+    @SerializedName("nombres")
+    @Expose
     private String nombres;
+
+    @SerializedName("apellidos")
+    @Expose
     private String apellidos;
-    private String razonSocial;
-    private String nroMovil;
-    private String direccion;
+
+    @SerializedName("fechaNacimiento")
+    @Expose
+    private String fechaNacimiento;
+
+    @SerializedName("telefonoMovil")
+    @Expose
+    private String telefonoMovil;
+
+    @SerializedName("email")
+    @Expose
     private String email;
-    private String clave;
-    private String pin;
-    private MonedaPais monedaPais;
-    private TransaccionSystig[] transacciones;
-    private Notificacion[] notificaciones;
+
+    @SerializedName("direccion")
+    @Expose
+    private String direccion;
+
+    @SerializedName("codigoPostal")
+    @Expose
+    private String codigoPostal;
+
+    @SerializedName("foto64")
+    @Expose
     private String foto64;
-    private Date fechaRegistro;
-    private Status status;
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    @SerializedName("enabled")
+    @Expose
+    private Boolean enabled;
+
+    @SerializedName("ranking")
+    @Expose
+    private Long ranking;
+
+    public Long getIdPersona() {
+        return idPersona;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdPersona(Long idPersona) {
+        this.idPersona = idPersona;
     }
 
-    public String getCodigoDispositivo() {
-        return codigoDispositivo;
+    public String getTipoIdentificacion() {
+        return tipoIdentificacion;
     }
 
-    public void setCodigoDispositivo(String codigoDispositivo) {
-        this.codigoDispositivo = codigoDispositivo;
+    public void setTipoIdentificacion(String tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
     }
 
-    public String getCuentaSystig() {
-        return cuentaSystig;
-    }
-
-    public void setCuentaSystig(String cuentaSystig) {
-        this.cuentaSystig = cuentaSystig;
-    }
-
-    public TipoCliente getTipoCliente() {
-        return tipoCliente;
-    }
-
-    public void setTipoCliente(TipoCliente tipoCliente) {
-        this.tipoCliente = tipoCliente;
-    }
-
-    public TipoIdentificacion getTipoIdenficacion() {
-        return tipoIdenficacion;
-    }
-
-    public void setTipoIdenficacion(TipoIdentificacion tipoIdenficacion) {
-        this.tipoIdenficacion = tipoIdenficacion;
-    }
-
-    public Integer getNroIdentificacion() {
+    public String getNroIdentificacion() {
         return nroIdentificacion;
     }
 
-    public void setNroIdentificacion(Integer nroIdentificacion) {
+    public void setNroIdentificacion(String nroIdentificacion) {
         this.nroIdentificacion = nroIdentificacion;
     }
 
@@ -88,28 +98,20 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
-    public String getRazonSocial() {
-        return razonSocial;
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setRazonSocial(String razonSocial) {
-        this.razonSocial = razonSocial;
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getNroMovil() {
-        return nroMovil;
+    public String getTelefonoMovil() {
+        return telefonoMovil;
     }
 
-    public void setNroMovil(String nroMovil) {
-        this.nroMovil = nroMovil;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setTelefonoMovil(String telefonoMovil) {
+        this.telefonoMovil = telefonoMovil;
     }
 
     public String getEmail() {
@@ -120,52 +122,20 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getClave() {
-        return clave;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getPin() {
-        return pin;
+    public String getCodigoPostal() {
+        return codigoPostal;
     }
 
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
-    public MonedaPais getMonedaPais() {
-        return monedaPais;
-    }
-
-    public void setMonedaPais(MonedaPais monedaPais) {
-        this.monedaPais = monedaPais;
-    }
-
-    public TransaccionSystig[] getTransacciones() {
-        return transacciones;
-    }
-
-    public void setTransacciones(TransaccionSystig[] transacciones) {
-        this.transacciones = transacciones;
-    }
-
-    public Notificacion[] getNotificaciones() {
-        return notificaciones;
-    }
-
-    public void setNotificaciones(Notificacion[] notificaciones) {
-        this.notificaciones = notificaciones;
-    }
-
-    public Date getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(Date fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
     public String getFoto64() {
@@ -176,11 +146,19 @@ public class Usuario {
         this.foto64 = foto64;
     }
 
-    public Status getStatus() {
-        return status;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Long ranking) {
+        this.ranking = ranking;
     }
 }

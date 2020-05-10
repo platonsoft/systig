@@ -63,7 +63,7 @@ public class UsuarioHelper extends SQLiteOpenHelper {
         db.execSQL(sqlCreate);
     }
 
-    public boolean insertaUsuarioFirebase(final Usuario usuario) {
+    /*public boolean insertaUsuarioFirebase(final Usuario usuario) {
         return mAuth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getClave())
                 .addOnCompleteListener((Activity) thisContext, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -91,12 +91,12 @@ public class UsuarioHelper extends SQLiteOpenHelper {
                         }
                     }
                 }).isSuccessful();
-    }
+    }*/
 
     private Boolean insertarUsuarioBD(Usuario usuario, String uid){
         ContentValues nuevoRegistro = new ContentValues();
 
-        nuevoRegistro.put("codigo",uid);
+        /*nuevoRegistro.put("codigo",uid);
         nuevoRegistro.put("nombres",usuario.getNombres());
         nuevoRegistro.put("apellidos",usuario.getApellidos());
         nuevoRegistro.put("tipo_documento",usuario.getTipoDocumento());
@@ -117,14 +117,14 @@ public class UsuarioHelper extends SQLiteOpenHelper {
 
         System.out.println("Creando registro en BD");
         db.insert(NOMBRE_TABLA,null,nuevoRegistro);
-        System.out.println("Se ha creado el registro correctamente");
+        System.out.println("Se ha creado el registro correctamente");*/
         return true;
     }
 
     public Usuario getDatosUsuario() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        if (db!=null){
+        /*if (db!=null){
             Cursor registro = db.rawQuery(" SELECT * FROM " + NOMBRE_TABLA, null);
             if(registro.moveToFirst()){
                 Usuario usuario = new Usuario();
@@ -146,7 +146,7 @@ public class UsuarioHelper extends SQLiteOpenHelper {
                 usuario.setFotoX64(registro.getString(registro.getColumnIndex("fotox64")));
                 return usuario;
             }
-        }
+        }*/
         return null;
     }
 

@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>Pagos</module>
         <module>Clientes</module>
         <module>Inventario</module>
         <module>Contable</module>

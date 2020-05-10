@@ -1,7 +1,8 @@
 package com.systig.systigmaster.sesiones.servicios.interfaces;
 
-import com.systig.base.repositorios.sesiones.entidades.Propietario;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
+import com.systig.base.repositorios.nominas.entidades.Cargo;
+import com.systig.base.repositorios.nominas.entidades.Empresa;
+import com.systig.base.repositorios.nominas.entidades.Persona;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -11,11 +12,9 @@ import java.security.Principal;
 
 public interface ISesionService {
     ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
-    ResponseEntity<?> getUsuario(HttpHeaders headers);
-    ResponseEntity<?> getListaUsuarios(HttpHeaders headers);
-    ResponseEntity<?> addUsuarioPropietario(HttpHeaders headers, Usuario usuario);
-    ResponseEntity<?> setPropietario(HttpHeaders headers, Propietario propietario);
-    ResponseEntity<?> addUserSystig(HttpServletRequest request, Propietario propietario);
+    ResponseEntity<?> getPersona(HttpHeaders headers);
+    ResponseEntity<?> addEmpresa(HttpHeaders headers, Empresa empresa, Cargo cargo);
+    ResponseEntity<?> addPersona(HttpServletRequest request, Persona persona);
     ResponseEntity<?> restoreUserSystig(String email);
     void enviaCorreo(String titulo, String contenido, String destinatario) throws Exception;
 }

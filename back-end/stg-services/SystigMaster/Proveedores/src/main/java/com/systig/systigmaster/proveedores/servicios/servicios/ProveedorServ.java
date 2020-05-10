@@ -5,7 +5,6 @@ import com.systig.base.objetos.ResultadoTransaccion;
 import com.systig.base.repositorios.proveedores.entidades.Proveedor;
 import com.systig.base.repositorios.proveedores.oad.IEmpresaEnvios;
 import com.systig.base.repositorios.proveedores.oad.IProveedorDao;
-import com.systig.base.repositorios.sesiones.entidades.Usuario;
 import com.systig.base.repositorios.sesiones.oad.IUsuarioDao;
 import com.systig.systigmaster.proveedores.servicios.interfaces.IProveedorServ;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +36,7 @@ public class ProveedorServ implements IProveedorServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
-                resultadoTransaccion.setResultado(this.proveedorDao.findAllByIdPropietarioEquals(usuario.getPropietario().getIdPropietario()));
+                resultadoTransaccion.setResultado(this.proveedorDao.findAllByIdPropietarioEquals(usuario.getEmpresa().getIdPropietario()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
             return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
@@ -73,7 +72,7 @@ public class ProveedorServ implements IProveedorServ {
             System.out.println("Proveedor recibido --- > " + (new Gson()).toJson(proveedor));
 
             if(usuario!=null){
-                proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                proveedor.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));
                 proveedor.setEnvios(iEmpresaEnvios.save(proveedor.getEnvios()));
                 resultadoTransaccion.setResultado(this.proveedorDao.save(proveedor));
@@ -93,7 +92,7 @@ public class ProveedorServ implements IProveedorServ {
             Usuario usuario = iUsuarioDao.statusSession(headers);
             if(usuario!=null){
                 System.out.println(idProveedor + " - Proveedor recibido --- > " + (new Gson()).toJson(proveedor));
-                proveedor.setIdPropietario(usuario.getPropietario().getIdPropietario());
+                proveedor.setIdPropietario(usuario.getEmpresa().getIdPropietario());
                 proveedor.setIdProveedor(idProveedor);
                 proveedor.setEnvios(iEmpresaEnvios.save(proveedor.getEnvios()));
                 resultadoTransaccion.setToken(iUsuarioDao.retornoToken(usuario));

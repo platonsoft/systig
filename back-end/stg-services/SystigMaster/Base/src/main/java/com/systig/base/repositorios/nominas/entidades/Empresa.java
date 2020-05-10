@@ -1,8 +1,12 @@
-package com.systig.base.repositorios.sesiones.entidades;
+package com.systig.base.repositorios.nominas.entidades;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.systig.base.repositorios.nominas.entidades.Persona;
+import com.systig.base.repositorios.sesiones.entidades.Configuracion;
+import com.systig.base.repositorios.sesiones.entidades.ProductoSystigXPropietario;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,13 +15,13 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "STG_PROPIETARIOS")
-public class Propietario {
+@Table(name = "STG_NOM_EMPRESAS")
+public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_propietario")
-    private Long idPropietario;
-    private Integer tipo; // Persona o Empresa
+    @Column(name = "id_empresa")
+    private Long idEmpresa;
+    private Long rol; // Comprador, usuario
     private String tipoIdentificacion;
     private String nroIdentificacion;
     private String razonSocial;
@@ -34,10 +38,6 @@ public class Propietario {
     @ManyToOne()
     private Configuracion configuracion;
 
-    @OneToMany( mappedBy = "propietario", fetch = FetchType.LAZY)
-    @JsonBackReference()
-    private List<Usuario> usuarios = new ArrayList<>();
-
-    @OneToMany( mappedBy = "idPropietario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany( mappedBy = "idEmpresa", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<ProductoSystigXPropietario> productosSystig = new ArrayList<>();
 }
