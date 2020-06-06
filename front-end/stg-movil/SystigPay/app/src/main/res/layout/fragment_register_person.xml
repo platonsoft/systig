@@ -43,14 +43,14 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/fotoPersona"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_weight="4"
                         android:src="@drawable/avatar" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/floatingActionButton"
+                        android:id="@+id/bontoFotoAct"
                         android:layout_width="189dp"
                         android:layout_height="100dp"
                         android:layout_gravity="center_horizontal|center_vertical"

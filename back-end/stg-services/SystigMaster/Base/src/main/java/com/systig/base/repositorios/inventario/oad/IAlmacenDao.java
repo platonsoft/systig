@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IAlmacenDao extends JpaRepository<Almacen, Long> {
-    List<Almacen> findAllByIdPropietarioEquals(Long propietario);
-    Almacen getFirstByNombreEqualsAndIdPropietarioEquals(String nombre, Long idPropietario);
+    List<Almacen> findAllByIdPropietario_IdEmpresa(Long idPropietario);
 }

@@ -8,13 +8,17 @@ import javax.servlet.http.HttpSession;
 
 public interface IProveedorServ {
 
-    ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session);
+    ResponseEntity<?> getListadoLigeroClientes(HttpHeaders headers, HttpSession session);
 
-    ResponseEntity<?> getProveedor(HttpHeaders headers, HttpSession session, Long idProveedor);
+    ResponseEntity<?> getListadoLigeroProveedores(HttpHeaders headers, HttpSession session);
 
-    ResponseEntity<?> nuevoProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor);
+    ResponseEntity<?> getProveedor(HttpHeaders headers);
 
-    ResponseEntity<?> actualizarProveedor(HttpHeaders headers, HttpSession session, Proveedor proveedor, Long idProveedor);
+    ResponseEntity<?> getCliente(HttpHeaders headers, String tipoIdentificaionAbrev, String nroIdentificacion);
+
+    ResponseEntity<?> nuevoProveedor(HttpHeaders headers, String tipoIdentificaionAbrev, String nroIdentificacion);
+
+    ResponseEntity<?> actualizarProveedor(HttpHeaders headers, Proveedor proveedor, Long idProveedor);
 
     ResponseEntity<?> borrarProveedor(HttpHeaders headers, HttpSession session, Long idProveedor);
 

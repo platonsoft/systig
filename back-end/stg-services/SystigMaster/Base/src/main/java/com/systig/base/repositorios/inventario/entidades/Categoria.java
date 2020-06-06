@@ -1,5 +1,6 @@
 package com.systig.base.repositorios.inventario.entidades;
 
+import com.systig.base.repositorios.nominas.entidades.Empresa;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,5 +16,8 @@ public class Categoria {
     private String nombre;
     private String descripcion;
     private Long idPadre;
-    private Long idPropietario;
+
+    @JoinColumn(name = "id_propietario", referencedColumnName = "id_empresa", nullable = false)
+    @ManyToOne()
+    private Empresa idPropietario;
 }

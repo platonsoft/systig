@@ -2,23 +2,30 @@ package com.stg.systigpay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.stg.systigpay.objetos.Usuario;
 import com.stg.systigpay.remote.APIUtils;
 import com.stg.systigpay.servicios.UsuarioService;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +48,8 @@ public class RegisterPersonActivity extends AppCompatActivity implements Registe
     TextInputEditText direccionPerson;
     TextInputEditText emailPerson;
     TextInputEditText codigoPostalPerson;
+    FloatingActionButton botonFoto;
+    ImageView fotoPerson;
 
     Usuario usuario = new Usuario();
     UsuarioService usuarioService;
@@ -73,8 +82,35 @@ public class RegisterPersonActivity extends AppCompatActivity implements Registe
         direccionPerson = findViewById(R.id.direccionTxt);
         emailPerson = findViewById(R.id.emailTxt);
         codigoPostalPerson = findViewById(R.id.codigoPostalTxt);
+        fotoPerson = findViewById(R.id.fotoPersona);
+        botonFoto = findViewById(R.id.bontoFotoAct);
 
         usuarioService = APIUtils.getUserService();
+
+        botonFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, 1);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
+
+            usuario.setFoto64(Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT));
+            fotoPerson.setImageBitmap(imageBitmap);
+        }
     }
 
     private boolean validPersona(){
@@ -161,6 +197,11 @@ public class RegisterPersonActivity extends AppCompatActivity implements Registe
             isValido = false;
         }else{
             usuario.setCodigoPostal(emailPerson.getText().toString());
+        }
+
+        if (usuario.getFoto64()== null){
+            Toast.makeText(RegisterPersonActivity.this, "Debe incluir la foto", Toast.LENGTH_SHORT).show();
+            isValido = false;
         }
 
         return isValido;

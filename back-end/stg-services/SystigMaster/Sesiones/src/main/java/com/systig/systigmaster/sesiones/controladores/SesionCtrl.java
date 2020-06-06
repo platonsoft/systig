@@ -35,8 +35,8 @@ public class SesionCtrl {
     @PostMapping(value = "/api/registro/persona")
     public ResponseEntity<?> agregarUsuario(@Context HttpServletRequest request,
                                             @RequestBody String propietario) {
-        Persona prop = (new Gson()).fromJson(propietario, Persona.class);
-        return this.sesionServ.addPersona(request,prop);
+
+        return this.sesionServ.addPersona(request,propietario);
     }
 
     @PostMapping(value = "/api/registro/empresa")

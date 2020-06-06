@@ -1,6 +1,7 @@
 package com.systig.systigmaster.clientes.servicios.interfaces;
 
 import com.systig.base.repositorios.clientes.entidades.Comprador;
+import com.systig.base.repositorios.nominas.entidades.Persona;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -14,9 +15,9 @@ public interface ICompradorServ {
 
     ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, String campoFiltro, String numeroIdentificacion);
 
-    ResponseEntity<?> nuevoComprador(HttpHeaders headers, HttpSession session, Comprador comprador);
+    ResponseEntity<?> nuevoComprador(HttpHeaders headers, HttpSession session, Persona clientePersona);
 
-    ResponseEntity<?> actualizarComprador(HttpHeaders headers, HttpSession session, Comprador comprador, Long idComprador);
+    ResponseEntity<?> actualizarComprador(HttpHeaders headers, HttpSession session, Persona clientePersona, String nroIdentificacion);
 
     ResponseEntity<?> siguienteEtapaComprador(HttpHeaders headers, HttpSession session, Long id_comprador);
 

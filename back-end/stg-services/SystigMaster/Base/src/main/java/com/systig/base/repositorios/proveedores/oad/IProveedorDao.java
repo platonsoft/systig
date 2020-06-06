@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface IProveedorDao extends JpaRepository<Proveedor,Long> {
-    List findAllByIdPropietarioEquals(Long id_empresa);
-    Proveedor getByIdProveedor(Long id_proveedor);
+    List<Proveedor> findAllByEmpresa_IdEmpresa(Long idEmpresa);
+    List<Proveedor> findAllByCliente_IdEmpresa(Long idEmpresa);
+    Proveedor getFirstByEmpresa_NroIdentificacionAndEmpresa_TipoIdentificacionAbrevDoc(String nroIdentificacion, String tipoIdentificacion);
+    Proveedor getFirstByCliente_NroIdentificacionAndCliente_TipoIdentificacionAbrevDocAndCliente_IdEmpresa(String nroIdentificacion, String tipoIdentificacion, Long idEmpresa);
 }

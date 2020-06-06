@@ -1,8 +1,10 @@
 package com.systig.base.repositorios.proveedores.entidades;
 
+import com.systig.base.repositorios.nominas.entidades.Empresa;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -11,25 +13,16 @@ public class Proveedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProveedor;
-    private String tipoIdentificacion;
-    private String numeroIdentificacion;
-    private String nombres;
-    private String apellidos;
-    private String razonSocial;
-    private String tipoCliente;
-    private String telefonoLocal;
-    private String telefonoMovil;
-    private String email;
-    private String webSite;
-    private String direccionFiscal;
-    private String codigoPostal;
-    private String ciudad;
-    private String provincia;
-    private String pais;
-    private Boolean isRetentor;
-    private Long idPropietario;
 
-    @JoinColumn(name = "id_empresaEnvios", referencedColumnName = "idEmpresaEnvios", nullable = false)
+    @JoinColumn(name = "empresa", referencedColumnName = "id_empresa")
     @ManyToOne()
-    private EmpresaEnvios envios;
+    private Empresa empresa;
+
+    @JoinColumn(name = "cliente", referencedColumnName = "id_empresa")
+    @ManyToOne()
+    private Empresa cliente;
+
+    private String observaciones;
+    private BigDecimal precioEmpaque; // la unidad sera ($/m2)
+    private BigDecimal precioPeso; // la unidad sera ($/Kg)
 }

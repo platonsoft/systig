@@ -1,6 +1,7 @@
 package com.systig.systigmaster.clientes.controladores;
 
 import com.systig.base.repositorios.clientes.entidades.Comprador;
+import com.systig.base.repositorios.nominas.entidades.Persona;
 import com.systig.systigmaster.clientes.servicios.interfaces.ICompradorServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,15 +45,15 @@ public class CompradorCtrl {
 
     @PostMapping("/api/crm/cliente")
     public ResponseEntity<?> agregarCliente(@RequestHeader HttpHeaders headers, HttpSession session,
-                                            @RequestBody Comprador comprador) {
-        return this.compradorServ.nuevoComprador(headers, session, comprador);
+                                            @RequestBody Persona persona) {
+        return this.compradorServ.nuevoComprador(headers, session, persona);
     }
 
-    @PutMapping("/api/crm/cliente/{id_comprador}")
+    @PutMapping("/api/crm/cliente/{nro_identificacion}")
     public ResponseEntity<?> actualizarCliente(@RequestHeader HttpHeaders headers, HttpSession session,
-                                               @RequestBody Comprador comprador,
-                                               @PathVariable Long id_comprador) {
-        return this.compradorServ.actualizarComprador(headers, session, comprador, id_comprador);
+                                               @RequestBody Persona persona,
+                                               @PathVariable String nro_identificacion) {
+        return this.compradorServ.actualizarComprador(headers, session, persona, nro_identificacion);
     }
 
     @DeleteMapping("/api/crm/cliente/{id_comprador}")

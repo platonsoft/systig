@@ -1,6 +1,7 @@
 package com.systig.base.repositorios.inventario.entidades;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.systig.base.repositorios.nominas.entidades.Empresa;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.List;
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
     private Long idProducto;
     private String codigo;
     private String nombre;
@@ -41,15 +43,17 @@ public class Producto {
     @ManyToOne()
     private Almacen almacen;
 
-    private Long idProveedor;
-    private Long idPropietario;
+    @JoinColumn(name = "id_empresa_proveedor", referencedColumnName = "id_empresa")
+    @ManyToOne()
+    private Empresa idProveedor;
+
+    @JoinColumn(name = "id_empresa_propietario", referencedColumnName = "id_empresa")
+    @ManyToOne()
+    private Empresa idPropietario;
+
     private Boolean isExcento;
 
     @OneToMany( mappedBy = "idTributo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tributo> tributos;
-
-    @OneToMany( mappedBy = "idProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<ItemProducto> itemsProductos;
 
 }

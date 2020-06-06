@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class MetodoPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_metodo_pago")
     private Long idMetodoPago;
     private String descripcion;
     private Boolean isBanco;

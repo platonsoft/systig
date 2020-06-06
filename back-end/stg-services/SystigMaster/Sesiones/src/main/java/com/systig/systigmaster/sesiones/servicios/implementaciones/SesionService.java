@@ -2,12 +2,8 @@ package com.systig.systigmaster.sesiones.servicios.implementaciones;
 
 import com.google.gson.Gson;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
-import com.systig.base.repositorios.nominas.entidades.Cargo;
-import com.systig.base.repositorios.nominas.entidades.Empresa;
-import com.systig.base.repositorios.nominas.entidades.EmpresaXPersona;
-import com.systig.base.repositorios.nominas.entidades.Persona;
-import com.systig.base.repositorios.nominas.oad.IEmpresaXPersonaDao;
-import com.systig.base.repositorios.nominas.oad.IEmpresaDao;
+import com.systig.base.repositorios.nominas.entidades.*;
+import com.systig.base.repositorios.nominas.oad.*;
 import com.systig.base.repositorios.sesiones.entidades.*;
 import com.systig.base.objetos.GeoIP;
 import com.systig.base.objetos.ResultadoTransaccion;
@@ -38,22 +34,26 @@ import java.util.Optional;
 public class SesionService implements ISesionService {
     private final IPersonaDao iPersonaDao;
     private final GeoIPLocationService locationService;
+    private final ICuentaEntidadDao iCuentaEntidadDao;
     private final IEmpresaDao iEmpresaDao;
     private final IEmpresaXPersonaDao iEmpresaXPersonaDao;
     private final IConfiguracionDao iConfiguracionDao;
     private final IConfiguracionDetalleDao iConfiguracionDetalleDao;
     private final IFormatoDocumentoDao iFormatoDocumentoDao;
+    private final IPaisDao iPaisDao;
 
     private final JavaMailSender sender;
 
-    public SesionService(IPersonaDao iPersonaDao, GeoIPLocationService locationService, IEmpresaDao iEmpresaDao, IEmpresaXPersonaDao iEmpresaXPersonaDao, IConfiguracionDao iConfiguracionDao, IConfiguracionDetalleDao iConfiguracionDetalleDao, IFormatoDocumentoDao iFormatoDocumentoDao, JavaMailSender sender) {
+    public SesionService(IPersonaDao iPersonaDao, GeoIPLocationService locationService, ICuentaEntidadDao iCuentaEntidadDao, IEmpresaDao iEmpresaDao, IEmpresaXPersonaDao iEmpresaXPersonaDao, IConfiguracionDao iConfiguracionDao, IConfiguracionDetalleDao iConfiguracionDetalleDao, IFormatoDocumentoDao iFormatoDocumentoDao, IPaisDao iPaisDao, JavaMailSender sender) {
         this.iPersonaDao = iPersonaDao;
         this.locationService = locationService;
+        this.iCuentaEntidadDao = iCuentaEntidadDao;
         this.iEmpresaDao = iEmpresaDao;
         this.iEmpresaXPersonaDao = iEmpresaXPersonaDao;
         this.iConfiguracionDao = iConfiguracionDao;
         this.iConfiguracionDetalleDao = iConfiguracionDetalleDao;
         this.iFormatoDocumentoDao = iFormatoDocumentoDao;
+        this.iPaisDao = iPaisDao;
         this.sender = sender;
     }
 
@@ -116,9 +116,12 @@ public class SesionService implements ISesionService {
     }
 
     @Override
-    public ResponseEntity<?> addPersona(HttpServletRequest request, Persona persona) {
+    public ResponseEntity<?> addPersona(HttpServletRequest request, String strPersona) {
         try{
+            Persona persona = (new Gson()).fromJson(strPersona, Persona.class);
+
             Persona finalPersona = persona;
+            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
 
             Optional<Empresa> opEmpresa = iEmpresaDao.findAll().stream().filter(empresa1 -> empresa1.getEmail().equals(finalPersona.getEmail())).findFirst();
             if (opEmpresa.isPresent()){
@@ -130,18 +133,26 @@ public class SesionService implements ISesionService {
                 return new ResponseEntity<>("El Usuario ya se encuentra Registrado", HttpStatus.CONFLICT);
             }
 
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
-            String unClave = iPersonaDao.getClaveAleatoria();
-
             try {
-                GeoIP geoIP = this.locationService.getLocation(request.getRemoteAddr());
-                persona.setPais(geoIP.getCountry());
-                persona.setProvincia(geoIP.getCity());
+                String miIpTemp = "179.15.182.45";
+                final GeoIP geoIP = this.locationService.getLocation(miIpTemp);
+                //final GeoIP geoIP = this.locationService.getLocation(request.getRemoteAddr());
+                Optional<Pais> pais = iPaisDao.findAll().stream()
+                        .filter(pais1 -> pais1.getNombre().toLowerCase().equals(geoIP.getCountry().toLowerCase()))
+                        .findFirst();
+                System.out.println("El pais detectado: " + geoIP.getCountry());
+                if (pais.isPresent()){
+                    persona.setPais(pais.get());
+                    persona.setProvincia(geoIP.getCity());
+                }
             }catch (AddressNotFoundException e){
-                persona.setPais("NP");
-                persona.setProvincia("NP");
+                return new ResponseEntity<>("El pais no esta disponible", HttpStatus.CONFLICT);
             }
 
+            List<CuentaEntidad> entidadList = new ArrayList<>(persona.getCuentasEntidad());
+            persona.setCuentasEntidad(null);
+
+            String unClave = iPersonaDao.getClaveAleatoria();
             persona.setUsername(persona.getEmail());
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             persona.setPassword(passwordEncoder.encode(unClave));
@@ -151,6 +162,12 @@ public class SesionService implements ISesionService {
             persona.setRol(0L);
 
             persona = iPersonaDao.save(persona);
+
+            for (CuentaEntidad cuentaEntidad: entidadList) {
+                cuentaEntidad.setIdPersona(persona);
+            }
+
+            iCuentaEntidadDao.saveAll(entidadList);
             // persona.setConfiguracion(crearConfiguracionPorDefecto(persona.getIdPersona()));
             try {
                 enviaCorreo("Nuevo Usuario",
@@ -202,6 +219,7 @@ public class SesionService implements ISesionService {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setTo(destinatario);
+        helper.setFrom("comercial@systig.com");
         helper.setText(contenido,true);
         helper.setSubject(titulo);
 

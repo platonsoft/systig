@@ -1,4 +1,4 @@
-package com.systig.base.repositorios.sesiones.oad;
+package com.systig.base.repositorios.nominas.oad;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,13 +11,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
-import java.util.List;
 
 @Repository
 public interface IPersonaDao extends JpaRepository<Persona, Long> {
     Persona getByUsernameEquals(String username);
-    List<Persona> findAllByIdPersonaEquals(Long idPersona);
-
+    Persona getFirstByNroIdentificacionEquals(String nroIdentificacion);
 
     default  String getClaveAleatoria(){
         String resultado = "";

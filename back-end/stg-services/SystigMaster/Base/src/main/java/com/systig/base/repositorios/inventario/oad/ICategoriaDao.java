@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ICategoriaDao extends JpaRepository<Categoria, Long> {
-    List<Categoria> findAllByIdPropietarioEquals(Long propietario);
-    Categoria getFirstByNombreEqualsAndIdPropietarioEquals(String nombre, Long idPropietario);
+    List<Categoria> findAllByIdPropietario_IdEmpresa(Long idPropietario);
 }

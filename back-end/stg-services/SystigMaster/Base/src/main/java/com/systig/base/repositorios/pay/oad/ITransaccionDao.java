@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ITransaccionDao extends JpaRepository<Transaccion, Long> {
-    List<Transaccion> findAllByIdRemitenteOrIdClienteEquals(String idRemitente, String idCliente);
+    List<Transaccion> findAllByIdPersonaEquals(Long idPersona);
     Transaccion getByIdTransaccionEquals(Long idTransaccion);
 }

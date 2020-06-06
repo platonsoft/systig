@@ -1,6 +1,7 @@
 package com.systig.base.repositorios.inventario.entidades;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.systig.base.repositorios.contable.entidades.Documento;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +14,11 @@ public class ItemProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idItemProducto;
-    private Long idDocumento;
+
+    @JoinColumn(name = "id_documento", referencedColumnName = "id_documento")
+    @ManyToOne()
+    private Documento idDocumento;
+
     private String serial;
     private String unidad;
     private BigDecimal cantidad;
@@ -26,9 +31,11 @@ public class ItemProducto {
     private Long fechaExpedicion;
     private Long fechaVencimiento;
     private Long idEmpresaEnvios;
+    private Boolean isPublico;
     private String observacionEliminado;
-    @JoinColumn(name="idProducto")
-    @ManyToOne(fetch = FetchType.LAZY, optional=false, cascade = CascadeType.ALL, targetEntity = Producto.class)
+
+    @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
+    @ManyToOne()
     @JsonBackReference
     private Producto idProducto;
 }

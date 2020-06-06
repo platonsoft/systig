@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class FormaPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_forma_pago")
     private Long idFormaPago;
     private String tipoMonto; // Al detal y al mayor
     private String forma;

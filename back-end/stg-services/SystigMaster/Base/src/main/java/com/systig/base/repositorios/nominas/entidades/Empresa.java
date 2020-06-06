@@ -22,7 +22,10 @@ public class Empresa {
     @Column(name = "id_empresa")
     private Long idEmpresa;
     private Long rol; // Comprador, usuario
-    private String tipoIdentificacion;
+
+    @JoinColumn(name = "id_tipo_doc_identif", referencedColumnName = "id_tipo_doc_identif", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoDocumentoIdentif tipoIdentificacion;
     private String nroIdentificacion;
     private String razonSocial;
     private String telefonoLocal;
@@ -32,7 +35,10 @@ public class Empresa {
     private String direccionFiscal;
     private String codigoPostal;
     private String provincia;
-    private String pais;
+
+    @JoinColumn(name = "id_pais", referencedColumnName = "id_pais", nullable = false)
+    @ManyToOne(optional = false)
+    private Pais id_pais;
 
     @JoinColumn(name = "id_configuracion", referencedColumnName = "id_configuracion")
     @ManyToOne()

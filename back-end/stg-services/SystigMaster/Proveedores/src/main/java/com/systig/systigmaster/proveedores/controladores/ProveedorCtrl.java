@@ -25,26 +25,30 @@ public class ProveedorCtrl {
 
     @GetMapping("/api/prv/proveedores")
     public ResponseEntity<?> getListaProveedor(@RequestHeader HttpHeaders headers, HttpSession session) {
-        return this.proveedorServ.getListadoLigero(headers, session);
+        return this.proveedorServ.getListadoLigeroProveedores(headers, session);
     }
 
-    @GetMapping("/api/prv/proveedor/{id_proveedor}")
-    public ResponseEntity<?> getProveedor(@RequestHeader HttpHeaders headers, HttpSession session,
-                                        @PathVariable Long id_proveedor) {
-        return this.proveedorServ.getProveedor(headers, session, id_proveedor);
+    @GetMapping("/api/prv/clientes")
+    public ResponseEntity<?> getListaClientes(@RequestHeader HttpHeaders headers, HttpSession session) {
+        return this.proveedorServ.getListadoLigeroClientes(headers, session);
     }
 
-    @PostMapping("/api/prv/proveedor")
+    @GetMapping("/api/prv/proveedor")
+    public ResponseEntity<?> getProveedor(@RequestHeader HttpHeaders headers) {
+        return this.proveedorServ.getProveedor(headers);
+    }
+
+    @PostMapping("/api/prv/proveedor/{tipoDocAbrev}/{nroDoc}")
     public ResponseEntity<?> agregarProveedor(@RequestHeader HttpHeaders headers, HttpSession session,
-                                            @RequestBody Proveedor proveedor) {
-        return this.proveedorServ.nuevoProveedor(headers, session, proveedor);
+                                            @PathVariable String tipoDocAbrev, @PathVariable String nroDoc) {
+        return this.proveedorServ.nuevoProveedor(headers, tipoDocAbrev, nroDoc);
     }
 
     @PutMapping("/api/prv/proveedor/{id_proveedor}")
-    public ResponseEntity<?> actualizarProveedor(@RequestHeader HttpHeaders headers, HttpSession session,
+    public ResponseEntity<?> actualizarProveedor(@RequestHeader HttpHeaders headers,
                                                  @RequestBody Proveedor proveedor,
                                                  @PathVariable Long id_proveedor) {
-        return this.proveedorServ.actualizarProveedor(headers, session, proveedor, id_proveedor);
+        return this.proveedorServ.actualizarProveedor(headers, proveedor, id_proveedor);
     }
 
     @DeleteMapping("/api/prv/proveedor/{id_proveedor}")
@@ -53,19 +57,4 @@ public class ProveedorCtrl {
         return this.proveedorServ.borrarProveedor(headers, session, id_proveedor);
     }
 
-    @GetMapping("/api/prv/cliente/historia/{id_proveedor}")
-    public ResponseEntity<?> getHistoriaProveedor(@RequestHeader HttpHeaders headers, HttpSession session,
-                                                @PathVariable Long id_proveedor) {
-        return this.proveedorServ.getHistoriaProveedor(headers, session, id_proveedor);
-    }
-
-    @PostMapping(value = "/api/prv/proveedor/importar", consumes = {"multipart/form-data"})
-    public ResponseEntity<?> importarArchivo(@RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file) throws IOException {
-        return new ResponseEntity<>(file.getName(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/api/prv/proveedor/exportar/XML", produces = {"application/xml", "text/xml"})
-    public ResponseEntity exportarXML() {
-        return null;
-    }
 }

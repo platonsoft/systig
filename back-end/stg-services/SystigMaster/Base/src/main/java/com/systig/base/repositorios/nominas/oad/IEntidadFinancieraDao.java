@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IEntidadFinancieraDao extends JpaRepository<EntidadFinanciera, Long> {
-    List<EntidadFinanciera> findAllByIdPaisEquals(Long idPais);
+    List<EntidadFinanciera> findAllByPais_IdPais(Long idPais);
 }

@@ -13,6 +13,7 @@ import java.util.List;
 public class Documento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_documento")
     private Long idDocumento;
     private Integer tipoDocumento;
     private String nroControl;
@@ -32,8 +33,4 @@ public class Documento {
     *
     * */
     private Long Estado;
-
-    @OneToMany( mappedBy = "idPago", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Pago> pagos;
 }

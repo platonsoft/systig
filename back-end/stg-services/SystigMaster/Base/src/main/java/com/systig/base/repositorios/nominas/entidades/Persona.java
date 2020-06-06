@@ -1,5 +1,6 @@
 package com.systig.base.repositorios.nominas.entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -14,7 +15,10 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_persona")
     private Long idPersona;
-    private String tipoIdentificacion;
+
+    @JoinColumn(name = "id_tipo_doc_identif", referencedColumnName = "id_tipo_doc_identif", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoDocumentoIdentif tipoIdentificacion;
     private String nroIdentificacion;
     private String nombres;
     private String apellidos;
@@ -23,7 +27,10 @@ public class Persona {
     private String email;
     private String direccion;
     private String provincia;
-    private String pais;
+
+    @JoinColumn(name = "id_pais", referencedColumnName = "id_pais", nullable = false)
+    @ManyToOne(optional = false)
+    private Pais pais;
     private String codigoPostal;
     private String foto64;
 

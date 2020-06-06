@@ -1,10 +1,11 @@
 package com.systig.systigmaster.pagos.controladores;
 
-import com.systig.base.repositorios.pay.entidades.Transaccion;
 import com.systig.systigmaster.pagos.servicios.IPagosServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
@@ -22,6 +23,14 @@ public class PagoCtrl {
     @GetMapping("/api/pay/transacciones")
     public ResponseEntity<?> getListaTransacciones(@RequestHeader HttpHeaders headers) {
         return this.iPagosServ.getListaTransacciones(headers);
+    }
+
+    /*
+     * Muestra la lista de las transacciones de un dispositivo
+     * */
+    @GetMapping("/api/pay/saldo")
+    public ResponseEntity<?> getSaldo(@RequestHeader HttpHeaders headers) {
+        return this.iPagosServ.getSaldo(headers);
     }
 
     /*
@@ -60,12 +69,12 @@ public class PagoCtrl {
      * Crea una nueva transaccion de remesa
      * */
     @PostMapping(path = "/api/pay/transaccion",consumes = "application/json")
-    public ResponseEntity<?> setTransaccion(@RequestHeader HttpHeaders headers, @RequestBody Transaccion transaccion){
-        return this.iPagosServ.setTransaccion(transaccion, headers);
+    public ResponseEntity<?> addTransaccion(@RequestHeader HttpHeaders headers, @RequestBody String transaccion){
+        return this.iPagosServ.addTransaccion(transaccion, headers);
     }
 
-    @PostMapping("/api/pay/transaccion/{idTransaccion}/{idAccion}")
-    public ResponseEntity<?> setStatusTransaccion(@RequestHeader HttpHeaders headers, @PathVariable Long idTransaccion, @PathVariable Long idAccion) {
-        return this.iPagosServ.setTransaccion(idTransaccion, idAccion, headers);
+    @PostMapping("/api/pay/transaccion/{codReferencia}/{monto}")
+    public ResponseEntity<?> confirmarPago(@RequestHeader HttpHeaders headers, @PathVariable String codReferencia, @PathVariable BigDecimal monto) {
+        return this.iPagosServ.confirmarTransaccion(codReferencia, monto, headers);
     }
 }

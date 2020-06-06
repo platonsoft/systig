@@ -1,5 +1,6 @@
 package com.systig.systigmaster.inventario.servicios.interfaces;
 
+import com.systig.base.repositorios.contable.entidades.Documento;
 import com.systig.base.repositorios.inventario.entidades.ItemProducto;
 import com.systig.base.repositorios.inventario.entidades.Producto;
 import org.springframework.http.HttpHeaders;
@@ -9,15 +10,16 @@ import java.util.List;
 
 public interface IProductosServ {
 
+    ResponseEntity<?> getListadoMisProductos(HttpHeaders headers);
     ResponseEntity<?> getListadoProductos(HttpHeaders headers);
     ResponseEntity<?> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor);
+    ResponseEntity<?> getListadoMisProductosProveedor(HttpHeaders headers, Long idProveedor);
     ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento);
     ResponseEntity<?> getProducto(HttpHeaders headers, Long idProducto);
     ResponseEntity<?> addProducto(HttpHeaders headers, Producto producto);
-    ResponseEntity<?> addProductosItems(HttpHeaders headers, List<Producto> productos, Long idDocumento);
+    ResponseEntity<?> addProductosItems(HttpHeaders headers, String strPeticion, Long idProducto);
     ResponseEntity<?> setProducto(HttpHeaders headers, Producto producto, Long idProducto);
     ResponseEntity<?> delProducto(HttpHeaders headers, Long idProducto);
-    ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, Long idProducto);
 
     ResponseEntity<?> getListadoAlmacenPropietario(HttpHeaders headers);
     ResponseEntity<?> getListadoCategoriaPropietario(HttpHeaders headers);

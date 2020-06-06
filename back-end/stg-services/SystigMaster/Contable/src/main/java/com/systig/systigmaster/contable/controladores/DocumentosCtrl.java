@@ -1,20 +1,14 @@
 package com.systig.systigmaster.contable.controladores;
 
-import com.systig.base.repositorios.contable.entidades.Documento;
 import com.systig.systigmaster.contable.servicios.interfaces.IDocumentosServ;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.IOException;
-import java.util.Map;
 
 @Controller
 public class DocumentosCtrl {
@@ -24,11 +18,6 @@ public class DocumentosCtrl {
     public DocumentosCtrl(IDocumentosServ iDocumentosServ) {
 
         this.iDocumentosServ = iDocumentosServ;
-    }
-
-    @GetMapping("/api/cont/all")
-    public ResponseEntity<?> getListaDocumentos(@RequestHeader HttpHeaders headers, HttpSession session) {
-        return this.iDocumentosServ.getAllListaDocumentos(headers,session);
     }
 
     @GetMapping("/api/cont/facturas")
@@ -63,36 +52,7 @@ public class DocumentosCtrl {
 
     @GetMapping("/api/cont/documento/{id_documento}")
     public ResponseEntity<?> getDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                         @PathVariable Long id_documento) {
+                                          @PathVariable Long id_documento) {
         return this.iDocumentosServ.getDocumento(headers, session, id_documento);
-    }
-
-    @PostMapping("/api/cont/documento")
-    public ResponseEntity<?> addDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                             @RequestBody Map<String, Object> documento) {
-        return this.iDocumentosServ.addDocumento(headers,session,documento);
-    }
-
-    @PutMapping("/api/cont/documento/{id_documento}")
-    public ResponseEntity<?> setDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                                @RequestBody Documento documento,
-                                                @PathVariable Long id_documento) {
-        return this.iDocumentosServ.setDocumento(headers,session,documento,id_documento);
-    }
-
-    @GetMapping("/api/cont/documento/historia/{id_documento}")
-    public ResponseEntity<?> getHistoriaDocumento(@RequestHeader HttpHeaders headers, HttpSession session,
-                                                 @PathVariable Long id_documento) {
-        return this.iDocumentosServ.getHistoriaDocumentos(headers,session,id_documento);
-    }
-
-    @PostMapping(value = "/api/inv/producto/importar", consumes = {"multipart/form-data"})
-    public ResponseEntity<?> importarArchivo(@RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file) throws IOException {
-        return new ResponseEntity<>(file.getName(), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/api/inv/producto/exportar/XML", produces = { "application/xml", "text/xml" })
-    public ResponseEntity exportarXML() {
-        return null;
     }
 }

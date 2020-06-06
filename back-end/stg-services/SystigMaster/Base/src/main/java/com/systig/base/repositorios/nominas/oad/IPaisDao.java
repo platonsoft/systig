@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IPaisDao extends JpaRepository<Pais, Long> {
-    Pais getByIdPaisEquals(Long idPais);
-    Pais getByIdPaisAndCodMonedaEquals(Long idPais, String codMoneda);
-    List<Pais> findAllByCodMonedaEquals(String codMoneda);
+    Pais getByNombreEquals(String idPais);
 }

@@ -2,7 +2,6 @@ package com.systig.systigmaster.inventario.controladores;
 
 import com.systig.base.repositorios.inventario.entidades.ItemProducto;
 import com.systig.base.repositorios.inventario.entidades.Producto;
-import com.systig.systigmaster.inventario.servicios.interfaces.IItemProductosServ;
 import com.systig.systigmaster.inventario.servicios.interfaces.IProductosServ;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.List;
 
 
 @RestController
@@ -22,11 +20,9 @@ import java.util.List;
 public class ProductosCtrl {
 
     private final IProductosServ productosServ;
-    private final IItemProductosServ itemProductosServ;
 
-    public ProductosCtrl(IProductosServ productosServ, IItemProductosServ itemProductosServ) {
+    public ProductosCtrl(IProductosServ productosServ) {
         this.productosServ = productosServ;
-        this.itemProductosServ = itemProductosServ;
     }
 
     @GetMapping("/api/inv/productos")
@@ -67,19 +63,11 @@ public class ProductosCtrl {
         return this.productosServ.addProducto(headers,producto);
     }
 
-    @PostMapping(value = "/api/inv/producto/item/{id_producto}/{id_documento}")
-    public ResponseEntity<?> agregarItemProducto(@RequestHeader HttpHeaders headers,
-                                             @RequestBody ItemProducto itemProducto,
-                                             @PathVariable Long id_producto,
-                                             @PathVariable Long id_documento) {
-        return this.itemProductosServ.addItemProducto(headers,itemProducto,id_producto,id_documento);
-    }
-
     @PostMapping(value = "/api/inv/producto/items/{id_documento}")
     public ResponseEntity<?> agregarItemsDocumento(@RequestHeader HttpHeaders headers,
-                                                 @RequestBody List<Producto> productos,
+                                                 @RequestBody String peticion,
                                                  @PathVariable Long id_documento) {
-        return this.productosServ.addProductosItems(headers,productos,id_documento);
+        return this.productosServ.addProductosItems(headers,peticion,id_documento);
     }
 
     @PutMapping("/api/inv/producto/{id_producto}")
@@ -93,12 +81,6 @@ public class ProductosCtrl {
     public ResponseEntity<?> borrarProducto(@RequestHeader HttpHeaders headers,
                                                      @PathVariable Long id_producto) {
         return this.productosServ.delProducto(headers,id_producto);
-    }
-
-    @GetMapping("/api/inv/producto/historia/{id_producto}")
-    public ResponseEntity<?> getHistoriaProducto(@RequestHeader HttpHeaders headers,
-                                                        @PathVariable Long id_producto) {
-        return this.productosServ.getHistoriaProducto(headers,id_producto);
     }
 
     @PostMapping(value = "/api/inv/producto/importar", consumes = {"multipart/form-data"})

@@ -10,7 +10,6 @@
     </parent>
     <artifactId>contable</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>Contable</name>
     <description>Contable Systig Master</description>
 

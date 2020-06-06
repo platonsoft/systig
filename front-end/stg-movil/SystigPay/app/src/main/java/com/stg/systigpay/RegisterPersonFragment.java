@@ -2,12 +2,14 @@ package com.stg.systigpay;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toolbar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 
@@ -44,9 +47,7 @@ public class RegisterPersonFragment extends Fragment {
     TextInputEditText fechaNac;
     TextInputEditText email;
     TextInputEditText telefono;
-    TextInputEditText clave;
-    TextInputEditText pin;
-    Button crearButton;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -105,8 +106,7 @@ public class RegisterPersonFragment extends Fragment {
         fechaNac = (TextInputEditText)vista.findViewById(R.id.fechaNacTxt);
         email = (TextInputEditText)vista.findViewById(R.id.emailTxt);
         telefono = (TextInputEditText)vista.findViewById(R.id.telefonoTxt);
-        clave = (TextInputEditText)vista.findViewById(R.id.claveTxt);
-        pin = (TextInputEditText)vista.findViewById(R.id.pinTxt);
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

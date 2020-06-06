@@ -14,7 +14,7 @@ public interface ISesionService {
     ResponseEntity<?> getTokenSession(Principal principal, HttpServletRequest headers, HttpSession session);
     ResponseEntity<?> getPersona(HttpHeaders headers);
     ResponseEntity<?> addEmpresa(HttpHeaders headers, Empresa empresa, Cargo cargo);
-    ResponseEntity<?> addPersona(HttpServletRequest request, Persona persona);
+    ResponseEntity<?> addPersona(HttpServletRequest request, String persona);
     ResponseEntity<?> restoreUserSystig(String email);
     void enviaCorreo(String titulo, String contenido, String destinatario) throws Exception;
 }
