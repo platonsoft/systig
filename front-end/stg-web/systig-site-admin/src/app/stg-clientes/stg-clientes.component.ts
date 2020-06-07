@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import {Cliente, ClientesDataSource, Respuesta
-} from '../objetos/Objetos';
+} from '../objetos/stg-objetos';
 import { ClienteDlgEditComponent } from './cliente-dlg-edit/cliente-dlg-edit.component';
 import { ClientesService } from './clientes.service';
 

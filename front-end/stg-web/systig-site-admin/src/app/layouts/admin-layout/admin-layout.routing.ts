@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 import { StgProductosComponent } from 'src/app/stg-productos/stg-productos.component';
 import { StgClientesComponent } from 'src/app/stg-clientes/stg-clientes.component';
 import { StgContabilidadComponent } from 'src/app/stg-contabilidad/stg-contabilidad.component';
 import { AuthGuard } from 'src/app/objetos/auth-guard';
 import { AccesoGuard } from 'src/app/objetos/acceso-guard';
 import { StgProveedoresComponent } from 'src/app/stg-proveedores/stg-proveedores.component';
+import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {

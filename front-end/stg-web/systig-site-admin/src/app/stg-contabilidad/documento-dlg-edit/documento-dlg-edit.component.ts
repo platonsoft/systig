@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Proveedor, Respuesta, Productos, FormaPago, Envios, Documento } from 'src/app/objetos/Objetos';
+import { Proveedor, Respuesta, Productos, FormaPago, Envios, Documento } from 'src/app/objetos/stg-objetos';
 import { ProveedoresService } from 'src/app/stg-proveedores/proveedores.service';
 import { ProductosService } from 'src/app/stg-productos/productos.service';
 

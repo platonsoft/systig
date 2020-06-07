@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors } fro
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Pais, Currencies, Proveedor, Envios } from 'src/app/objetos/Objetos';
+import { Pais, Currencies, Proveedor, Envios } from 'src/app/objetos/stg-objetos';
 import { ProveedoresService } from '../proveedores.service';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Respuesta, Propietario } from '../objetos/Objetos';
 import { retry, catchError } from 'rxjs/operators';
+import { Respuesta, Propietario } from '../objetos/stg-objetos';
 
 const httpOptions = {
   headers: new HttpHeaders({

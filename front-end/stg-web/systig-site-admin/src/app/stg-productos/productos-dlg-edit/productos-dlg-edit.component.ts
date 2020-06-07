@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
-import { Historial, PRODUCTOS_HISTORIAL_DATA, Almacen, Categoria, Respuesta, Proveedor, Productos } from 'src/app/objetos/Objetos';
+import { Historial, PRODUCTOS_HISTORIAL_DATA, Almacen, Categoria, Respuesta, Proveedor, Productos } from 'src/app/objetos/stg-objetos';
 import { ProductosService } from '../productos.service';
 import { map } from 'rxjs/operators';
 import { ProveedoresService } from 'src/app/stg-proveedores/proveedores.service';

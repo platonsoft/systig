@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Documento, DocumentosDataSource, Respuesta } from '../objetos/Objetos';
+import { Documento, DocumentosDataSource, Respuesta } from '../objetos/stg-objetos';
 import { ContabilidadService } from './contabilidad.service';
 import { MatDialog } from '@angular/material';
 import { DocumentoDlgEditComponent } from './documento-dlg-edit/documento-dlg-edit.component';

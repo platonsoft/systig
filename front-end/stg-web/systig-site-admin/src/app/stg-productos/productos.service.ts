@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Productos, Respuesta } from '../objetos/Objetos';
+import { Productos, Respuesta } from '../objetos/stg-objetos';
 import { retry, catchError } from 'rxjs/operators';
 
 const httpOptions = {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { Respuesta, Cliente, Pais } from '../objetos/Objetos';
+import { Respuesta, Cliente, Pais } from '../objetos/stg-objetos';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';

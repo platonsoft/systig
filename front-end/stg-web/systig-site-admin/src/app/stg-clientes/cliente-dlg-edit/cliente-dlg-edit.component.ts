@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, ValidationErrors } fro
 import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Cliente, Pais, Etapa, CampanaPublicidad, Respuesta, Currencies } from 'src/app/objetos/Objetos';
+import { Cliente, Pais, Etapa, CampanaPublicidad, Currencies } from 'src/app/objetos/stg-objetos';
 import { ClientesService } from '../clientes.service';
 
 @Component({
@@ -26,8 +26,8 @@ export class ClienteDlgEditComponent implements OnInit {
   selCampanaPublicidad: CampanaPublicidad;
 
   constructor(public dialogRef: MatDialogRef<ClienteDlgEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public clienteService: ClientesService) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public clienteService: ClientesService) {
 
     this.myGroup = new FormGroup({
       tipoIdentificacion: new FormControl('', [
@@ -94,7 +94,7 @@ export class ClienteDlgEditComponent implements OnInit {
   listarMonedas(codePais: string) {
     let paisSel: Pais;
 
-    this.listaPaises.forEach(function (value) {
+    this.listaPaises.forEach( (value) => {
       if (value.numericCode === codePais) {
         paisSel = value;
       }
@@ -104,7 +104,7 @@ export class ClienteDlgEditComponent implements OnInit {
     if (this.data.item.moneda) {
       const monedaSel = this.data.item.moneda;
       let moneda1: Currencies = this.listaMonedas[0];
-      this.listaMonedas.forEach(function (param) {
+      this.listaMonedas.forEach((param) => {
         if (param.code === monedaSel) {
           moneda1 = param;
         }

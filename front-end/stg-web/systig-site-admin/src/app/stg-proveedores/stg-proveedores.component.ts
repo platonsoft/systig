@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProveedoresService } from './proveedores.service';
 import { ProveedoresDlgEditComponent } from './proveedores-dlg-edit/proveedores-dlg-edit.component';
-import { Respuesta, ProveedoresDataSource, Proveedor } from '../objetos/Objetos';
+import { Respuesta, ProveedoresDataSource, Proveedor } from '../objetos/stg-objetos';
 
 @Component({
   selector: 'stg-stg-proveedores',
