@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, ValidationErrors } from '@angular/forms';
-import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Cliente, Pais, Etapa, CampanaPublicidad, Currencies } from 'src/app/objetos/stg-objetos';
 import { ClientesService } from '../clientes.service';
+import { MyErrorStateMatcher } from 'app/shared/MyErrorStateMatcher';
+import { Pais, Etapa, CampanaPublicidad, Currencies, Cliente } from 'app/shared/objetos';
 
 @Component({
   selector: 'stg-cliente-dlg-edit',

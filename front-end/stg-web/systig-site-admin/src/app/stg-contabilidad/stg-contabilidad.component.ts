@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Documento, DocumentosDataSource, Respuesta } from '../objetos/stg-objetos';
 import { ContabilidadService } from './contabilidad.service';
 import { MatDialog } from '@angular/material';
 import { DocumentoDlgEditComponent } from './documento-dlg-edit/documento-dlg-edit.component';
+import { Documento, DocumentosDataSource, Respuesta } from 'app/shared/objetos';
 
 @Component({
-  selector: 'stg-stg-contabilidad',
+  selector: 'app-contabilidad',
   templateUrl: './stg-contabilidad.component.html',
   styleUrls: ['./stg-contabilidad.component.scss']
 })
@@ -34,7 +34,7 @@ export class StgContabilidadComponent implements OnInit {
       data: {item: documentoNuevo, sentencia: 'NUEVO', tipoDocumento: tipoDoc}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.contabilidadService.crearPedido(result.documento, result.productos).subscribe(resultado=>{
+      this.contabilidadService.crearPedido(result.documento, result.productos).subscribe(resultado => {
         if (result) {
           console.log('Pedido:  ' + JSON.stringify(resultado));
         }

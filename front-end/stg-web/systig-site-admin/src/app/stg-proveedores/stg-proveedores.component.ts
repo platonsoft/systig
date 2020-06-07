@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProveedoresService } from './proveedores.service';
 import { ProveedoresDlgEditComponent } from './proveedores-dlg-edit/proveedores-dlg-edit.component';
-import { Respuesta, ProveedoresDataSource, Proveedor } from '../objetos/stg-objetos';
+import { ProveedoresDataSource, Proveedor, Respuesta } from 'app/shared/objetos';
 
 @Component({
-  selector: 'stg-stg-proveedores',
+  selector: 'app-proveedores',
   templateUrl: './stg-proveedores.component.html',
   styleUrls: ['./stg-proveedores.component.scss']
 })

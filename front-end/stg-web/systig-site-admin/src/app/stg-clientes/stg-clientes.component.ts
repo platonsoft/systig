@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import {Cliente, ClientesDataSource, Respuesta
-} from '../objetos/stg-objetos';
 import { ClienteDlgEditComponent } from './cliente-dlg-edit/cliente-dlg-edit.component';
 import { ClientesService } from './clientes.service';
+import { ClientesDataSource, Cliente, Respuesta } from 'app/shared/objetos';
 
 @Component({
-  selector: 'stg-stg-clientes',
+  selector: 'app-clientes',
   templateUrl: './stg-clientes.component.html',
   styleUrls: ['./stg-clientes.component.scss']
 })

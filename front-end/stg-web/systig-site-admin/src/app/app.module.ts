@@ -1,46 +1,44 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ComponentsModule } from './components/components.module';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+
+
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
+
+import { AppComponent } from './app.component';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductosDlgEditComponent } from './stg-productos/productos-dlg-edit/productos-dlg-edit.component';
-import { ProductosDlgImpExpComponent } from './stg-productos/productos-dlg-imp-exp/productos-dlg-imp-exp.component';
-import { ClienteDlgEditComponent } from './stg-clientes/cliente-dlg-edit/cliente-dlg-edit.component';
-import { StgClientesComponent } from './stg-clientes/stg-clientes.component';
-import { StgContabilidadComponent } from './stg-contabilidad/stg-contabilidad.component';
-import { StgProductosComponent } from './stg-productos/stg-productos.component';
-import { StgProveedoresComponent } from './stg-proveedores/stg-proveedores.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { TypographyComponent } from './typography/typography.component';
+import { IconsComponent } from './icons/icons.component';
+import { MapsComponent } from './maps/maps.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 @NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCTwi5514ppVDV5FDQElvub2mh6FBSsEDg'
+    })
+  ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    UserProfileComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatTooltipModule,
-    HttpClientModule,
-    ComponentsModule,
-    DashboardComponent,
-    ProductosDlgEditComponent,
-    ProductosDlgImpExpComponent,
-    ClienteDlgEditComponent,
-    StgClientesComponent,
-    StgContabilidadComponent,
-    StgProductosComponent,
-    StgProveedoresComponent,
-    RouterModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

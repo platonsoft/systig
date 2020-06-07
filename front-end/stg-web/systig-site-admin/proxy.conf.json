@@ -1,1 +1,22 @@
-{}
+{
+  "/api/prv/*": {
+    "target": "http://localhost:8092",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/api/cont/*": {
+      "target": "http://localhost:8093",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/api/inv/*": {
+        "target": "http://localhost:8090",
+        "secure": false,
+        "logLevel": "debug"
+      },
+      "/api/crm/*": {
+          "target": "http://localhost:8091",
+          "secure": false,
+          "logLevel": "debug"
+        }
+}
