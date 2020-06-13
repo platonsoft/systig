@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { ClienteDlgEditComponent } from './cliente-dlg-edit/cliente-dlg-edit.component';
 import { ClientesService } from './clientes.service';
 import { ClientesDataSource, Cliente, Respuesta } from 'app/shared/objetos';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-clientes',
@@ -13,9 +14,57 @@ export class StgClientesComponent implements OnInit {
 
   displayedColumns: string[] = ['identificacion', 'tipoCliente', 'razonSocial', 'edicion'];
   dataSource = new ClientesDataSource(this.clienteService);
-  constructor(public dialog: MatDialog, public clienteService: ClientesService) { }
+  inedit = false;
+
+  myClienteGroup: FormGroup;
+
+  clienteSel: Cliente = {
+    tipoIdentificacion: {
+      abrev: 'RIF',
+      nombre: 'Registro Informacion Fiscal'
+    }
+  };
+
+  constructor(public dialog: MatDialog, public clienteService: ClientesService) {
+    this.myClienteGroup = new FormGroup(
+      {
+      tipoIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      numeroIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      razonSocial: new FormControl('', [
+        Validators.required
+      ]),
+      direccion: new FormControl('', [
+        Validators.required
+      ]),
+      telefFijo: new FormControl('', [
+        Validators.required
+      ]),
+      disponible: new FormControl(),
+      ciudad: new FormControl('', [
+        Validators.required
+      ]),
+      pais: new FormControl('', [
+        Validators.required
+      ]),
+      codigoPostal: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
 
   ngOnInit() {
+
+  }
+
+  onNuevoCliente() {
+    this.inedit = !this.inedit;
   }
 
   openDialogNuevoCliente(): void {

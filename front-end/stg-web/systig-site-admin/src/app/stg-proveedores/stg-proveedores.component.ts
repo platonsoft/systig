@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ProveedoresService } from './proveedores.service';
 import { ProveedoresDlgEditComponent } from './proveedores-dlg-edit/proveedores-dlg-edit.component';
-import { ProveedoresDataSource, Proveedor, Respuesta } from 'app/shared/objetos';
+import { ProveedoresDataSource, Proveedor, Respuesta, Empresa } from 'app/shared/objetos';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-proveedores',
@@ -13,9 +14,56 @@ export class StgProveedoresComponent implements OnInit {
 
   displayedColumns: string[] = ['identificacion', 'razonSocial', 'edicion'];
   dataSource = new ProveedoresDataSource(this.proveedoresService);
-  constructor(public dialog: MatDialog, public proveedoresService: ProveedoresService) { }
+  empresaSelect: Empresa = {
+    tipoIdentificacion: {
+      abrev: 'RIF',
+      nombre: 'Registro Informacion Fiscal'
+    }
+  }
+
+  inedit = false;
+
+  myEmpresaGroup: FormGroup;
+  
+  constructor(public dialog: MatDialog, public proveedoresService: ProveedoresService) {
+    this.myEmpresaGroup = new FormGroup(
+      {
+      tipoIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      numeroIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      razonSocial: new FormControl('', [
+        Validators.required
+      ]),
+      direccion: new FormControl('', [
+        Validators.required
+      ]),
+      telefFijo: new FormControl('', [
+        Validators.required
+      ]),
+      ciudad: new FormControl('', [
+        Validators.required
+      ]),
+      pais: new FormControl('', [
+        Validators.required
+      ]),
+      disponible: new FormControl(),
+      codigoPostal: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
 
   ngOnInit() {
+  }
+
+  onNuevoProveedor(){
+    this.inedit = !this.inedit;
   }
 
   openDialogNuevoProveedores(): void {

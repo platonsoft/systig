@@ -23,7 +23,9 @@ import {
   MatTableModule,
   MatDialogModule,
   MatCheckboxModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { StgProveedoresComponent } from 'app/stg-proveedores/stg-proveedores.component';
 import { StgClientesComponent } from 'app/stg-clientes/stg-clientes.component';
@@ -51,6 +53,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatAutocompleteModule,
     MatSelectModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatIconModule,
     MatRippleModule,
     MatFormFieldModule,

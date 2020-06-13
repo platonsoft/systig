@@ -5,10 +5,58 @@ import { ProductosService } from '../stg-productos/productos.service';
 import { ContabilidadService } from '../stg-contabilidad/contabilidad.service';
 import { ClientesService } from '../stg-clientes/clientes.service';
 
+
+export interface DatosUsuario {
+  tipoIdentificacion?: TipoDocumento;
+  numeroIdentificacion?: string;
+  fechaNacimiento?: Date;
+  email?: string;
+  nombres?: string;
+  apellidos?: string;
+  direccion?: string;
+  telefMovil?: string;
+  ciudad?: string;
+  pais?: string;
+  codigoPostal?: string;
+}
+
+export interface TipoDocumento {
+  abrev?: string;
+  nombre?: string;
+}
+
+export interface Empresa {
+  idEmpresa?: number;
+  tipoIdentificacion?: TipoDocumento;
+  nroIdentificacion?: string;
+  razonSocial?: string;
+  email?: string;
+  website?: string;
+  direccion?: string;
+  telefFijo?: string;
+  ciudad?: string;
+  pais?: string;
+  codigoPostal?: string;
+  isDefault?: boolean;
+}
+
 export interface Cliente {
   idCliente?: number;
   idComprador?: number;
+  tipoIdentificacion?: TipoDocumento;
+  numeroIdentificacion?: string;
+  fechaNacimiento?: Date;
+  email?: string;
+  nombres?: string;
+  apellidos?: string;
+  razonSocial?: string;
+  direccion?: string;
+  telefFijo?: string;
+  telefMovil?: string;
+  ciudad?: string;
   pais?: string;
+  codigoPostal?: string;
+  isProspecto?: boolean
 }
 
 export interface Categoria {
@@ -67,16 +115,28 @@ export interface Envios {
 
 export interface Productos {
   idProducto?: number;
+  nombre?: string;
+  descripcion?: string;
+  unidad?: string;
   profundidad?: number;
   altura?: number;
   anchura?: number;
   cantidadExistencia?: number;
+  cantidadMinima?: number;
+  cantidadOptima?: number;
   peso?: number;
   categoria?: Categoria;
   almacen?: Almacen;
   idProveedor?: number;
   montoCompra?: number;
+  montoUnicoDetal?: number;
+  montoUnicoMayor?: number;
+  montoCuotasDetal?: number;
+  montoCuotasMayor?: number;
+  descuento?: number;
+  impuesto?: number;
   isExcento?: boolean;
+  disponible?: boolean;
 }
 
 export interface FormaPago {
@@ -171,6 +231,33 @@ export class ClientesDataSource extends DataSource<Cliente> {
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<Cliente[]> {
+    return this.data;
+  }
+
+  disconnect() {}
+}
+
+const EMPRESAS_TEST: Empresa[] = [
+  {idEmpresa: 0,
+  tipoIdentificacion: {
+    abrev: 'RIF',
+    nombre: 'Registro Informacion Fiscal'
+  },
+  nroIdentificacion: '10879686-6',
+  razonSocial: 'SYSTIG ALCALA FP'
+}
+];
+
+export class EmpresasDataSource extends DataSource<Empresa> {
+  /** Stream of data that is provided to the table. */
+  data = new BehaviorSubject<Empresa[]>(EMPRESAS_TEST);
+
+  constructor() {
+    super();
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Empresa[]> {
     return this.data;
   }
 
