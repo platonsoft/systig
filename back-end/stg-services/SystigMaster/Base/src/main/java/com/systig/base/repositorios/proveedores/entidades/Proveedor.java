@@ -1,5 +1,6 @@
 package com.systig.base.repositorios.proveedores.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.systig.base.repositorios.nominas.entidades.Empresa;
 import lombok.Data;
 
@@ -15,11 +16,11 @@ public class Proveedor {
     private Long idProveedor;
 
     @JoinColumn(name = "empresa", referencedColumnName = "id_empresa")
-    @ManyToOne()
+    @ManyToOne( fetch = FetchType.LAZY)
     private Empresa empresa;
 
     @JoinColumn(name = "cliente", referencedColumnName = "id_empresa")
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private Empresa cliente;
 
     private String observaciones;

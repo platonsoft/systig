@@ -31,9 +31,9 @@ public class DocumentoServ implements IDocumentosServ {
     }
 
     @Override
-    public ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento) {
+    public ResponseEntity<ResultadoTransaccion> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -48,27 +48,31 @@ public class DocumentoServ implements IDocumentosServ {
                 resultadoTransaccion.setResultado(list);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte al administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
+    public ResponseEntity<ResultadoTransaccion> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iDocumentoDao.getOne(idDocumento));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

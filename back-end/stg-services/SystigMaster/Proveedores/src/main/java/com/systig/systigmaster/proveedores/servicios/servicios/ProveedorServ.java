@@ -35,9 +35,9 @@ public class ProveedorServ implements IProveedorServ {
     }
 
     @Override
-    public ResponseEntity<?> getListadoLigeroClientes(HttpHeaders headers, HttpSession session) {
+    public ResponseEntity<ResultadoTransaccion> getListadoLigeroClientes(HttpHeaders headers, HttpSession session) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -58,14 +58,15 @@ public class ProveedorServ implements IProveedorServ {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, consulte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoLigeroProveedores(HttpHeaders headers, HttpSession session) {
+    public ResponseEntity<ResultadoTransaccion> getListadoLigeroProveedores(HttpHeaders headers, HttpSession session) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -86,14 +87,15 @@ public class ProveedorServ implements IProveedorServ {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, consulte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getProveedor(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getProveedor(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -114,14 +116,15 @@ public class ProveedorServ implements IProveedorServ {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, consulte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getCliente(HttpHeaders headers, String tipoIdentificaionAbrev, String nroIdentificacion) {
+    public ResponseEntity<ResultadoTransaccion> getCliente(HttpHeaders headers, String tipoIdentificaionAbrev, String nroIdentificacion) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -142,14 +145,15 @@ public class ProveedorServ implements IProveedorServ {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, consulte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> nuevoProveedor(HttpHeaders headers, String tipoIdentificaionAbrev, String nroIdentificacion) {
+    public ResponseEntity<ResultadoTransaccion> nuevoProveedor(HttpHeaders headers, Empresa proveedor) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -158,13 +162,13 @@ public class ProveedorServ implements IProveedorServ {
                         .findFirst();
 
                 if (empresaXPersona.isPresent()){
-                    Empresa prov = iEmpresaDao.getFirstByTipoIdentificacion_AbrevDocAndNroIdentificacion(tipoIdentificaionAbrev,nroIdentificacion);
-                    if (prov!=null){
-                        Proveedor nuevoProv = new Proveedor();
-
-                        nuevoProv.setCliente(empresaXPersona.get().getIdEmpresa());
-                        nuevoProv.setEmpresa(prov);
-                        resultadoTransaccion.setResultado(iProveedorDao.save(nuevoProv));
+                    Empresa prov = iEmpresaDao.getFirstByTipoIdentificacion_AbrevDocAndNroIdentificacion(proveedor.getTipoIdentificacion().getAbrevDoc(),
+                            proveedor.getNroIdentificacion());
+                    if (prov != null){
+                        Proveedor proveedorNuevo = new Proveedor();
+                        proveedorNuevo.setCliente(empresaXPersona.get().getIdEmpresa());
+                        proveedorNuevo.setEmpresa(iEmpresaDao.save(proveedor));
+                        resultadoTransaccion.setResultado(iProveedorDao.save(proveedorNuevo));
                     }else{
                         resultadoTransaccion.setResultado("El proveedor no existe en la base de datos");
                     }
@@ -179,14 +183,15 @@ public class ProveedorServ implements IProveedorServ {
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, consulte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> actualizarProveedor(HttpHeaders headers, Proveedor proveedor, Long idProveedor) {
+    public ResponseEntity<ResultadoTransaccion> actualizarProveedor(HttpHeaders headers, Proveedor proveedor, Long idProveedor) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -200,17 +205,19 @@ public class ProveedorServ implements IProveedorServ {
 
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<String>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> borrarProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+    public ResponseEntity<ResultadoTransaccion> borrarProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -232,15 +239,17 @@ public class ProveedorServ implements IProveedorServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getHistoriaProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
+    public ResponseEntity<ResultadoTransaccion> getHistoriaProveedor(HttpHeaders headers, HttpSession session, Long idProveedor) {
         return null;
     }
 }

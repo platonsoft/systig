@@ -62,6 +62,11 @@ export class StgProveedoresComponent implements OnInit {
   ngOnInit() {
   }
 
+  onGuardarProveedor() {
+    console.log('Guardado--->');
+    console.log(JSON.stringify(this.empresaSelect));
+  }
+
   onNuevoProveedor(){
     this.inedit = !this.inedit;
   }
