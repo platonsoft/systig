@@ -55,99 +55,111 @@ public class PagosServ implements IPagosServ {
     }
 
     @Override
-    public ResponseEntity<?> getListaTransacciones(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListaTransacciones(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iTransaccionDao.findAllByIdPersonaEquals(usuario.getIdPersona()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListaNotificaciones(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListaNotificaciones(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iNotificacionDao.findByIdPersona_IdPersona(usuario.getIdPersona()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListaBancos(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListaBancos(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iEntidadFinancieraDao.findAllByPais_IdPais(usuario.getPais().getIdPais()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getTransaccion(Long idTransaccion, HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getTransaccion(Long idTransaccion, HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iTransaccionDao.getByIdTransaccionEquals(idTransaccion));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getTasas(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getTasas(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(calculoTasas(usuario.getPais().getNombre()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getSaldo(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getSaldo(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(calculoSaldo(usuario.getIdPersona()));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -169,7 +181,8 @@ public class PagosServ implements IPagosServ {
     }
 
     @Override
-    public ResponseEntity<?> addTransaccion(String transaccion, HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> addTransaccion(String transaccion, HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
             Persona usuario = iPersonaDao.statusSession(headers);
 
@@ -179,29 +192,34 @@ public class PagosServ implements IPagosServ {
                 if (trn.getCodigo().substring(0,2).equals("R0")){ //Recarga en efectivo o transferencia
                     return recargaEfectivoTransferencia(trn, usuario);
                 } else if (trn.getCodigo().substring(0,2).equals("R1")){ //Recarga con Tarjeta de Credito
-                    return new ResponseEntity<>("Funcion no implementada aun", HttpStatus.LOCKED);
+                    resultadoTransaccion.setResultado("Funcion no implementada aun");
+                    return new ResponseEntity<>(resultadoTransaccion, HttpStatus.LOCKED);
                 } else if (trn.getCodigo().substring(0,2).equals("R2")){ //Recarga por transferencia bancaria con PSE
-                    return new ResponseEntity<>("Funcion no implementada aun", HttpStatus.LOCKED);
+                    resultadoTransaccion.setResultado("Funcion no implementada aun");
+                    return new ResponseEntity<>(resultadoTransaccion, HttpStatus.LOCKED);
                 } else if (trn.getCodigo().substring(0,2).equals("T0")) { // Transferencia
                     return transferencia(trn,usuario);
                 } else if (trn.getCodigo().substring(0,2).equals("L0")) { // Liberar Dinero
                     return liberarCartera(trn,usuario);
                 }else {
-                    return new ResponseEntity<>("Funcion no implementada aun", HttpStatus.LOCKED);
+                    resultadoTransaccion.setResultado("Funcion no implementada aun");
+                    return new ResponseEntity<>(resultadoTransaccion, HttpStatus.LOCKED);
                 }
             }else{
-                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+                resultadoTransaccion.setResultado("Acceso denegado");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
             }
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error interno, comuniquese con el administrador", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> confirmarTransaccion(String refOperacion, BigDecimal montoConfirmado, HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> confirmarTransaccion(String refOperacion, BigDecimal montoConfirmado, HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
 
             if(usuario!=null){
@@ -240,22 +258,26 @@ public class PagosServ implements IPagosServ {
                         resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                         return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
                     }else{
-                        return new ResponseEntity<>("No hay ofertas para este monto, intente mas tarde", HttpStatus.UNAUTHORIZED);
+                        resultadoTransaccion.setResultado("No hay ofertas para este monto, intente mas tarde");
+                        return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
                     }
                 } else {
-                    return new ResponseEntity<>("La transaccion no fue encontrada", HttpStatus.NOT_ACCEPTABLE);
+                    resultadoTransaccion.setResultado("La transaccion no fue encontrada");
+                    return new ResponseEntity<>(resultadoTransaccion, HttpStatus.NOT_ACCEPTABLE);
                 }
             }else{
-                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+                resultadoTransaccion.setResultado("Acceso denegado");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
             }
         }catch (Exception e){
-            return new ResponseEntity<>("Error interno, comuniquese con el administrador", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private ResponseEntity<?> recargaEfectivoTransferencia(Transaccion nuevaTransaccion, Persona usuario){
+    private ResponseEntity<ResultadoTransaccion> recargaEfectivoTransferencia(Transaccion nuevaTransaccion, Persona usuario){
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try {
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Optional<Transaccion> opTransaccion = iTransaccionDao.findAll().stream()
                     .filter(transaccion1 -> nuevaTransaccion.getNroReferencia().equals(transaccion1.getNroReferencia()))
                     .findFirst();
@@ -273,13 +295,14 @@ public class PagosServ implements IPagosServ {
             return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
         }catch (Exception ex){
             ex.printStackTrace();
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private ResponseEntity<?> transferencia(Transaccion nuevaTransaccion , Persona usuario){
+    private ResponseEntity<ResultadoTransaccion> transferencia(Transaccion nuevaTransaccion , Persona usuario){
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try {
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             String nroOperacion = genNroReferencia();
 
             Transaccion finalNuevaTransaccion = nuevaTransaccion;
@@ -287,7 +310,8 @@ public class PagosServ implements IPagosServ {
                     .filter(persona -> persona.getEmail().equals(finalNuevaTransaccion.getNroReferencia()))
                     .findFirst();
             if (!opPersona.isPresent()){
-                return new ResponseEntity<>("No existe el usuario", HttpStatus.NOT_ACCEPTABLE);
+                resultadoTransaccion.setResultado("No existe el usuario");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.NOT_ACCEPTABLE);
             }
 
             if (nuevaTransaccion.getMontoRecibido().doubleValue() > 0) {
@@ -327,11 +351,12 @@ public class PagosServ implements IPagosServ {
             return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
         }catch (Exception ex){
             ex.printStackTrace();
-            return new ResponseEntity<>("Error en la transaccion, verifique los datos o cambie el monto", HttpStatus.NOT_ACCEPTABLE);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private ResponseEntity<?> liberarCartera(Transaccion nuevaTransaccion , Persona usuario){
+    private ResponseEntity<ResultadoTransaccion> liberarCartera(Transaccion nuevaTransaccion , Persona usuario){
         ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
 
         try{
@@ -354,7 +379,8 @@ public class PagosServ implements IPagosServ {
 
                 nuevaTransaccion.setDescripcion(descripcion);
             }else {
-                return new ResponseEntity<>("Usted no posee una cuenta bancaria asociada para retirar su dinero, afiliela o llame al centro de ayuda", HttpStatus.NOT_ACCEPTABLE);
+                resultadoTransaccion.setResultado("Usted no posee una cuenta bancaria asociada para retirar su dinero, afiliela o llame al centro de ayuda");
+                return new ResponseEntity<>(resultadoTransaccion, HttpStatus.NOT_ACCEPTABLE);
             }
 
             resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -363,7 +389,8 @@ public class PagosServ implements IPagosServ {
             return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error interno, intente nuevamente mas tarde", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -428,9 +455,9 @@ public class PagosServ implements IPagosServ {
 
 
 
-    public ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento) {
+    public ResponseEntity<ResultadoTransaccion> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -445,26 +472,30 @@ public class PagosServ implements IPagosServ {
                 resultadoTransaccion.setResultado(list);
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte al administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
+    public ResponseEntity<ResultadoTransaccion> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.iDocumentoDao.getOne(idDocumento));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<List>(new ArrayList(), HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

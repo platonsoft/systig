@@ -65,7 +65,7 @@ public class DocumentosCtrl {
         return this.iDocumentosServ.getDocumento(headers, session, id_documento);
     }
 
-    @GetMapping("/api/prv/info")
+    @GetMapping("/api/cont/info")
     @ApiOperation(value = "Servicio de prueba")
     public ResponseEntity<?> info() {
         return new ResponseEntity<>("Ok", HttpStatus.OK);

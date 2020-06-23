@@ -15,13 +15,13 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>Base</module>
         <module>Pagos</module>
         <module>Clientes</module>
         <module>Inventario</module>
         <module>Contable</module>
         <module>Proveedores</module>
         <module>Sesiones</module>
-        <module>Base</module>
     </modules>
 
     <properties>

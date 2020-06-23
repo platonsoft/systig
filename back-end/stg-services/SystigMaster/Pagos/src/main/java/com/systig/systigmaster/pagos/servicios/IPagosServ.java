@@ -3,6 +3,7 @@ package com.systig.systigmaster.pagos.servicios;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.systig.base.objetos.Oferta;
+import com.systig.base.objetos.ResultadoTransaccion;
 import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,14 @@ import java.util.List;
 import java.util.Objects;
 
 public interface IPagosServ {
-    ResponseEntity<?> getListaTransacciones(HttpHeaders headers);
-    ResponseEntity<?> getListaNotificaciones(HttpHeaders headers);
-    ResponseEntity<?> getListaBancos(HttpHeaders headers);
-    ResponseEntity<?> getTransaccion(Long idTransaccion, HttpHeaders headers);
-    ResponseEntity<?> getTasas(HttpHeaders headers);
-    ResponseEntity<?> getSaldo(HttpHeaders headers);
-    ResponseEntity<?> addTransaccion(String transaccion, HttpHeaders headers);
-    ResponseEntity<?> confirmarTransaccion(String refOperacion, BigDecimal montoConfirmado, HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListaTransacciones(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListaNotificaciones(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListaBancos(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getTransaccion(Long idTransaccion, HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getTasas(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getSaldo(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> addTransaccion(String transaccion, HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> confirmarTransaccion(String refOperacion, BigDecimal montoConfirmado, HttpHeaders headers);
 
     default String genNroReferencia(){
         String resultado = "";

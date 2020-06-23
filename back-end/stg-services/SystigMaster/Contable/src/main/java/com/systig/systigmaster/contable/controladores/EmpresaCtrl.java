@@ -60,7 +60,7 @@ public class EmpresaCtrl {
         return this.iEmpresaServ.borrarEmpresa(headers, idEmpresa);
     }
 
-    @GetMapping("/api/prv/info")
+    @GetMapping("/api/empresa/info")
     @ApiOperation(value = "Servicio de prueba")
     public ResponseEntity<?> info() {
         return new ResponseEntity<>("Ok", HttpStatus.OK);

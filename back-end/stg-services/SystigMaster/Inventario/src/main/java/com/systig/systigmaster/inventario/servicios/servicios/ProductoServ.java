@@ -47,9 +47,9 @@ public class ProductoServ implements IProductosServ {
     }
 
     @Override
-    public ResponseEntity<?> getListadoMisProductos(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListadoMisProductos(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -64,17 +64,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoMisProductosProveedor(HttpHeaders headers, Long idProveedor) {
+    public ResponseEntity<ResultadoTransaccion> getListadoMisProductosProveedor(HttpHeaders headers, Long idProveedor) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -89,17 +91,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor) {
+    public ResponseEntity<ResultadoTransaccion> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -113,17 +117,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoProductos(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListadoProductos(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -137,17 +143,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento) {
+    public ResponseEntity<ResultadoTransaccion> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -163,34 +171,38 @@ public class ProductoServ implements IProductosServ {
 
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getProducto(HttpHeaders headers, Long idProducto) {
+    public ResponseEntity<ResultadoTransaccion> getProducto(HttpHeaders headers, Long idProducto) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(iItemProductoDao.getOne(idProducto));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> addProducto(HttpHeaders headers, Producto producto) {
+    public ResponseEntity<ResultadoTransaccion> addProducto(HttpHeaders headers, Producto producto) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
 
             if(usuario!=null){
@@ -207,17 +219,19 @@ public class ProductoServ implements IProductosServ {
                     resultadoTransaccion.setResultado("El Usuario no tiene empresa asociada, Primero registre una antes de continuar");
                 }
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> addProductosItems(HttpHeaders headers, String strPeticion, Long idProducto) {
+    public ResponseEntity<ResultadoTransaccion> addProductosItems(HttpHeaders headers, String strPeticion, Long idProducto) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Documento documento = null;
             ItemProducto[] itemsProductos = null;
             ObjectMapper mapper = new ObjectMapper();
@@ -256,17 +270,19 @@ public class ProductoServ implements IProductosServ {
 
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> setProducto(HttpHeaders headers, Producto producto, Long idProducto) {
+    public ResponseEntity<ResultadoTransaccion> setProducto(HttpHeaders headers, Producto producto, Long idProducto) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -284,17 +300,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> delProducto(HttpHeaders headers, Long idProducto) {
+    public ResponseEntity<ResultadoTransaccion> delProducto(HttpHeaders headers, Long idProducto) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -317,17 +335,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoAlmacenPropietario(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListadoAlmacenPropietario(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -343,17 +363,19 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getListadoCategoriaPropietario(HttpHeaders headers) {
+    public ResponseEntity<ResultadoTransaccion> getListadoCategoriaPropietario(HttpHeaders headers) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -369,10 +391,12 @@ public class ProductoServ implements IProductosServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Acceso denegado", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Error Interno, Contacte con el administrador del sistema", HttpStatus.INTERNAL_SERVER_ERROR);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

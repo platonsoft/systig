@@ -5,6 +5,8 @@ import com.systig.base.repositorios.nominas.entidades.Cargo;
 import com.systig.base.repositorios.nominas.entidades.Empresa;
 import com.systig.base.repositorios.nominas.entidades.Persona;
 import com.systig.systigmaster.sesiones.servicios.interfaces.ISesionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins="*", maxAge=3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token","Authorization"})
+@Api(tags = {"SessionManager"})
 public class SesionCtrl {
 
     private final ISesionService sesionServ;
@@ -27,12 +30,14 @@ public class SesionCtrl {
     }
 
     @GetMapping("/api/login")
+    @ApiOperation(value = "Permite el inicio de sesion en el sistema")
     public ResponseEntity<?> login(Principal principal, HttpServletRequest requests, HttpSession session) {
         System.out.println("Usuario: " + principal.getName());
         return this.sesionServ.getTokenSession(principal,requests,session);
     }
 
     @PostMapping(value = "/api/registro/persona")
+    @ApiOperation(value = "Registro inicial en la aplicacion")
     public ResponseEntity<?> agregarUsuario(@Context HttpServletRequest request,
                                             @RequestBody String propietario) {
 
@@ -40,6 +45,7 @@ public class SesionCtrl {
     }
 
     @PostMapping(value = "/api/registro/empresa")
+    @ApiOperation(value = "Registro de la empresa")
     public ResponseEntity<?> ageregarEmpresa(@RequestHeader HttpHeaders headers,
                                             @RequestBody String empresaycargo) {
         Empresa empresa = new Empresa();
@@ -60,16 +66,19 @@ public class SesionCtrl {
     }
 
     @PostMapping(value = "/api/recuperar")
+    @ApiOperation(value = "Permite la recuperacion de la clave")
     public ResponseEntity<?> recuperar(@RequestBody String email) {
         return this.sesionServ.restoreUserSystig(email);
     }
 
     @GetMapping("/api/sesion/configuracion")
+    @ApiOperation(value = "Devuelve los parametros de configuracion de la aplicacion")
     public ResponseEntity<?> getConfiguracion(@RequestHeader HttpHeaders headers) {
         return this.sesionServ.getPersona(headers);
     }
 
-    @GetMapping("/api/test")
+    @GetMapping("/api/info")
+    @ApiOperation(value = "Prueba de conexion")
     public ResponseEntity<?> test(@Context HttpServletRequest request) {
         return new ResponseEntity<>(new Empresa(), HttpStatus.OK);
     }

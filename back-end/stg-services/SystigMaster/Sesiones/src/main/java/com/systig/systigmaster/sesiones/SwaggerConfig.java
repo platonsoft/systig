@@ -1,4 +1,4 @@
-package com.systig.systigmaster.proveedores;
+package com.systig.systigmaster.sesiones;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .contact(new Contact("Jesus Alcala", "https://www.systig.com", "comercial@systig.com"))
                 .title("REST API SYSTIG")
-                .description("Gestion de Pedidos y Proveedores del portal systig")
+                .description("Administrador de sesiones de Systig Software")
                 .version("1.0")
                 .termsOfServiceUrl("Solicite nuestros servicios a traves de www.systig.com")
                 .license("Apache License Version 2.0")

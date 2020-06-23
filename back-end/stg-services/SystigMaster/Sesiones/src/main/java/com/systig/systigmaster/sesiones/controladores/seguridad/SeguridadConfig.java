@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -49,6 +50,7 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( HttpMethod.GET, "/api/sesion/usuarios***").permitAll()
                 .antMatchers( HttpMethod.PUT, "/api/sesion/usuario***").permitAll()
                 .antMatchers( HttpMethod.GET, "/api/test***").permitAll()
+                .antMatchers( "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
@@ -60,5 +62,13 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .usersByUsernameQuery(SQL_USUARIO.getSQL())
                 .authoritiesByUsernameQuery(SQL_USUARIO_ROLE.getSQL());
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 }

@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.systig</groupId>
-        <artifactId>systigmaster</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>clientes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Clientes</name>
     <description>Clientes Systig Master</description>
 
@@ -19,6 +19,7 @@
             <groupId>com.systig</groupId>
             <artifactId>base</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -33,6 +34,5 @@
         </dependency>
 
     </dependencies>
-
 
 </project>

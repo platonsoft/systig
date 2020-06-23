@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.systig</groupId>
-        <artifactId>systigmaster</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath/>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <artifactId>inventario</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>Inventario</name>
     <description>Inventario Systig Master</description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

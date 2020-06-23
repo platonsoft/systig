@@ -36,9 +36,9 @@ public class CompradorServ implements ICompradorServ {
     }
 
     @Override
-    public ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session) {
+    public ResponseEntity<ResultadoTransaccion> getListadoLigero(HttpHeaders headers, HttpSession session) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 Optional<EmpresaXPersona> empresaXPersona = iEmpresaXPersonaDao.findAll().stream()
@@ -53,52 +53,58 @@ public class CompradorServ implements ICompradorServ {
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
 
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
+    public ResponseEntity<ResultadoTransaccion> getComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.compradorDao.getOne(idComprador));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session,String campoFiltro, String numeroIdentificacion) {
+    public ResponseEntity<ResultadoTransaccion> getComprador(HttpHeaders headers, HttpSession session,String campoFiltro, String numeroIdentificacion) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
                 resultadoTransaccion.setResultado(this.compradorDao.getByIdPersona_NroIdentificacion(numeroIdentificacion));
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Acceso denegado");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> nuevoComprador(HttpHeaders headers, HttpSession session, Persona clientePersona) {
+    public ResponseEntity<ResultadoTransaccion> nuevoComprador(HttpHeaders headers, HttpSession session, Persona clientePersona) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
             Comprador comprador = new Comprador();
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
 
             if(usuario!=null){
@@ -125,17 +131,19 @@ public class CompradorServ implements ICompradorServ {
                 }
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Insersion Fallida");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Insersion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> actualizarComprador(HttpHeaders headers, HttpSession session, Persona clientePersona, String nroIdentificacion) {
+    public ResponseEntity<ResultadoTransaccion> actualizarComprador(HttpHeaders headers, HttpSession session, Persona clientePersona, String nroIdentificacion) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 resultadoTransaccion.setToken(iPersonaDao.retornoToken(usuario));
@@ -157,32 +165,34 @@ public class CompradorServ implements ICompradorServ {
 
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Actualizacion Fallida");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.UNAUTHORIZED);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Actualizacion Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> siguienteEtapaComprador(HttpHeaders headers, HttpSession session, Long comprador) {
+    public ResponseEntity<ResultadoTransaccion> siguienteEtapaComprador(HttpHeaders headers, HttpSession session, Long comprador) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> anteriorEtapaComprador(HttpHeaders headers, HttpSession session, Long comprador) {
+    public ResponseEntity<ResultadoTransaccion> anteriorEtapaComprador(HttpHeaders headers, HttpSession session, Long comprador) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> asignarCampanaComprador(HttpHeaders headers, HttpSession session, Long id_comprador, Long id_campana) {
+    public ResponseEntity<ResultadoTransaccion> asignarCampanaComprador(HttpHeaders headers, HttpSession session, Long id_comprador, Long id_campana) {
         return null;
     }
 
     @Override
-    public ResponseEntity<?> borrarComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
+    public ResponseEntity<ResultadoTransaccion> borrarComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
+        ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
         try{
-            ResultadoTransaccion resultadoTransaccion = new ResultadoTransaccion();
             Persona usuario = iPersonaDao.statusSession(headers);
             if(usuario!=null){
                 this.compradorDao.deleteById(idComprador);
@@ -190,15 +200,17 @@ public class CompradorServ implements ICompradorServ {
                 resultadoTransaccion.setResultado("Borrado Correcto");
                 return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Borrado Fallido");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Borrado Fallida", HttpStatus.UNAUTHORIZED);
+            resultadoTransaccion.setResultado("Error Interno, Contacte al administrador del sistema");
+            return new ResponseEntity<>(resultadoTransaccion, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<?> getHistoriaComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
+    public ResponseEntity<ResultadoTransaccion> getHistoriaComprador(HttpHeaders headers, HttpSession session, Long idComprador) {
         return null;
     }
 }
