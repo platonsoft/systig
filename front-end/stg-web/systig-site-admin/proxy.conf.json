@@ -1,26 +1,22 @@
 {
-  "/api/inv/*": {
-    "target": "http://localhost:8090",
-    "secure": false,
-    "changeOrigin": true,
-    "pathRewrite" : {"^/api/inv" : "http://localhost:8090/api/inv"}
-  },
-  "/api/crm/*": {
-    "target": "http://localhost:8091",
-    "secure": false,
-    "changeOrigin": true,
-    "pathRewrite" : {"^/api/crm" : "http://localhost:8090/api/crm"}
-  },
   "/api/prv/*": {
     "target": "http://localhost:8092",
     "secure": false,
-    "changeOrigin": true,
-    "pathRewrite" : {"^/api/prv" : "http://localhost:8090/api/prv"}
+    "logLevel": "debug"
   },
   "/api/cont/*": {
-    "target": "http://localhost:8093",
-    "secure": false,
-    "changeOrigin": true,
-    "pathRewrite" : {"^/api/cont" : "http://localhost:8090/api/cont"}
-  }
+      "target": "http://localhost:8093",
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/api/inv/*": {
+        "target": "http://localhost:8090",
+        "secure": false,
+        "logLevel": "debug"
+      },
+      "/api/crm/*": {
+          "target": "http://localhost:8091",
+          "secure": false,
+          "logLevel": "debug"
+        }
 }

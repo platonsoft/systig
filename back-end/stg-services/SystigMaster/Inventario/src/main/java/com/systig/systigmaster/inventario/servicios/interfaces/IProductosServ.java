@@ -1,7 +1,9 @@
 package com.systig.systigmaster.inventario.servicios.interfaces;
 
-import com.systig.systigmaster.inventario.repositorios.modelos.ItemProducto;
-import com.systig.systigmaster.inventario.repositorios.modelos.Producto;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.contable.entidades.Documento;
+import com.systig.base.repositorios.inventario.entidades.ItemProducto;
+import com.systig.base.repositorios.inventario.entidades.Producto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -9,18 +11,19 @@ import java.util.List;
 
 public interface IProductosServ {
 
-    ResponseEntity<?> getListadoProductos(HttpHeaders headers);
-    ResponseEntity<?> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor);
-    ResponseEntity<?> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento);
-    ResponseEntity<?> getProducto(HttpHeaders headers, Long idProducto);
-    ResponseEntity<?> addProducto(HttpHeaders headers, Producto producto);
-    ResponseEntity<?> addProductosItems(HttpHeaders headers, List<Producto> productos, Long idDocumento);
-    ResponseEntity<?> setProducto(HttpHeaders headers, Producto producto, Long idProducto);
-    ResponseEntity<?> delProducto(HttpHeaders headers, Long idProducto);
-    ResponseEntity<?> getHistoriaProducto(HttpHeaders headers, Long idProducto);
+    ResponseEntity<ResultadoTransaccion> getListadoMisProductos(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListadoProductos(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListadoProductosProveedor(HttpHeaders headers, Long idProveedor);
+    ResponseEntity<ResultadoTransaccion> getListadoMisProductosProveedor(HttpHeaders headers, Long idProveedor);
+    ResponseEntity<ResultadoTransaccion> getListadoProductosDocumento(HttpHeaders headers, Long idDocumento);
+    ResponseEntity<ResultadoTransaccion> getProducto(HttpHeaders headers, Long idProducto);
+    ResponseEntity<ResultadoTransaccion> addProducto(HttpHeaders headers, Producto producto);
+    ResponseEntity<ResultadoTransaccion> addProductosItems(HttpHeaders headers, String strPeticion, Long idProducto);
+    ResponseEntity<ResultadoTransaccion> setProducto(HttpHeaders headers, Producto producto, Long idProducto);
+    ResponseEntity<ResultadoTransaccion> delProducto(HttpHeaders headers, Long idProducto);
 
-    ResponseEntity<?> getListadoAlmacenPropietario(HttpHeaders headers);
-    ResponseEntity<?> getListadoCategoriaPropietario(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListadoAlmacenPropietario(HttpHeaders headers);
+    ResponseEntity<ResultadoTransaccion> getListadoCategoriaPropietario(HttpHeaders headers);
 
     enum TIPO_DOCUMENTO{
         FACTURA(1),

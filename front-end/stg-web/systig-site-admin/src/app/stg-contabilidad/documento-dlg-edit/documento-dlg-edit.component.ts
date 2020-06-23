@@ -3,9 +3,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { Proveedor, Respuesta, Productos, FormaPago, Envios, Documento } from 'src/app/objetos/Objetos';
-import { ProveedoresService } from 'src/app/stg-proveedores/proveedores.service';
-import { ProductosService } from 'src/app/stg-productos/productos.service';
+import { Proveedor, Productos, FormaPago, Envios, Respuesta, Documento } from 'app/shared/objetos';
+import { ProveedoresService } from 'app/stg-proveedores/proveedores.service';
+import { ProductosService } from 'app/stg-productos/productos.service';
 
 @Component({
   selector: 'stg-documento-dlg-edit',

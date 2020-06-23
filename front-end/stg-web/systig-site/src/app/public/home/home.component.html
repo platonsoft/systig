@@ -1,0 +1,28 @@
+<div style="background-color: #4343FF;">
+
+<section id="sec-home">
+  <stg-header [conNavegador]= "true" [paginaActiva]="'home'"></stg-header>
+</section>
+
+<section id="sec-servicios">
+  <stg-cotizacion></stg-cotizacion>
+</section>
+
+<div id="productos-container">
+  <section id="sec-productos">
+    <stg-productos></stg-productos>
+  </section>
+  <section id="sec-publicidad">
+    <stg-somos class="publicidad" [colorTexto]="'#FFFFFF'"></stg-somos>
+  </section>
+</div>
+
+<section id="sec-contacto" style="padding: 80px 0px;background-color: #4343FF;text-align: center">
+  <stg-contacto></stg-contacto>
+</section>
+
+<div style="height: 220px;background: #3434B2;">
+  <stg-main-menu [isHeader]="false"></stg-main-menu>
+</div>
+
+</div>

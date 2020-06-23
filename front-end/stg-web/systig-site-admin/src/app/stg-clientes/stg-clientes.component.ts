@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import {Cliente, ClientesDataSource, Respuesta
-} from '../objetos/Objetos';
 import { ClienteDlgEditComponent } from './cliente-dlg-edit/cliente-dlg-edit.component';
 import { ClientesService } from './clientes.service';
+import { ClientesDataSource, Cliente, Respuesta } from 'app/shared/objetos';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'stg-stg-clientes',
+  selector: 'app-clientes',
   templateUrl: './stg-clientes.component.html',
   styleUrls: ['./stg-clientes.component.scss']
 })
@@ -14,16 +14,62 @@ export class StgClientesComponent implements OnInit {
 
   displayedColumns: string[] = ['identificacion', 'tipoCliente', 'razonSocial', 'edicion'];
   dataSource = new ClientesDataSource(this.clienteService);
-  constructor(public dialog: MatDialog, public clienteService: ClientesService) { }
+  inedit = false;
+
+  myClienteGroup: FormGroup;
+
+  clienteSel: Cliente = {
+    tipoIdentificacion: {
+      abrev: 'RIF',
+      nombre: 'Registro Informacion Fiscal'
+    }
+  };
+
+  constructor(public dialog: MatDialog, public clienteService: ClientesService) {
+    this.myClienteGroup = new FormGroup(
+      {
+      tipoIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      numeroIdentificacion: new FormControl('', [
+        Validators.required
+      ]),
+      email: new FormControl('', [
+        Validators.required
+      ]),
+      razonSocial: new FormControl('', [
+        Validators.required
+      ]),
+      direccion: new FormControl('', [
+        Validators.required
+      ]),
+      telefFijo: new FormControl('', [
+        Validators.required
+      ]),
+      disponible: new FormControl(),
+      ciudad: new FormControl('', [
+        Validators.required
+      ]),
+      pais: new FormControl('', [
+        Validators.required
+      ]),
+      codigoPostal: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
 
   ngOnInit() {
+
+  }
+
+  onNuevoCliente() {
+    this.inedit = !this.inedit;
   }
 
   openDialogNuevoCliente(): void {
     const clienteNuevo: Cliente = {
       idComprador: 0,
-      etapa: { idEtapa: 0 },
-      campanaPublicidad: { idCampana: 0 },
       pais: '170'
     };
 

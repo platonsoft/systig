@@ -1,32 +1,32 @@
 package com.systig.systigmaster.clientes.servicios.interfaces;
 
-import com.systig.systigmaster.clientes.repositorios.modelos.Comprador;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.clientes.entidades.Comprador;
+import com.systig.base.repositorios.nominas.entidades.Persona;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 public interface ICompradorServ {
 
-    ResponseEntity<?> getListadoLigero(HttpHeaders headers, HttpSession session);
+    ResponseEntity<ResultadoTransaccion> getListadoLigero(HttpHeaders headers, HttpSession session);
 
-    ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, Long idComprador);
+    ResponseEntity<ResultadoTransaccion> getComprador(HttpHeaders headers, HttpSession session, Long idComprador);
 
-    ResponseEntity<?> getComprador(HttpHeaders headers, HttpSession session, String campoFiltro, String numeroIdentificacion);
+    ResponseEntity<ResultadoTransaccion> getComprador(HttpHeaders headers, HttpSession session, String campoFiltro, String numeroIdentificacion);
 
-    ResponseEntity<?> nuevoComprador(HttpHeaders headers, HttpSession session, Comprador comprador);
+    ResponseEntity<ResultadoTransaccion> nuevoComprador(HttpHeaders headers, HttpSession session, Persona clientePersona);
 
-    ResponseEntity<?> actualizarComprador(HttpHeaders headers, HttpSession session, Comprador comprador, Long idComprador);
+    ResponseEntity<ResultadoTransaccion> actualizarComprador(HttpHeaders headers, HttpSession session, Persona clientePersona, String nroIdentificacion);
 
-    ResponseEntity<?> siguienteEtapaComprador(HttpHeaders headers, HttpSession session, Long id_comprador);
+    ResponseEntity<ResultadoTransaccion> siguienteEtapaComprador(HttpHeaders headers, HttpSession session, Long id_comprador);
 
-    ResponseEntity<?> anteriorEtapaComprador(HttpHeaders headers, HttpSession session, Long id_comprador);
+    ResponseEntity<ResultadoTransaccion> anteriorEtapaComprador(HttpHeaders headers, HttpSession session, Long id_comprador);
 
-    ResponseEntity<?> asignarCampanaComprador(HttpHeaders headers, HttpSession session, Long id_comprador, Long id_campana);
+    ResponseEntity<ResultadoTransaccion> asignarCampanaComprador(HttpHeaders headers, HttpSession session, Long id_comprador, Long id_campana);
 
-    ResponseEntity<?> borrarComprador(HttpHeaders headers, HttpSession session, Long idComprador);
+    ResponseEntity<ResultadoTransaccion> borrarComprador(HttpHeaders headers, HttpSession session, Long idComprador);
 
-    ResponseEntity<?> getHistoriaComprador(HttpHeaders headers, HttpSession session, Long idComprador);
+    ResponseEntity<ResultadoTransaccion> getHistoriaComprador(HttpHeaders headers, HttpSession session, Long idComprador);
 }

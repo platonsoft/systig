@@ -1,0 +1,48 @@
+<button mat-button class="button-closed" [mat-dialog-close]="data.id" style="float: right;margin: 0px"
+  cdkFocusInitial>
+  <mat-icon>backspace</mat-icon>
+</button>
+<div mat-dialog-title style="text-align: center;margin: 0px;">
+  <div class="empleados-container">
+    <div style="margin: 7px;text-align: -webkit-center">
+      <div class="icono-directores-cont3">
+        <div class="icono-directores-cont2">
+          <div class="icono-directores-cont1">
+            <img class="icono-directores-img" src="../assets/images/avatar_def.svg" alt="Foto">
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 15px; display: table-footer-group;font-style: normal;font-weight: 600;font-size: 24px;line-height: 36px;color: #7069FD;">{{data.nombres}}</div>
+      <i class="stg-separador" style="width: 120px;margin: 0px;margin-left: auto;margin-right: auto;"></i>
+      <div style="font-style: normal;font-weight: normal;font-size: 20px;line-height: 30px;color: #808080;text-align: center">{{data.cargo}}</div>
+    </div>
+  </div>
+</div>
+<mat-dialog-content style="max-height: 250px">
+    <mat-accordion style="padding: 20px 0px;display: inline-block; width: 100%;">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Resumen descriptivo
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            {{data.descripcion}}
+          </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Habilidades
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <ul>
+              <li *ngFor="let habilidad of data.habilidades">{{habilidad}}</li>
+            </ul>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+</mat-dialog-content>

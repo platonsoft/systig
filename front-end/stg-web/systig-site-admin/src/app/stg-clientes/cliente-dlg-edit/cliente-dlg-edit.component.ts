@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, ValidationErrors } from '@angular/forms';
-import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ProfileDlgEditComponent } from 'src/app/user-profile/profile-dlg-edit/profile-dlg-edit.component';
-import { Cliente, Pais, Etapa, CampanaPublicidad, Respuesta, Currencies } from 'src/app/objetos/Objetos';
 import { ClientesService } from '../clientes.service';
+import { MyErrorStateMatcher } from 'app/shared/MyErrorStateMatcher';
+import { Pais, Etapa, CampanaPublicidad, Currencies, Cliente } from 'app/shared/objetos';
 
 @Component({
   selector: 'stg-cliente-dlg-edit',
@@ -26,8 +25,8 @@ export class ClienteDlgEditComponent implements OnInit {
   selCampanaPublicidad: CampanaPublicidad;
 
   constructor(public dialogRef: MatDialogRef<ClienteDlgEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public clienteService: ClientesService) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public clienteService: ClientesService) {
 
     this.myGroup = new FormGroup({
       tipoIdentificacion: new FormControl('', [
@@ -94,7 +93,7 @@ export class ClienteDlgEditComponent implements OnInit {
   listarMonedas(codePais: string) {
     let paisSel: Pais;
 
-    this.listaPaises.forEach(function (value) {
+    this.listaPaises.forEach( (value) => {
       if (value.numericCode === codePais) {
         paisSel = value;
       }
@@ -104,7 +103,7 @@ export class ClienteDlgEditComponent implements OnInit {
     if (this.data.item.moneda) {
       const monedaSel = this.data.item.moneda;
       let moneda1: Currencies = this.listaMonedas[0];
-      this.listaMonedas.forEach(function (param) {
+      this.listaMonedas.forEach((param) => {
         if (param.code === monedaSel) {
           moneda1 = param;
         }
@@ -144,8 +143,8 @@ export class ClienteDlgEditComponent implements OnInit {
 
     this.data.item.pais = this.selPais.numericCode;
     this.data.item.moneda = this.selMoneda.code;
-    this.data.item.etapa = this.selEtapa;
-    this.data.item.campanaPublicidad = this.selCampanaPublicidad;
+    // this.data.item.etapa = this.selEtapa;
+    // this.data.item.campanaPublicidad = this.selCampanaPublicidad;
 
     console.log('Antes:  ' + JSON.stringify(clienteItem));
 

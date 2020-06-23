@@ -1,6 +1,7 @@
 package com.systig.systigmaster.contable.servicios.interfaces;
 
-import com.systig.systigmaster.contable.repositorios.modelos.Documento;
+import com.systig.base.objetos.ResultadoTransaccion;
+import com.systig.base.repositorios.contable.entidades.Documento;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -9,12 +10,8 @@ import java.util.Map;
 
 public interface IDocumentosServ {
 
-    ResponseEntity<?> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento);
-    ResponseEntity<?> getAllListaDocumentos(HttpHeaders headers, HttpSession session);
-    ResponseEntity<?> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
-    ResponseEntity<?> addDocumento(HttpHeaders headers, HttpSession session, Map<String, Object> documento);
-    ResponseEntity<?> setDocumento(HttpHeaders headers, HttpSession session, Documento documento, Long idDocumento);
-    ResponseEntity<?> getHistoriaDocumentos(HttpHeaders headers, HttpSession session, Long idDocumento);
+    ResponseEntity<ResultadoTransaccion> getListaDocumentos(HttpHeaders headers, HttpSession session, TIPO_DOCUMENTO tipoDocumento);
+    ResponseEntity<ResultadoTransaccion> getDocumento(HttpHeaders headers, HttpSession session, Long idDocumento);
 
     enum TIPO_DOCUMENTO{
         FACTURA(1),

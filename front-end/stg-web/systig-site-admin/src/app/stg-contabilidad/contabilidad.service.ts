@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Respuesta, Documento, Productos } from '../objetos/Objetos';
 import { retry, catchError, tap } from 'rxjs/operators';
+import { Respuesta, Documento, Productos } from 'app/shared/objetos';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -43,10 +43,10 @@ export class ContabilidadService {
     );
   }
 
-  crearPedido(documento: Documento, productos: Productos[]): Observable<Respuesta> {
+  crearPedido(pedido: Documento, productosPedido: Productos[]): Observable<Respuesta> {
     const token = localStorage.getItem('tokenSystig');
     httpOptions.headers = httpOptions.headers.set('tokensystig', token);
-    return this.http.post<Respuesta>(this.insertarItemsUrl + documento.idDocumento, productos, httpOptions).pipe(
+    return this.http.post<Respuesta>(this.insertarUrl, {documento: pedido, productos: productosPedido}, httpOptions).pipe(
       tap(
         data => console.log('Completo -> ' + JSON.stringify(data))
       ),

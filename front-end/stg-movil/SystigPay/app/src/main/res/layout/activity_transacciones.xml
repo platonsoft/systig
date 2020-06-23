@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransaccionesActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_menu_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:menu="@menu/menu_header_home"
+        android:theme="?attr/actionBarTheme"
+        app:collapseIcon="@drawable/left_arrow_32px"
+        tools:ignore="MissingConstraints"
+        />
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_toggle_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        tools:ignore="MissingConstraints">
+
+        <fragment
+            android:id="@+id/contenedor_home"
+            android:name="com.stg.systigpay.HomeTransaccionesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            />
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/NavMenuSide"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            app:menu="@menu/menu_sidebar_home"
+            app:headerLayout="@layout/header_menu_side"
+            />
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationViewPie"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="?android:attr/windowBackground"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@color/colorIcons"
+        app:itemTextColor="@color/colorButtonText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu_pie_home" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

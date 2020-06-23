@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: jesus
+Build-Jdk: 12.0.1
+Implementation-Title: base
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.systig
+Main-Class: ${start-class}
+

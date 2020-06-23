@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="32dp"
+    android:paddingTop="32dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/entidadLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_tipo_documento_empresas"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spEntidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titularLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_nombre_titular"
+        android:textColorHint="@color/colorSecondaryText"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titularTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorPrimaryText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tipoClienteLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_tipo_cliente"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/sptipoCliente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tipoDocumentoLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_tipo_documento_personas"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <Spinner
+            android:id="@+id/spTipoDocumento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/numeroDocumentoLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_numero_documento_personas"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/numeroDocumentoTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:textColor="@color/colorPrimaryText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/telefonoLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_telefono_personas"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/telefonoTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="phone"
+            android:textColor="@color/colorPrimaryText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/montoLayout"
+        style="@style/InputBasic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@color/colorButtonText"
+        android:hint="@string/hint_text_monto_transferencia"
+        android:textColorHint="@color/colorSecondaryText"
+        app:boxCornerRadiusTopStart="10dp"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/montoTxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:textColor="@color/colorPrimaryText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_confirmar"
+        style="@style/ButtonBasic"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="@string/text_button_confirmar" />
+</LinearLayout>

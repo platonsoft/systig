@@ -1,208 +1,477 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+      <!-- Seccion de informacion del usuario-->
       <div class="col-md-12">
-        <div class="card ">
-          <div class="card-header ">
-            <h4 class="card-title">Datos de usuario</h4>
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="#pablo">
+              <img class="img" src="./assets/img/faces/marc.jpg" />
+            </a>
+          </div>
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Perfil de usuario</h4>
+            <p class="card-category">Informacion de registro del usuario</p>
           </div>
           <div class="card-body">
-            <ul class="nav nav-pills nav-pills-warning d-flex" role="tablist">
-              <li class="nav-item ml-auto">
-                <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist"> Datos basicos </a></li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#link2" role="tablist"> Formacion </a>
-              </li>
-              <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#link3" role="tablist"> Experiencias
-                </a></li>
-            </ul>
-            <div class="tab-content tab-space">
-              <div class="tab-pane active show" id="link1">
-                <div class="container-fluid">
-                  <form class="row" [formGroup]="myGroup">
-                    <div class="col-md-3">
-                      <div class="card card-profile">
-                        <div class="card-avatar">
-                          <a href="#pablo">
-                            <img class="img" src="./assets/img/faces/marc.jpg">
-                          </a>
-                        </div>
-                        <div class="card-body">
-                          <a class="btn btn-danger btn-round" href="#pablo">Redes Sociales</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <input matInput placeholder="Nombres" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Apellidos" formControlName="apellidoFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El apellido es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Sexo</mat-label>
-                        <mat-select formControlName="paisFormControl">
-                          <mat-option>None</mat-option>
-                          <mat-option value="MEN">Hombre</mat-option>
-                          <mat-option value="Mujer">Mujer</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Nacionalidad</mat-label>
-                        <mat-select formControlName="paisFormControl">
-                          <mat-option>None</mat-option>
-                          <mat-option *ngFor="let pais of listaPaises" value="{{pais.code}}">{{pais.nombre}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <mat-label>Tipo de Doc. de Identidad</mat-label>
-                        <mat-select formControlName="paisFormControl">
-                          <mat-option>None</mat-option>
-                          <mat-option value="CI">Cedula Identidad</mat-option>
-                          <mat-option value="CE">Cedula de Extranjeria</mat-option>
-                          <mat-option value="PASS">Pasaporte</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-
-                      <mat-form-field>
-                        <input matInput placeholder="Numero del documento" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El numero es requerido</mat-error>
-                      </mat-form-field>
-
-                      <mat-form-field>
-                        <input matInput placeholder="Email" formControlName="emailFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">La direccion es invalida</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Telefono" formControlName="movilFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El numero de telefono es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <mat-label>Idioma materno</mat-label>
-                        <mat-select formControlName="paisFormControl">
-                          <mat-option>None</mat-option>
-                          <mat-option *ngFor="let pais of listaPaises" value="{{pais.code}}">{{pais.nombre}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <input matInput placeholder="Direccion (Linea 1)" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Direccion (Linea 2)" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Codigo postal" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Nombre de Usuario" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                      <mat-form-field>
-                        <input matInput placeholder="Clave de acceso" formControlName="nombreFormControl"
-                          [errorStateMatcher]="matcher">
-                        <mat-error *ngIf="emailFormControl.invalid">El nombre es requerido</mat-error>
-                      </mat-form-field>
-                    </div>
-                  </form>
-                  <div class="card-body">
-                    <a class="btn btn-success btn-round float-right" href="#pablo">Guardar Cambios</a>
-                  </div>
+            <form [formGroup]="myPerfilGroup">
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Tipo Documento</mat-label>
+                    <mat-select
+                      formControlName="tipoIdentificacion"
+                      [(ngModel)]="datos.tipoIdentificacion"
+                    >
+                      <mat-option value="NIT"
+                        >Numero de Identificacion Tributaria</mat-option
+                      >
+                      <mat-option value="RIF"
+                        >Registro Informacion Fiscal</mat-option
+                      >
+                      <mat-option value="RUT"
+                        >Registro Unidad Tributaria</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Numero del Documento"
+                      name="numeroIdentificacion"
+                      formControlName="numeroIdentificacion"
+                      [(ngModel)]="datos.numeroIdentificacion"
+                    />
+                    <mat-error
+                      *ngIf="
+                        myPerfilGroup
+                          .get('numeroIdentificacion')
+                          .hasError('required')
+                      "
+                      >El numero del documento es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Correo Electronico"
+                      name="email"
+                      formControlName="email"
+                      [(ngModel)]="datos.email"
+                    />
+                    <mat-error
+                      *ngIf="myPerfilGroup.get('email').hasError('required')"
+                      >El Email es requerido</mat-error
+                    >
+                  </mat-form-field>
                 </div>
               </div>
-              <div class="tab-pane" id="link2">
-                <div class="container">
-                  <div class="col-md-12">
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 col-md-12">
-                      <!-- Edicion Column -->
-                      <ng-container matColumnDef="edicion">
-                        <th mat-header-cell class="text-center" *matHeaderCellDef>
-                          <button mat-icon-button aria-label="Agregar nuevo" (click)="openDialogEditFormacion(null,'nuevo')">
-                            <mat-icon>add</mat-icon>
-                          </button>
-                        </th>
-                        <td mat-cell class="text-right" *matCellDef="let element">
-                          <button mat-icon-button aria-label="Editar" (click)="openDialogEditFormacion(element,'editar')">
-                            <mat-icon>create</mat-icon>
-                          </button>
-                          <button mat-icon-button aria-label="Borrar" (click)="openDialogEditFormacion(element,'borrar')">
-                            <mat-icon>delete</mat-icon>
-                          </button>
-                        </td>
-                      </ng-container>
-
-                      <!-- Titulo Column -->
-                      <ng-container matColumnDef="titulo">
-                        <th mat-header-cell *matHeaderCellDef> Titulo </th>
-                        <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
-                      </ng-container>
-
-                      <!-- Institucion Column -->
-                      <ng-container matColumnDef="institucion">
-                        <th mat-header-cell *matHeaderCellDef> Institucion </th>
-                        <td mat-cell *matCellDef="let element"> {{element.institucion}} </td>
-                      </ng-container>
-
-                      <!-- Duracion Column -->
-                      <ng-container matColumnDef="duracion">
-                        <th mat-header-cell class="text-center" *matHeaderCellDef> Duracion </th>
-                        <td mat-cell class="text-center" *matCellDef="let element"> {{element.duracion}} </td>
-                      </ng-container>
-
-                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                      </tr>
-                    </table>
-                  </div>
-
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Nombres"
+                      name="nombres"
+                      formControlName="nombres"
+                      [(ngModel)]="datos.nombres"
+                    />
+                    <mat-error
+                      *ngIf="myPerfilGroup.get('nombres').hasError('required')"
+                      >El Nombre es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Apellidos"
+                      name="apellidos"
+                      formControlName="apellidos"
+                      [(ngModel)]="datos.apellidos"
+                    />
+                    <mat-error
+                      *ngIf="
+                        myPerfilGroup.get('apellidos').hasError('required')
+                      "
+                      >El apellido es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Fecha de Nacimiento"
+                      name="fechaNacimiento"
+                      formControlName="fechaNacimiento"
+                      (dateInput)="addEvent($event)"
+                      (dateChange)="addEvent($event)"
+                      [matDatepicker]="picker"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
                 </div>
               </div>
-              <div class="tab-pane" id="link3">
-                <div class="container">
-                  <div class="col-md-12">
-                    Otra tabla
-                  </div>
-                  <div class="card-body">
-                    <a class="btn btn-success btn-round float-right" href="#pablo">Guardar Cambios</a>
-                  </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Direccion"
+                      name="direccion"
+                      formControlName="direccion"
+                      [(ngModel)]="datos.direccion"
+                    />
+                    <mat-error
+                      *ngIf="
+                        myPerfilGroup.get('direccion').hasError('required')
+                      "
+                      >La Direccion es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Telefono Movil"
+                      name="telefMovil"
+                      formControlName="telefMovil"
+                      [(ngModel)]="datos.telefMovil"
+                    />
+                    <mat-error
+                      *ngIf="
+                        myPerfilGroup.get('telefMovil').hasError('required')
+                      "
+                      >El numero movil es requerido</mat-error
+                    >
+                  </mat-form-field>
                 </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Ciudad"
+                      name="ciudad"
+                      formControlName="ciudad"
+                      [(ngModel)]="datos.ciudad"
+                    />
+                    <mat-error
+                      *ngIf="myPerfilGroup.get('ciudad').hasError('required')"
+                      >La ciudad es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Pais"
+                      name="pais"
+                      formControlName="pais"
+                      [(ngModel)]="datos.pais"
+                    />
+                    <mat-error
+                      *ngIf="myPerfilGroup.get('pais').hasError('required')"
+                      >El pais es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input
+                      matInput
+                      placeholder="Codigo Postal"
+                      name="codigoPostal"
+                      formControlName="codigoPostal"
+                      [(ngModel)]="datos.codigoPostal"
+                    />
+                    <mat-error
+                      *ngIf="
+                        myPerfilGroup.get('codigoPostal').hasError('required')
+                      "
+                      >El codigo postal es requerido</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+              </div>
+              <button
+                mat-raised-button
+                type="submit"
+                class="btn btn-danger pull-right"
+              >
+                Guardar cambios
+              </button>
+              <div class="clearfix"></div>
+            </form>
           </div>
-
         </div>
-
       </div>
 
-    </div>
-    <div class="row">
+      <!-- Seccion de informacion de las empresas del usuario-->
+      <div class="col-md-12">
+        <div class="card card-profile">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Mis Empresas</h4>
+            <p class="card-category">Listado de empresas asociadas</p>
+          </div>
+          <div class="card-body">
+            <div class="card">
+              <img class="card-img-top" src="holder.js/100x180/" alt="" />
+              <div class="card-body">
+                <h4 class="card-title">Crear/Editar</h4>
+                <form [formGroup]="myEmpresaGroup">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <mat-label>Tipo Documento</mat-label>
+                        <mat-select
+                          formControlName="tipoIdentificacion"
+                          [(ngModel)]="empresaSelect.tipoIdentificacion"
+                        >
+                          <mat-option value="NIT"
+                            >Numero de Identificacion Tributaria</mat-option
+                          >
+                          <mat-option value="RIF"
+                            >Registro Informacion Fiscal</mat-option
+                          >
+                          <mat-option value="RUT"
+                            >Registro Unidad Tributaria</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Numero del Documento"
+                          name="numeroIdentificacion"
+                          formControlName="numeroIdentificacion"
+                          [(ngModel)]="empresaSelect.nroIdentificacion"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup
+                              .get('numeroIdentificacion')
+                              .hasError('required')
+                          "
+                          >El numero del documento es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Correo Electronico"
+                          name="email"
+                          formControlName="email"
+                          [(ngModel)]="empresaSelect.email"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup.get('email').hasError('required')
+                          "
+                          >El Email es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Razon social"
+                          name="razonSocial"
+                          formControlName="razonSocial"
+                          [(ngModel)]="empresaSelect.razonSocial"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup.get('razonSocial').hasError('required')
+                          "
+                          >El Nombre o razon social es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Direccion"
+                          name="direccion"
+                          formControlName="direccion"
+                          [(ngModel)]="empresaSelect.direccion"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup.get('direccion').hasError('required')
+                          "
+                          >La Direccion es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Telefono Local"
+                          name="telefFijo"
+                          formControlName="telefFijo"
+                          [(ngModel)]="empresaSelect.telefFijo"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup.get('telefFijo').hasError('required')
+                          "
+                          >El numero telefonico es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Ciudad"
+                          name="ciudad"
+                          formControlName="ciudad"
+                          [(ngModel)]="empresaSelect.ciudad"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup.get('ciudad').hasError('required')
+                          "
+                          >La ciudad es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Pais"
+                          name="pais"
+                          formControlName="pais"
+                          [(ngModel)]="empresaSelect.pais"
+                        />
+                        <mat-error
+                          *ngIf="myEmpresaGroup.get('pais').hasError('required')"
+                          >El pais es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input
+                          matInput
+                          placeholder="Codigo Postal"
+                          name="codigoPostal"
+                          formControlName="codigoPostal"
+                          [(ngModel)]="empresaSelect.codigoPostal"
+                        />
+                        <mat-error
+                          *ngIf="
+                          myEmpresaGroup
+                              .get('codigoPostal')
+                              .hasError('required')
+                          "
+                          >El codigo postal es requerido</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <mat-checkbox 
+                    [(ngModel)]="empresaSelect.isDefault" 
+                    name="disponible" 
+                    class="pull-left"
+                    formControlName="disponible">
+                      Empresa Por defecto
+                  </mat-checkbox>
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    class="btn btn-default pull-right"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    mat-raised-button
+                    type="submit"
+                    class="btn btn-danger pull-right"
+                  >
+                    Guardar
+                  </button>
+                  <div class="clearfix"></div>
+                </form>
+              </div>
+            </div>
+            <table
+              mat-table
+              [dataSource]="dataSource"
+              class="mat-elevation-z8 col-md-12"
+            >
+              <!-- Edicion Column -->
+              <ng-container matColumnDef="edicion">
+                <th mat-header-cell class="text-center" *matHeaderCellDef>
+                  <button mat-icon-button aria-label="Editar">
+                    <mat-icon>add</mat-icon> Nuevo
+                  </button>
+                </th>
+                <td mat-cell class="text-right" *matCellDef="let element">
+                  <button mat-icon-button aria-label="Editar">
+                    <mat-icon>create</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Borrar">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
 
-    </div>
-    <div class="row">
+              <!-- Titulo Column -->
+              <ng-container matColumnDef="tipoIdentificacion">
+                <th mat-header-cell class="text-left" *matHeaderCellDef>
+                  Identificacion
+                </th>
+                <td mat-cell class="text-left" *matCellDef="let element">
+                  {{ element.tipoIdentificacion.abrev }} -
+                  {{ element.nroIdentificacion }}
+                </td>
+              </ng-container>
+
+              <!-- Duracion Column -->
+              <ng-container matColumnDef="razonSocial">
+                <th mat-header-cell class="text-left" *matHeaderCellDef>
+                  Nombre o Razon Social
+                </th>
+                <td mat-cell class="text-left" *matCellDef="let element">
+                  {{ element.razonSocial }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

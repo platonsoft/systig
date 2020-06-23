@@ -1,0 +1,83 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="ButtonBasic">
+        <item name="android:background">@color/colorButtonBackground</item>
+        <item name="android:colorAccent">@color/colorButtonAccent</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">9dp</item>
+    </style>
+
+    <style name="InputBasic" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+        <item name="android:elevation">2dp</item>
+        <item name="android:shadowColor">@color/colorPrimaryText</item>
+        <item name="android:shadowRadius">10</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">5</item>
+    </style>
+
+    <style name="appName">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+    </style>
+
+    <style name="appNameMini">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+    </style>
+
+    <style name="appNameMiniTitulo">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:layout_marginBottom">8dp</item>
+
+    </style>
+
+    <style name="appNameMiniSubTitulo">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="etiquetaMini">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="valorMini">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorButtonText</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="etiquetaMini.dark">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="valorMini.dark">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <style name="pago_regist_result">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+</resources>

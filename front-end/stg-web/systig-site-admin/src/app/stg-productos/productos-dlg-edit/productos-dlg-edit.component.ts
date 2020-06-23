@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { MyErrorStateMatcher } from 'src/app/objetos/MyErrorStateMatcher';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
-import { Historial, PRODUCTOS_HISTORIAL_DATA, Almacen, Categoria, Respuesta, Proveedor, Productos } from 'src/app/objetos/Objetos';
 import { ProductosService } from '../productos.service';
 import { map } from 'rxjs/operators';
-import { ProveedoresService } from 'src/app/stg-proveedores/proveedores.service';
+import { MyErrorStateMatcher } from 'app/shared/MyErrorStateMatcher';
+import { ProveedoresService } from 'app/stg-proveedores/proveedores.service';
+import { Almacen, Categoria, Proveedor, Historial, PRODUCTOS_HISTORIAL_DATA, Respuesta, Productos } from 'app/shared/objetos';
 
 @Component({
   selector: 'stg-productos-dlg-edit',
@@ -21,8 +21,8 @@ export class ProductosDlgEditComponent implements OnInit {
   listaProveedores: Proveedor[];
 
 
-  selCategoria: Categoria = {idCategoria: 0};
-  selAlmacen: Almacen = {idAlmacen: 0};
+  selCategoria: Categoria = {nombre: ''};
+  selAlmacen: Almacen = {nombre: ''};
   selProveedor: Proveedor = {idProveedor: 0};
 
   displayedColumns: string[] = ['descripcion', 'accion', 'fecha'];
@@ -83,11 +83,13 @@ export class ProductosDlgEditComponent implements OnInit {
     this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
       if (result) {
           this.listaAlmacenes = result.resultado;
+          console.log('Lista de Almacenes: ' + JSON.stringify(this.listaAlmacenes));
     }});
 
     this.servicioProducto.getListaCategorias().subscribe((result: Respuesta) => {
       if (result) {
           this.listaCategorias = result.resultado;
+          console.log('Lista de Categorias: ' + JSON.stringify(this.listaCategorias));
     }});
 
     this.servicioProveedores.getListaProveedores().subscribe((result: Respuesta) => {
@@ -130,5 +132,23 @@ export class ProductosDlgEditComponent implements OnInit {
 
     console.log('Antes:  ' + JSON.stringify(productoItem));
 
+  }
+
+  cargaDetallesAlmacen(almacen: Almacen){
+    this.selAlmacen = almacen;
+    this.servicioProducto.getListaAlmacenes().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaAlmacenes = result.resultado;
+          console.log('Lista de Almacenes: ' + JSON.stringify(this.listaAlmacenes));
+    }});
+  }
+
+  cargaDetallesCategoria(categoria: Categoria){
+    this.selCategoria = categoria;
+    this.servicioProducto.getListaCategorias().subscribe((result: Respuesta) => {
+      if (result) {
+          this.listaCategorias = result.resultado;
+          console.log('Lista de Categorias: ' + JSON.stringify(this.listaCategorias));
+    }});
   }
 }

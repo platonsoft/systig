@@ -1,13 +1,19 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
-import { StgProductosComponent } from 'src/app/stg-productos/stg-productos.component';
-import { StgClientesComponent } from 'src/app/stg-clientes/stg-clientes.component';
-import { StgContabilidadComponent } from 'src/app/stg-contabilidad/stg-contabilidad.component';
-import { AuthGuard } from 'src/app/objetos/auth-guard';
-import { AccesoGuard } from 'src/app/objetos/acceso-guard';
-import { StgProveedoresComponent } from 'src/app/stg-proveedores/stg-proveedores.component';
+import { UserProfileComponent } from '../../user-profile/user-profile.component';
+import { TableListComponent } from '../../table-list/table-list.component';
+import { TypographyComponent } from '../../typography/typography.component';
+import { IconsComponent } from '../../icons/icons.component';
+import { MapsComponent } from '../../maps/maps.component';
+import { NotificationsComponent } from '../../notifications/notifications.component';
+import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { AuthGuard } from 'app/shared/auth-guard';
+import { AccesoGuard } from 'app/shared/acceso-guard';
+import { StgProductosComponent } from 'app/stg-productos/stg-productos.component';
+import { StgClientesComponent } from 'app/stg-clientes/stg-clientes.component';
+import { StgContabilidadComponent } from 'app/stg-contabilidad/stg-contabilidad.component';
+import { StgProveedoresComponent } from 'app/stg-proveedores/stg-proveedores.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -54,7 +60,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'inicio/:token', canActivate: [AuthGuard] },
     { path: 'profile',      component: UserProfileComponent, canActivate: [AccesoGuard] },
-    { path: 'principal',      component: DashboardComponent, canActivate: [AccesoGuard] },
+    { path: 'principal',      component: DashboardComponent, canActivate: [AccesoGuard]},
     { path: 'productos',      component: StgProductosComponent, canActivate: [AccesoGuard] },
     { path: 'clientes',      component: StgClientesComponent, canActivate: [AccesoGuard] },
     { path: 'contable',      component: StgContabilidadComponent, canActivate: [AccesoGuard] },

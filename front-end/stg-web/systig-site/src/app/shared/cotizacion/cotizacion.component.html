@@ -1,0 +1,33 @@
+<div class="servicios-titulo">
+  <h1>Servicios</h1>
+  <i class="stg-separador"
+          style="width: 90px;margin-left: auto;margin-right: auto;margin-bottom: 20px"></i>
+  <h3>{{this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].titulo}}</h3>
+</div>
+
+<div class="items-serv-cont">
+  <ul>
+    <mat-radio-group id="grupo-opciones-cotiza" aria-label="Seleccionar">
+      <li *ngFor="let item of this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].items">
+        <div class="items-serv-cont-icono">
+          <img src="../../../assets/images/{{item.imagen}}" alt="icono_web" width=60 height=60>
+        </div>
+        <div class="items-serv-cont-titulo">{{item.titulo}}</div>
+        <i class="stg-separador"
+          style="width: 90px;margin: 0px;margin-left: auto;margin-right: auto;background-color: #fff"></i>
+        <div class="items-serv-cont-descripcion">
+          <button class="stg-button-cabs" style="margin-top: 0px" (click)="OpenCaracteristicas(item)">Características ></button>
+        </div>
+        <div class="items-serv-cont-pie">
+          <mat-slide-toggle [disabled]="!item.disponible" *ngIf="! this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica" [(checked)]="item.seleccionado" (change)="item.seleccionado = $event.checked">Seleccionar</mat-slide-toggle>
+          <mat-radio-button [disabled]="!item.disponible" [value]="item.id" *ngIf=" this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].seleccionUnica"  (input)="item.seleccionado = $event.target.checked" (change)="SeleccionUnica($event)">Seleccionar</mat-radio-button>
+        </div>
+      </li>
+    </mat-radio-group>
+  </ul>
+</div>
+<div style="text-align: center; margin-bottom: 20px">
+    <button *ngIf="this.cotizacionCompleta.etapaActual > 0" class="stg-button-cabs" style="display: inline;" (click)="PreviaEtapa()"> < Anterior </button>
+    <button *ngIf="!this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].esFinal" class="stg-button-cabs" style="display: inline;" (click)="SiguienteEtapa()"> Siguiente > </button>
+    <button *ngIf="this.cotizacionCompleta.etapas[this.cotizacionCompleta.etapaActual].esFinal" class="stg-button-cabs" style="display: inline;" (click)="OpenResumenCotizacion(this.cotizacionCompleta)"> Cotizar > </button>
+</div>
